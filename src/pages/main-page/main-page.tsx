@@ -6,8 +6,8 @@ import { Layout } from 'antd';
 import { SiderComponent } from './components/siderComponent';
 import { HeaderComponent } from './components/headerComponent';
 import { ContentComponent } from './components/contentComponent';
+import { FooterComponent } from './components/footerComponent';
 
-const { Footer } = Layout;
 
 export const MainPage: React.FC = () => {
     return (
@@ -17,7 +17,7 @@ export const MainPage: React.FC = () => {
                 <Layout style={{ backgroundColor: 'inherit' }}>
                     <HeaderComponent />
                     <ContentComponent />
-                    <Footer style={{ backgroundColor: 'inherit' }}>Footer</Footer>
+                    <FooterComponent />
                 </Layout>
             </Layout>
         </div>
