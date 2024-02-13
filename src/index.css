@@ -7,7 +7,9 @@
     color: rgb(0, 0, 0);
 
     --background-main-page-image: url('/src/assets/images/main_page_light.jpg');
-    --backgroud-color-element: #fff;
+    --backgroud-color-element: #ffffff;
+    --background-color-header: #F0F5FF;
+
     --color-elements: #061178;
     --color-title: #262626;
 

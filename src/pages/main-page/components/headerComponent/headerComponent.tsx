@@ -19,13 +19,15 @@ const SETTING_BUTTON = 'Настройки';
 export const HeaderComponent: React.FC = () => {
     return (
         <PageHeader
-            style={{ backgroundColor: 'inherit', color: 'var(--color-title)' }}
-            className='site-page-header'
             breadcrumb={{ routes }}
+            className='site-page-header'
+            style={{ backgroundColor: 'var(--background-color-header)', color: 'var(--color-title)' }}
         >
             <Row>
                 <Col flex='1 1'>
-                    <Title className={styles[cn('title')]} level={2}>
+                    <Title  className={styles[cn('title')]} level={1} style={{
+                        fontWeight: 'bold'
+                    }}>
                         {TITLE}
                     </Title>
                 </Col>
