@@ -4,8 +4,9 @@ import cn from 'classnames';
 import styles from './mainPage.module.scss';
 import { Layout } from 'antd';
 import { SiderComponent } from './components/siderComponent';
+import { HeaderComponent } from './components/headerComponent';
 
-const { Header, Footer, Content } = Layout;
+const { Footer, Content } = Layout;
 
 export const MainPage: React.FC = () => {
     return (
@@ -13,7 +14,7 @@ export const MainPage: React.FC = () => {
             <Layout className={styles[cn('main_layout')]} style={{ backgroundColor: 'inherit' }}>
                 <SiderComponent />
                 <Layout style={{ backgroundColor: 'inherit' }}>
-                    <Header style={{ backgroundColor: 'inherit' }}>Header</Header>
+                    <HeaderComponent />
                     <Content style={{ backgroundColor: 'inherit' }}>Content</Content>
                     <Footer style={{ backgroundColor: 'inherit' }}>Footer</Footer>
                 </Layout>
