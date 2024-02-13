@@ -11,6 +11,8 @@
     --color-elements: #061178;
     --color-title: #262626;
 
+    --color-exit-icon: #000000;
+
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
