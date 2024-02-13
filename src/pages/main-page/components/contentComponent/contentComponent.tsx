@@ -65,7 +65,7 @@ const ACTIONS_CARDS_DATA: {
 
 export const ContentComponent: React.FC = () => {
     return (
-        <Content style={{ backgroundColor: 'inherit' }}>
+        <Content style={{ backgroundColor: 'inherit', minHeight: 'initial' }}>
             <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
                 {PARAGRAGHS_DATA.map((p) => (
                     <TextCardComponent key={p.id} style={p.style} textParts={p.textParts} />

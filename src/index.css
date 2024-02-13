@@ -8,14 +8,14 @@
 
     --background-main-page-image: url('/src/assets/images/main_page_light.jpg');
     --backgroud-color-element: #ffffff;
-    --background-color-header: #F0F5FF;
+    --background-color-header: #f0f5ff;
 
     --color-elements: #061178;
     --color-title: #262626;
 
-    --color-info: #8C8C8C;
+    --color-info: #8c8c8c;
 
-    --color-primary: #2F54EB;
+    --color-primary: #2f54eb;
 
     --color-exit-icon: #000000;
 
@@ -25,16 +25,21 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
 #root {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     color: var(--color-title);
 }
 
 @font-face {
     font-family: 'Inter';
-    src:
-      url('./assets/fonts/Inter-Regular.ttf') format('tff');
+    src: url('./assets/fonts/Inter-Regular.ttf') format('tff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -42,8 +47,7 @@
 
 @font-face {
     font-family: 'Inter';
-    src:
-      url('./assets/fonts/Inter-Medium.ttf') format('tff');
+    src: url('./assets/fonts/Inter-Medium.ttf') format('tff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -51,8 +55,7 @@
 
 @font-face {
     font-family: 'Inter';
-    src:
-      url('./assets/fonts/Inter-Bold.ttf') format('tff');
+    src: url('./assets/fonts/Inter-Bold.ttf') format('tff');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
