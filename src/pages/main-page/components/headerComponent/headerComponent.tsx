@@ -19,9 +19,10 @@ const SETTING_BUTTON = 'Настройки';
 export const HeaderComponent: React.FC = () => {
     return (
         <PageHeader
+
             breadcrumb={{ routes }}
             className='site-page-header'
-            style={{ backgroundColor: 'var(--background-color-header)', color: 'var(--color-title)' }}
+            style={{ backgroundColor: 'var(--background-color-header)', color: 'var(--color-title)', padding: '0.9rem 0 0.4rem 1.5rem' }}
         >
             <Row>
                 <Col flex='1 1'>

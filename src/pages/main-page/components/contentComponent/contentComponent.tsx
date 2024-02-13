@@ -22,6 +22,7 @@ const PARAGRAGHS_DATA: {
             color: 'var(--color-elements)',
             fontSize: '16px',
             lineHeight: '1.3',
+            letterSpacing: '0.5px',
             marginBottom: '0px',
         },
     },
@@ -65,20 +66,27 @@ const ACTIONS_CARDS_DATA: {
 
 export const ContentComponent: React.FC = () => {
     return (
-        <Content style={{ backgroundColor: 'inherit', minHeight: 'initial' }}>
-            <Space direction='vertical' size='middle' style={{ display: 'flex' }}>
+        <Content
+            style={{
+                minHeight: 'initial',
+                height: '100%',
+                backgroundColor: 'inherit',
+                padding: '1.5rem 0 0 1.5rem',
+            }}
+        >
+            <Space
+                direction='vertical'
+                size='large'
+                style={{ display: 'flex', marginBottom: '1rem' }}
+            >
                 {PARAGRAGHS_DATA.map((p) => (
                     <TextCardComponent key={p.id} style={p.style} textParts={p.textParts} />
                 ))}
-                <Space size='middle' style={{ display: 'flex' }}>
-                    {ACTIONS_CARDS_DATA.map((card) => (
-                        <ActionsCardComponent
-                            key={card.id}
-                            title={card.title}
-                            button={card.button}
-                        />
-                    ))}
-                </Space>
+            </Space>
+            <Space size='middle' style={{ display: 'flex' }}>
+                {ACTIONS_CARDS_DATA.map((card) => (
+                    <ActionsCardComponent key={card.id} title={card.title} button={card.button} />
+                ))}
             </Space>
         </Content>
     );

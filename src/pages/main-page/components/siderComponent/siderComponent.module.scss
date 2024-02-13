@@ -1,6 +1,7 @@
 .sider {
     position: relative;
-    text-align: center;
+    padding-top: 44px;
+    height: 100vh;
 
     &_button {
         position: absolute;
@@ -13,6 +14,12 @@
         display: flex;
         justify-content: center;
     }
+}
+
+.logo {
+    padding-left: 1.9rem;
+    margin-bottom: 3.9rem;
+    display: block;
 }
 
 .exit_button {

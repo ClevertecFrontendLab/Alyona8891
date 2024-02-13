@@ -2,10 +2,12 @@
     background-image: var(--background-main-page-image);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     width: 100%;
 }
 
 .main_layout {
     width: 100%;
+    min-height: 100vh;
     background-color: inherit;
 }

@@ -55,10 +55,11 @@ export const SiderComponent: React.FC = () => {
                 className={styles[cn('sider')]}
                 collapsed={collapsed}
                 collapsible
+                width='208px'
                 style={{ backgroundColor: 'var(--backgroud-color-element)' }}
                 trigger={null}
             >
-                <a href='#' onClick={(e) => e.preventDefault()}>
+                <a className={styles[cn('logo')]} href='#' onClick={(e) => e.preventDefault()}>
                     <img
                         alt='logo'
                         src={
@@ -69,7 +70,8 @@ export const SiderComponent: React.FC = () => {
                     />
                 </a>
                 <Menu
-                    style={{ color: 'var(--color-title)' }}
+                 mode='inline'
+                    style={{ color: 'var(--color-title)', fontSize: '1rem' }}
                     items={MENU_ITEMS.map((item) => {
                         return {
                             key: item.key,
@@ -102,8 +104,8 @@ export const SiderComponent: React.FC = () => {
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
-                        width: '100px',
-                        color: 'var(--color-title)'
+                        width: '115px',
+                        color: 'var(--color-title)',
                     }}
                     className={styles[cn('exit_button')]}
                     type='text'
