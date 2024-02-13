@@ -1,0 +1,1 @@
+export { TextCardComponent } from './textCardComponent';
