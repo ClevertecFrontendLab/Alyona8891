@@ -1,0 +1,16 @@
+.sider {
+    position: relative;
+    text-align: center;
+
+    &_button {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(100%, 0);
+        background-color: var(--backgroud-color-element);
+        height: 66px;
+        width: 20px;
+        display: flex;
+        justify-content: center;
+    }
+}

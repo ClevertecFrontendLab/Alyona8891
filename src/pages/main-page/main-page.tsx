@@ -3,21 +3,15 @@ import cn from 'classnames';
 
 import styles from './mainPage.module.scss';
 import { Layout } from 'antd';
+import { SiderComponent } from './components/siderComponent';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 export const MainPage: React.FC = () => {
     return (
         <div className={styles[cn('wrapper')]}>
-            <Layout
-                style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100vh',
-                    backgroundColor: 'inherit',
-                }}
-            >
-                <Sider style={{ backgroundColor: 'inherit' }}>Sider</Sider>
+            <Layout className={styles[cn('main_layout')]} style={{ backgroundColor: 'inherit' }}>
+                <SiderComponent />
                 <Layout style={{ backgroundColor: 'inherit' }}>
                     <Header style={{ backgroundColor: 'inherit' }}>Header</Header>
                     <Content style={{ backgroundColor: 'inherit' }}>Content</Content>

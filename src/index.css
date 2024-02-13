@@ -5,7 +5,11 @@
 
     color-scheme: light dark;
     color: rgb(0, 0, 0);
+
     --background-main-page-image: url('/src/assets/images/main_page_light.jpg');
+    --backgroud-color-element: #fff;
+    --color-elements: #061178;
+    --color-title: #262626;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
