@@ -1,0 +1,1 @@
+export { FooterCardComponent } from './footerCardComponent';

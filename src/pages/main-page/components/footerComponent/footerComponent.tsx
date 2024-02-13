@@ -1,21 +1,58 @@
-import { Button } from 'antd';
+import { AndroidFilled, AppleFilled } from '@ant-design/icons';
+import { Button, Space } from 'antd';
 import { Footer } from 'antd/lib/layout/layout';
+import { FooterCardComponent } from './components/footerCardComponent';
+
+export interface IFooterCardsData {
+    key: number;
+    title: { text: string; style: React.CSSProperties };
+    info: { text: string; style: React.CSSProperties };
+    buttons: {
+        key: number;
+        icon: React.ReactNode;
+        text: string;
+    }[];
+}
 
 const FOOTER_LINKS = [{ id: 1, text: 'Смотреть отзывы' }];
+
+const FOOTER_CARDS_DATA: IFooterCardsData[] = [
+    {
+        key: 1,
+        title: { text: 'Скачать на телефон', style: { color: 'var(--color-primary)' } },
+        info: { text: 'Доступно в PRO-тарифе', style: { color: 'var(--color-info)' } },
+        buttons: [
+            { key: 1, icon: <AndroidFilled />, text: 'Android OS' },
+            { key: 2, icon: <AppleFilled />, text: 'Apple iOS' },
+        ],
+    },
+];
 
 export const FooterComponent: React.FC = () => {
     return (
         <Footer style={{ backgroundColor: 'inherit' }}>
             {FOOTER_LINKS.map((link) => {
                 return (
-                    <Button
-                        key={link.id}
-                        size='small'
-                        style={{ color: 'var(--color-primary' }}
-                        type='text'
-                    >
-                        {link.text}
-                    </Button>
+                    <Space align='end' style={{ display: 'flex',
+                    justifyContent: 'space-between' }}>
+                        <Button
+                            key={link.id}
+                            size='small'
+                            style={{ color: 'var(--color-primary' }}
+                            type='text'
+                        >
+                            {link.text}
+                        </Button>
+                        {FOOTER_CARDS_DATA.map((card) => {
+                            return (
+                                <FooterCardComponent
+                                buttons={card.buttons}
+                                info={card.info}
+                                key={card.key}
+                                title={card.title}                                />
+                            );
+                        })}
+                    </Space>
                 );
             })}
         </Footer>
