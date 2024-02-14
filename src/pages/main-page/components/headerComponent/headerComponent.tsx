@@ -1,6 +1,5 @@
 import { Button, Col, PageHeader, Row } from 'antd';
 import cn from 'classnames';
-import Title from 'antd/lib/typography/Title';
 
 import styles from './headerComponent.module.scss';
 import { SettingOutlined } from '@ant-design/icons';
@@ -12,8 +11,6 @@ const routes = [
     },
 ];
 
-const TITLE =
-    'Приветствуем тебя в CleverFit — приложении, которое поможет тебе добиться своей мечты!';
 const SETTING_BUTTON = 'Настройки';
 
 export const HeaderComponent: React.FC = () => {
@@ -24,26 +21,21 @@ export const HeaderComponent: React.FC = () => {
             style={{
                 backgroundColor: 'var(--background-color-header)',
                 color: 'var(--color-title)',
-                padding: '0.9rem 1.8rem 0.4rem 1.5rem',
+                padding: '0.9rem 1.8rem 1.1rem 1.5rem',
             }}
         >
             <Row>
                 <Col flex='1 1'>
-                    <Title
-                        className={styles[cn('title')]}
-                        level={1}
-                        style={{
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        {TITLE}
-                    </Title>
+                    <h1 className={styles[cn('title')]}>
+                        Приветствуем тебя в CleverFit — приложении,
+                        <br /> которое поможет тебе добиться своей мечты!
+                    </h1>
                 </Col>
                 <Col flex='0 1 70px'>
                     <Button
                         icon={<SettingOutlined />}
                         className={styles[cn('setting_button')]}
-                        style={{marginTop: '-5px'}}
+                        style={{ marginTop: '-5px' }}
                         type='text'
                     >
                         {SETTING_BUTTON}

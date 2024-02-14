@@ -38,15 +38,21 @@ html {
 }
 
 .ant-menu-inline .ant-menu-item:not(:last-child) {
-  margin-bottom: 18px;
+    margin-bottom: 18px;
 }
 
 .ant-menu-vertical .ant-menu-item:not(:last-child) {
-  margin-bottom: 18px;
+    margin-bottom: 18px;
 }
 
 .ant-menu-inline .ant-menu-item {
-  margin-left: -6px;
+    margin-left: -6px;
+}
+
+@media (max-width: 995px) {
+    .ant-card-head-title {
+        white-space: initial;
+    }
 }
 
 @font-face {
