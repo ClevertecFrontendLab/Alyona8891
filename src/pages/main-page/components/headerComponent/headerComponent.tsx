@@ -19,16 +19,23 @@ const SETTING_BUTTON = 'Настройки';
 export const HeaderComponent: React.FC = () => {
     return (
         <PageHeader
-
             breadcrumb={{ routes }}
             className='site-page-header'
-            style={{ backgroundColor: 'var(--background-color-header)', color: 'var(--color-title)', padding: '0.9rem 0 0.4rem 1.5rem' }}
+            style={{
+                backgroundColor: 'var(--background-color-header)',
+                color: 'var(--color-title)',
+                padding: '0.9rem 1.8rem 0.4rem 1.5rem',
+            }}
         >
             <Row>
                 <Col flex='1 1'>
-                    <Title  className={styles[cn('title')]} level={1} style={{
-                        fontWeight: 'bold'
-                    }}>
+                    <Title
+                        className={styles[cn('title')]}
+                        level={1}
+                        style={{
+                            fontWeight: 'bold',
+                        }}
+                    >
                         {TITLE}
                     </Title>
                 </Col>
@@ -36,6 +43,7 @@ export const HeaderComponent: React.FC = () => {
                     <Button
                         icon={<SettingOutlined />}
                         className={styles[cn('setting_button')]}
+                        style={{marginTop: '-5px'}}
                         type='text'
                     >
                         {SETTING_BUTTON}

@@ -6,7 +6,7 @@
         position: absolute;
         top: 47%;
         right: 0;
-        left: 99%; 
+        left: 99%;
         clip-path: polygon(0 0, 100% 15%, 100% 85%, 0% 100%);
         background-color: var(--backgroud-color-element);
         height: 66px;
@@ -19,6 +19,12 @@
 .logo {
     padding-left: 1.9rem;
     margin-bottom: 3.9rem;
+    display: block;
+}
+
+.logo_collapsed {
+    padding-left: 1.1rem;
+    margin-bottom: 4.2rem;
     display: block;
 }
 
