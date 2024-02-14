@@ -48,6 +48,7 @@ html {
 .ant-menu-inline .ant-menu-item {
     margin-left: -6px;
 }
+
 @media (max-width: 576px) {
     .ant-menu-inline .ant-menu-item {
         margin-left: -15px;

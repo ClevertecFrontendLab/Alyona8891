@@ -17,7 +17,7 @@ const PARAGRAGHS_DATA: {
             'C CleverFit ты сможешь:',
             '— планировать свои тренировки на календаре, выбирая тип и уровень нагрузки;',
             '— отслеживать свои достижения в разделе статистики, сравнивая свои результаты c нормами и рекордами;',
-            ' — создавать свой профиль, где ты можешь загружать свои фото, видео и отзывы о тренировках;',
+            '— создавать свой профиль, где ты можешь загружать свои фото, видео и отзывы o тренировках;',
             '— выполнять расписанные тренировки для разных частей тела, следуя подробным инструкциям и советам профессиональных тренеров.',
         ],
         style: {
@@ -31,12 +31,13 @@ const PARAGRAGHS_DATA: {
     {
         id: 2,
         textParts: [
-            'CleverFit — это не просто приложение, а твой личный помощник в мире фитнеса. Не откладывай на завтра — начни тренироваться уже сегодня!',
+            'CleverFit — это не просто приложение, a твой личный помощник в мире фитнеса. He откладывай на завтра — начни тренироваться уже сегодня!',
         ],
         style: {
             color: 'var(--color-title)',
             fontSize: '20px',
             lineHeight: '1.3',
+            letterSpacing: '0.7px',
             marginBottom: '0px',
         },
     },
@@ -89,7 +90,9 @@ export const ContentComponent: React.FC = () => {
                 ))}
             </Space>
             <Space
-                direction={breakpoint.md || breakpoint.xs ? 'vertical' : 'horizontal'}
+                direction={
+                    (breakpoint.sm || breakpoint.xs) && !breakpoint.md ? 'vertical' : 'horizontal'
+                }
                 size={breakpoint.xs ? 'small' : 'middle'}
                 style={{ display: 'flex' }}
             >

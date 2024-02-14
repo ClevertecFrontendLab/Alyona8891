@@ -15,7 +15,7 @@ export const TextCardComponent: React.FC<{
         <Card
             className={styles[cn('card')]}
             headStyle={{ textAlign: breakpoint.xs ? 'center' : 'start' }}
-            style={{ paddingRight: breakpoint.xs ? '1rem' : '3rem' }}
+            style={{ paddingRight: breakpoint.xs ? '1rem' : '2.5rem' }}
         >
             {textParts.map((part, i) => (
                 <Paragraph key={i} style={style}>

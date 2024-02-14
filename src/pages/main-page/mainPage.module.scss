@@ -4,12 +4,16 @@
     background-size: cover;
     background-position: center;
     width: 100%;
+    
 }
 
 .main_layout {
     width: 100%;
     min-height: 100vh;
     background-color: inherit;
+    max-width: 1440px;
+    margin: 0 auto;
+    
     .main{
         background: red;
         display: flex;

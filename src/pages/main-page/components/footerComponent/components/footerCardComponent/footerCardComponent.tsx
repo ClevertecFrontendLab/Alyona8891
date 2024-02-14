@@ -15,7 +15,7 @@ export const FooterCardComponent: React.FC<IFooterCardsData> = (props) => {
     return (
         <Card
             className={styles[cn('card')]}
-            bodyStyle={{ padding: '0' }}
+            bodyStyle={{ padding: '0', display: 'flex', justifyContent: 'space-between' }}
             title={
                 <Space
                     align={breakpoint.xs ? 'center' : 'start'}

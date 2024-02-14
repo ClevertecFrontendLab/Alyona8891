@@ -51,15 +51,15 @@ export const FooterComponent: React.FC = () => {
                         style={{
                             display: 'flex',
                             justifyContent: 'space-between',
-                            flexDirection: breakpoint.xs ? 'column-reverse' : 'column',
+                            flexDirection: breakpoint.xs ? 'column-reverse' : 'row',
                         }}
-                        direction={breakpoint.md || breakpoint.xs ? 'vertical' : 'horizontal'}
+                        direction={(breakpoint.md || breakpoint.xs) ? 'vertical' : 'horizontal'}
                     >
                         <Button
                             key={i}
                             size='small'
                             style={{
-                                color: 'var(--color-primary',
+                                color: 'var(--color-primary)',
                                 margin: breakpoint.xs ? '25px 10px 55px 10px' : '10px',
                                 fontSize: '16px',
                             }}
