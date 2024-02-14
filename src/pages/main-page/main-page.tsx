@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
+import cn from 'classnames';
 
-import reactLogo from '/react.svg';
-import viteLogo from '/vite.svg';
-import tsLogo from '/ts.svg';
-import './main-page.css';
+import styles from './mainPage.module.scss';
+import { Layout } from 'antd';
+import { SiderComponent } from './components/siderComponent';
+import { HeaderComponent } from './components/headerComponent';
+import { ContentComponent } from './components/contentComponent';
+import { FooterComponent } from './components/footerComponent';
 
 export const MainPage: React.FC = () => {
-    const [count, setCount] = useState(0);
-
     return (
-        <>
-            <div>
-                <a href='https://vitejs.dev' target='_blank'>
-                    <img src={viteLogo} className='logo' alt='Vite logo' />
-                </a>
-                <a href='https://react.dev' target='_blank'>
-                    <img src={reactLogo} className='logo react' alt='React logo' />
-                </a>
-                <a href='https://www.typescriptlang.org/' target='_blank'>
-                    <img src={tsLogo} className='logo' alt='TS logo' />
-                </a>
-            </div>
-            <h1>Vite + React + TS</h1>
-            <div className='card'>
-                <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-                <p>
-                    Edit <code>src/pages/main-page.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
-        </>
+        <div className={styles[cn('wrapper')]}>
+            <Layout
+                className={styles[cn('main_layout')]}
+                style={{ backgroundColor: 'inherit' }}
+            >
+                <SiderComponent />
+                <Layout className={styles[cn('main')]} style={{ backgroundColor: 'inherit', height: '100%' }}>
+                    <HeaderComponent />
+                    <ContentComponent />
+                    <FooterComponent />
+                </Layout>
+            </Layout>
+        </div>
     );
 };
