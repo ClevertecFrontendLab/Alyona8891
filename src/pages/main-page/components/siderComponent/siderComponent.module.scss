@@ -1,6 +1,10 @@
 .sider {
     position: relative;
     padding-top: 44px;
+    @media (max-width: 576px) {
+        position: fixed;
+        z-index: 2;
+    }
 
     &_button {
         position: absolute;
@@ -13,6 +17,11 @@
         width: 20px;
         display: flex;
         justify-content: center;
+        @media (max-width: 576px) {
+            top: 25px;
+            height: 48px;
+            width: 32px;
+        }
     }
 }
 
@@ -20,6 +29,12 @@
     padding-left: 1.9rem;
     margin-bottom: 3.9rem;
     display: block;
+    @media (max-width: 576px) {
+        padding: 0 8px;
+    }
+    & img {
+        width: 100%;
+    }
 }
 
 .logo_collapsed {

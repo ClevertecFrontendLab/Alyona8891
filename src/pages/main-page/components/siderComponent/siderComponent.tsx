@@ -57,7 +57,11 @@ export const SiderComponent: React.FC = () => {
             collapsed={collapsed}
             collapsedWidth={breakpoint.xs ? 0 : 64}
             width={breakpoint.xs ? 106 : 208}
-            style={{ backgroundColor: 'var(--backgroud-color-element)', minHeight: '100vh' }}
+            style={{
+                backgroundColor: 'var(--backgroud-color-element)',
+                minHeight: '100vh',
+                position: breakpoint.xs ? 'absolute' : 'relative',
+            }}
             trigger={null}
         >
             <a
@@ -80,13 +84,15 @@ export const SiderComponent: React.FC = () => {
                 items={MENU_ITEMS.map((item) => {
                     return {
                         key: item.key,
-                        icon: (
+                        icon: !breakpoint.xs ? (
                             <item.icon
                                 style={{ color: 'var(--color-elements)' }}
                                 twoToneColor={
                                     item.isTwoTonesIcon ? 'var(--color-elements)' : undefined
                                 }
                             />
+                        ) : (
+                            ''
                         ),
                         label: item.label,
                     };
@@ -96,11 +102,13 @@ export const SiderComponent: React.FC = () => {
                 <MenuUnfoldOutlined
                     className={styles[cn('sider_button')]}
                     onClick={handleSiderButton}
+                    data-test-id={breakpoint.md ? 'sider-switch' : 'sider-switch-mobile'}
                 />
             ) : (
                 <MenuFoldOutlined
                     className={styles[cn('sider_button')]}
                     onClick={handleSiderButton}
+                    data-test-id={breakpoint.md ? 'sider-switch' : 'sider-switch-mobile'}
                 />
             )}
             <Button
@@ -117,7 +125,7 @@ export const SiderComponent: React.FC = () => {
                 className={styles[cn('exit_button')]}
                 type='text'
             >
-                {collapsed && (
+                {collapsed || !breakpoint.xs  && (
                     <img
                         alt='exit_icon'
                         className={styles[cn('exit_icon')]}

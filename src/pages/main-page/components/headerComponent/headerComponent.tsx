@@ -1,5 +1,6 @@
 import { Button, Col, PageHeader, Row } from 'antd';
 import cn from 'classnames';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './headerComponent.module.scss';
 import { SettingOutlined } from '@ant-design/icons';
@@ -14,10 +15,10 @@ const routes = [
 const SETTING_BUTTON = 'Настройки';
 
 export const HeaderComponent: React.FC = () => {
+    const breakpoint = useBreakpoint();
     return (
         <PageHeader
             breadcrumb={{ routes }}
-            className='site-page-header'
             style={{
                 backgroundColor: 'var(--background-color-header)',
                 color: 'var(--color-title)',
@@ -31,15 +32,20 @@ export const HeaderComponent: React.FC = () => {
                         <br /> которое поможет тебе добиться своей мечты!
                     </h1>
                 </Col>
-                <Col flex='0 1 70px'>
-                    <Button
-                        icon={<SettingOutlined />}
-                        className={styles[cn('setting_button')]}
-                        style={{ marginTop: '-5px' }}
-                        type='text'
-                    >
-                        {SETTING_BUTTON}
-                    </Button>
+                <Col style={{ textAlign: breakpoint.xs ? 'right' : 'left' }} flex='0 1 70px'>
+                    {breakpoint.xs ? (
+                        <Button shape='circle' icon={<SettingOutlined />}></Button>
+                    ) : (
+                        <Button
+                            icon={<SettingOutlined />}
+                            className={styles[cn('setting_button')]}
+                            style={{ marginTop: breakpoint.xs ? '0' : '-5px',
+                         }}
+                            type='text'
+                        >
+                            {SETTING_BUTTON}
+                        </Button>
+                    )}
                 </Col>
             </Row>
         </PageHeader>

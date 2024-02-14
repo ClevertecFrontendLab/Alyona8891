@@ -4,6 +4,8 @@ import { TextCardComponent } from './components/textCardComponent';
 import { ActionsCardComponent } from './components/actionsCardComponent/actionsCardComponent';
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
 
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+
 const PARAGRAGHS_DATA: {
     id: number;
     textParts: string[];
@@ -65,13 +67,15 @@ const ACTIONS_CARDS_DATA: {
 ];
 
 export const ContentComponent: React.FC = () => {
+    const breakpoint = useBreakpoint();
+
     return (
         <Content
             style={{
                 minHeight: 'initial',
                 height: '100%',
                 backgroundColor: 'inherit',
-                padding: '1.5rem 0 0 1.5rem',
+                padding: breakpoint.xs ? '1.5rem 1rem 1rem' : '1.5rem 0 0 1.5rem',
                 flex: '1 1 auto',
             }}
         >
@@ -84,7 +88,11 @@ export const ContentComponent: React.FC = () => {
                     <TextCardComponent key={p.id} style={p.style} textParts={p.textParts} />
                 ))}
             </Space>
-            <Space size='middle' style={{ display: 'flex' }}>
+            <Space
+                direction={breakpoint.md || breakpoint.xs ? 'vertical' : 'horizontal'}
+                size={breakpoint.xs ? 'small' : 'middle'}
+                style={{ display: 'flex' }}
+            >
                 {ACTIONS_CARDS_DATA.map((card) => (
                     <ActionsCardComponent key={card.id} title={card.title} button={card.button} />
                 ))}

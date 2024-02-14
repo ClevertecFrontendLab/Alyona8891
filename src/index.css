@@ -48,10 +48,28 @@ html {
 .ant-menu-inline .ant-menu-item {
     margin-left: -6px;
 }
+@media (max-width: 576px) {
+    .ant-menu-inline .ant-menu-item {
+        margin-left: -15px;
+        width: 130%;
+    }
+}
 
 @media (max-width: 995px) {
     .ant-card-head-title {
         white-space: initial;
+    }
+}
+
+@media (max-width: 995px) {
+    .ant-page-header-content {
+        padding-top: 12;
+    }
+}
+
+@media (max-width: 576px) {
+    .ant-card-body {
+        padding: 15px;
     }
 }
 

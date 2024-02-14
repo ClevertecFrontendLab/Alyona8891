@@ -3,6 +3,8 @@ import { Button, Space } from 'antd';
 import { Footer } from 'antd/lib/layout/layout';
 import { FooterCardComponent } from './components/footerCardComponent';
 
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+
 export interface IFooterCardsData {
     key: number;
     title: { text: string; style: React.CSSProperties };
@@ -32,21 +34,33 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
 ];
 
 export const FooterComponent: React.FC = () => {
+    const breakpoint = useBreakpoint();
+
     return (
-        <Footer style={{ backgroundColor: 'inherit', padding: '0 1.5rem 2.7rem' }}>
+        <Footer
+            style={{
+                backgroundColor: 'inherit',
+                padding: breakpoint.xs ? '0 1rem 0' : '0 1.5rem 2.7rem',
+            }}
+        >
             {FOOTER_LINKS.map((link, i) => {
                 return (
                     <Space
                         key={link.id}
-                        align='end'
-                        style={{ display: 'flex', justifyContent: 'space-between' }}
+                        align={breakpoint.xs ? 'center' : 'end'}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexDirection: breakpoint.xs ? 'column-reverse' : 'column',
+                        }}
+                        direction={breakpoint.md || breakpoint.xs ? 'vertical' : 'horizontal'}
                     >
                         <Button
                             key={i}
                             size='small'
                             style={{
                                 color: 'var(--color-primary',
-                                margin: '10px',
+                                margin: breakpoint.xs ? '25px 10px 55px 10px' : '10px',
                                 fontSize: '16px',
                             }}
                             type='text'

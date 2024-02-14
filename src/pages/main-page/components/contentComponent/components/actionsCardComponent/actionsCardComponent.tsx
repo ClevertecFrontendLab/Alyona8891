@@ -2,6 +2,9 @@ import { Button, Card } from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import React from 'react';
 
+import cn from 'classnames';
+import styles from './actionCardComponent.module.scss';
+
 export const ActionsCardComponent: React.FC<{
     title: string;
     button: { text: string; icon: React.ReactNode };
@@ -18,21 +21,16 @@ export const ActionsCardComponent: React.FC<{
         wordWrap: 'unset'
     }
 
-    const getCardStyle = ()  => {
-        if(breakpoint.xs) return {width: '100%', textAlign: 'center'}
-        if(breakpoint.sm) return {width: '182px', textAlign: 'center'}
-        if(breakpoint.lg) return {width: '240px', textAlign: 'center'}
-    }
     return (
         <Card
             title={title}
             headStyle={headStyle}
             size='small'
-            style={getCardStyle() as React.CSSProperties}
+            className={styles[cn('card')]}
             bodyStyle={{textAlign: 'center'}}
         >
             <Button icon={icon} size='small' style={{ color: 'var(--color-primary)' }} type='text'>
-                {text as string}
+                {text}
             </Button>
         </Card>
     );

@@ -1,6 +1,8 @@
 import { Card } from 'antd';
 import Paragraph from 'antd/lib/typography/Paragraph';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import cn from 'classnames';
+import styles from './textCardContent.module.scss';
 
 export const TextCardComponent: React.FC<{
     textParts: string[];
@@ -9,16 +11,11 @@ export const TextCardComponent: React.FC<{
     const { textParts, style } = props;
     const breakpoint = useBreakpoint();
 
-    const getCardStyle = ()  => {
-        if(breakpoint.xs) return {maxWidth: '100%', paddingRight: '3rem'}
-        if(breakpoint.sm) return {maxWidth: '100%', paddingRight: '3rem'}
-        if(breakpoint.lg) return {maxWidth: 752, }
-    }
-
     return (
         <Card
+            className={styles[cn('card')]}
             headStyle={{ textAlign: breakpoint.xs ? 'center' : 'start' }}
-            style={getCardStyle()}
+            style={{ paddingRight: breakpoint.xs ? '1rem' : '3rem' }}
         >
             {textParts.map((part, i) => (
                 <Paragraph key={i} style={style}>
