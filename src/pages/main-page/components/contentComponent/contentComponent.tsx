@@ -72,6 +72,7 @@ export const ContentComponent: React.FC = () => {
                 height: '100%',
                 backgroundColor: 'inherit',
                 padding: '1.5rem 0 0 1.5rem',
+                flex: '1 1 auto',
             }}
         >
             <Space

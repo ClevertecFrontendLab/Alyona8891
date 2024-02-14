@@ -19,7 +19,10 @@ const FOOTER_LINKS = [{ id: 1, text: 'Смотреть отзывы' }];
 const FOOTER_CARDS_DATA: IFooterCardsData[] = [
     {
         key: 1,
-        title: { text: 'Скачать на телефон', style: { color: 'var(--color-primary)' } },
+        title: {
+            text: 'Скачать на телефон',
+            style: { color: 'var(--color-primary)', marginBottom: '0', lineHeight: '1.9rem' },
+        },
         info: { text: 'Доступно в PRO-тарифе', style: { color: 'var(--color-info)' } },
         buttons: [
             { key: 1, icon: <AndroidFilled />, text: 'Android OS' },
@@ -30,15 +33,14 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
 
 export const FooterComponent: React.FC = () => {
     return (
-        <Footer style={{ backgroundColor: 'inherit' }}>
+        <Footer style={{ backgroundColor: 'inherit', padding: '0 1.5rem 2.7rem' }}>
             {FOOTER_LINKS.map((link) => {
                 return (
-                    <Space align='end' style={{ display: 'flex',
-                    justifyContent: 'space-between' }}>
+                    <Space align='end' style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Button
                             key={link.id}
                             size='small'
-                            style={{ color: 'var(--color-primary' }}
+                            style={{ color: 'var(--color-primary', margin: '10px', fontSize: '16px' }}
                             type='text'
                         >
                             {link.text}
@@ -46,10 +48,11 @@ export const FooterComponent: React.FC = () => {
                         {FOOTER_CARDS_DATA.map((card) => {
                             return (
                                 <FooterCardComponent
-                                buttons={card.buttons}
-                                info={card.info}
-                                key={card.key}
-                                title={card.title}                                />
+                                    buttons={card.buttons}
+                                    info={card.info}
+                                    key={card.key}
+                                    title={card.title}
+                                />
                             );
                         })}
                     </Space>

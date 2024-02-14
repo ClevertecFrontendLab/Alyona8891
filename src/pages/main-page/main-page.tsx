@@ -16,7 +16,7 @@ export const MainPage: React.FC = () => {
                 style={{ backgroundColor: 'inherit' }}
             >
                 <SiderComponent />
-                <Layout style={{ backgroundColor: 'inherit', height: '100%' }}>
+                <Layout className={styles[cn('main')]} style={{ backgroundColor: 'inherit', height: '100%' }}>
                     <HeaderComponent />
                     <ContentComponent />
                     <FooterComponent />

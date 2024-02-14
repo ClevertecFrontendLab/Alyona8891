@@ -56,7 +56,7 @@ export const SiderComponent: React.FC = () => {
                 collapsed={collapsed}
                 collapsible
                 width='208px'
-                style={{ backgroundColor: 'var(--backgroud-color-element)' }}
+                style={{ backgroundColor: 'var(--backgroud-color-element)', minHeight: '100vh' }}
                 trigger={null}
             >
                 <a className={styles[cn('logo')]} href='#' onClick={(e) => e.preventDefault()}>
@@ -70,7 +70,7 @@ export const SiderComponent: React.FC = () => {
                     />
                 </a>
                 <Menu
-                 mode='inline'
+                    mode='inline'
                     style={{ color: 'var(--color-title)', fontSize: '1rem' }}
                     items={MENU_ITEMS.map((item) => {
                         return {
@@ -102,10 +102,12 @@ export const SiderComponent: React.FC = () => {
                     style={{
                         position: 'absolute',
                         display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        width: '115px',
+                        justifyContent: 'start',
+                        alignItems: 'start',
+                        width: '100%',
                         color: 'var(--color-title)',
+                        backgroundColor: 'inherit',
+                        lineHeight: '1rem',
                     }}
                     className={styles[cn('exit_button')]}
                     type='text'
