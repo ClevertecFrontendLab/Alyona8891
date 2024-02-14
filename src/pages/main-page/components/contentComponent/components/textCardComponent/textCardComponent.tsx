@@ -8,7 +8,7 @@ export const TextCardComponent: React.FC<{
     const { textParts, style } = props;
     return (
         <Card style={{ maxWidth: 752, paddingRight: '3rem' }}>
-          {textParts.map((part) => <Paragraph style={style}>{part}</Paragraph>)}
+          {textParts.map((part, i) => <Paragraph key={i} style={style}>{part}</Paragraph>)}
         </Card>
     );
 };

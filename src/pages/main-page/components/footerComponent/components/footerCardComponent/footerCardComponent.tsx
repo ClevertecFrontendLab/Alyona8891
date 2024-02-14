@@ -23,9 +23,10 @@ export const FooterCardComponent: React.FC<IFooterCardsData> = (props) => {
             }
             style={{ width: 240 }}
         >
-            {buttons.map((button) => {
+            {buttons.map((button, i) => {
                 return (
                     <Button
+                        key={i}
                         style={{ padding: '0 13px', marginBottom: '10px' }}
                         icon={button.icon}
                         type='text'

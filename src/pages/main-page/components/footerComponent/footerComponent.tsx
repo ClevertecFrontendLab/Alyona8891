@@ -25,8 +25,8 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
         },
         info: { text: 'Доступно в PRO-тарифе', style: { color: 'var(--color-info)' } },
         buttons: [
-            { key: 1, icon: <AndroidFilled />, text: 'Android OS' },
-            { key: 2, icon: <AppleFilled />, text: 'Apple iOS' },
+            { key: 100, icon: <AndroidFilled />, text: 'Android OS' },
+            { key: 101, icon: <AppleFilled />, text: 'Apple iOS' },
         ],
     },
 ];
@@ -34,13 +34,21 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
 export const FooterComponent: React.FC = () => {
     return (
         <Footer style={{ backgroundColor: 'inherit', padding: '0 1.5rem 2.7rem' }}>
-            {FOOTER_LINKS.map((link) => {
+            {FOOTER_LINKS.map((link, i) => {
                 return (
-                    <Space align='end' style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Space
+                        key={link.id}
+                        align='end'
+                        style={{ display: 'flex', justifyContent: 'space-between' }}
+                    >
                         <Button
-                            key={link.id}
+                            key={i}
                             size='small'
-                            style={{ color: 'var(--color-primary', margin: '10px', fontSize: '16px' }}
+                            style={{
+                                color: 'var(--color-primary',
+                                margin: '10px',
+                                fontSize: '16px',
+                            }}
                             type='text'
                         >
                             {link.text}
