@@ -10,6 +10,8 @@ import { MainPage } from './pages';
 import 'antd/dist/antd.css';
 import 'normalize.css';
 import './index.css';
+import { RouterPath } from './constants';
+import { AuthPage } from '@pages/authPage';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -19,7 +21,8 @@ root.render(
         <Provider store={store}>
             <HistoryRouter history={history}>
                 <Routes>
-                    <Route path='/' element={<MainPage />} />
+                    <Route index={true} path={RouterPath.MAIN} element={<MainPage />} />
+                    <Route path={RouterPath.AUTH} element={<AuthPage />} />
                 </Routes>
             </HistoryRouter>
         </Provider>
