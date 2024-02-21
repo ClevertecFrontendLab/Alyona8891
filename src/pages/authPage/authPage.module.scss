@@ -1,0 +1,40 @@
+.wrapper {
+    background-image: var(--background-auth-page-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100vh;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: var(--background-auth-page-blure);
+    }
+
+    & .container {
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        text-align: center;
+        z-index: 1;
+        width: 33.69rem;
+        height: 46.375rem;
+        border-radius: 0.125rem;
+        background-color: var(--backgroud-color-element);
+        padding: 4rem 5.3rem;
+    }
+}
+
+.logo_block {
+    padding: 0 2rem;
+
+    .logo {
+        width: 100%;
+    }
+}
