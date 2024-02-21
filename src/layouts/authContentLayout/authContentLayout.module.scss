@@ -1,0 +1,23 @@
+.container {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    z-index: 1;
+    width: 33.69rem;
+    height: 46.375rem;
+    border-radius: 0.125rem;
+    background-color: var(--backgroud-color-element);
+    padding: 4rem 5.3rem;
+}
+
+.logo_block {
+    padding: 0 2rem;
+
+    & .logo {
+        width: 100%;
+    }
+}

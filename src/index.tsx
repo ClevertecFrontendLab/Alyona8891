@@ -22,7 +22,7 @@ root.render(
             <HistoryRouter history={history}>
                 <Routes>
                     <Route index={true} path={RouterPath.MAIN} element={<MainPage />} />
-                    <Route path={RouterPath.AUTH} element={<AuthPage />} />
+                    <Route path={RouterPath.AUTH} element={<AuthPage />}></Route>
                 </Routes>
             </HistoryRouter>
         </Provider>
