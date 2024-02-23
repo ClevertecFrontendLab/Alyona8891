@@ -12,6 +12,50 @@
     border-radius: 0.125rem;
     background-color: var(--backgroud-color-element);
     padding: 4rem 5.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    :global {
+        .ant-tabs-nav-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .ant-tabs-tab {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .ant-tabs-tab + .ant-tabs-tab {
+            margin: 0;
+        }
+
+        .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+            color: var(--color-primary);
+        }
+
+        .ant-tabs-tab-active {
+            padding: 10px 0;
+        }
+
+        .ant-tabs-tab-active,
+        .ant-tabs-tab {
+            div {
+                width: 184px;
+            }
+        }
+        .ant-tabs-tab {
+            div {
+                color: var(--color-title);
+            }
+        }
+
+        .ant-tabs-ink-bar {
+            background-color: var(--color-primary);
+        }
+    }
 }
 
 .logo_block {
