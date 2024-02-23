@@ -2,8 +2,9 @@ import React from 'react';
 import cn from 'classnames';
 
 import styles from './signInContent.module.scss';
-import { Button, Checkbox, Form, Input } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
+import { EyeInvisibleOutlined, EyeTwoTone, GooglePlusOutlined } from '@ant-design/icons';
+const { Link } = Anchor;
 
 export const SignInContent: React.FC = () => {
     return (
@@ -21,7 +22,7 @@ export const SignInContent: React.FC = () => {
                 name='username'
                 rules={[{ required: true, message: 'Please input your username!' }]}
             >
-                <Input className={styles[cn('input')]} addonBefore='e-mail:' />
+                <Input size='large' className={styles[cn('input')]} addonBefore='e-mail:' />
             </Form.Item>
 
             <Form.Item
@@ -29,19 +30,48 @@ export const SignInContent: React.FC = () => {
                 rules={[{ required: true, message: 'Please input your password!' }]}
             >
                 <Input.Password
+                    size='large'
                     placeholder='Пароль'
                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                 />
             </Form.Item>
 
-            <Form.Item name='remember' valuePropName='checked' wrapperCol={{ offset: 8, span: 16 }}>
-                <Checkbox>Запомнить меня</Checkbox>
-            </Form.Item>
+            <Space
+                className={styles[cn('checkbox_container')]}
+                direction='horizontal'
+                align='center'
+                size='large'
+            >
+                <Checkbox defaultChecked>Запомнить меня</Checkbox>
+                <Anchor affix={true}>
+                    <Typography.Link>
+                        <Link href='#' title='Забыли пароль?' />
+                    </Typography.Link>
+                </Anchor>
+            </Space>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type='primary' htmlType='submit'>
-                    Войти
-                </Button>
+            <Form.Item>
+                <Space
+                    className={styles[cn('buttons_container')]}
+                    direction='vertical'
+                    size='middle'
+                >
+                    <Button
+                        className={styles[cn('button')]}
+                        size='large'
+                        type='primary'
+                        htmlType='submit'
+                    >
+                        Войти
+                    </Button>
+                    <Button
+                        className={styles[cn('button')]}
+                        size='large'
+                        icon={<GooglePlusOutlined />}
+                    >
+                        Войти через Google
+                    </Button>
+                </Space>
             </Form.Item>
         </Form>
     );

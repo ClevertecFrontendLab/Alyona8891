@@ -27,6 +27,11 @@
 * {
     box-sizing: border-box;
 }
+
+a {
+    font-size: 1rem;
+}
+
 body,
 html {
     width: 100%;

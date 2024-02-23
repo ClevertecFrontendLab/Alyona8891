@@ -7,10 +7,29 @@
       max-width: 100%;
       flex: 0 0 100%;
     }
+
+    .ant-input-group-addon {
+      padding: 0 0.875rem;
+    }
   }
   
 }
 
 .input {
   width: 100%;
+}
+
+.button {
+  width: 100%;
+}
+
+.checkbox_container {
+  width: 100%;
+  justify-content: space-between;
+  padding: 1.19rem 0;
+}
+
+.buttons_container {
+  width: 100%;
+  justify-content: space-between;
 }
