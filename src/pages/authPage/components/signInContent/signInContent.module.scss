@@ -1,0 +1,16 @@
+.form {
+  margin-top: -2rem;
+  width: 100%;
+
+  :global {
+    .ant-col-16 {
+      max-width: 100%;
+      flex: 0 0 100%;
+    }
+  }
+  
+}
+
+.input {
+  width: 100%;
+}
