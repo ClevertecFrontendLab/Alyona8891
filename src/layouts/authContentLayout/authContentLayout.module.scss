@@ -32,10 +32,6 @@
             margin: 0;
         }
 
-        .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-            color: var(--color-primary);
-        }
-
         .ant-tabs-tab-active {
             padding: 10px 0;
         }
@@ -52,9 +48,6 @@
             }
         }
 
-        .ant-tabs-ink-bar {
-            background-color: var(--color-primary);
-        }
     }
 }
 

@@ -7,9 +7,10 @@ import { Route, Routes } from 'react-router-dom';
 import { store, history } from '@redux/configure-store';
 import { MainPage } from './pages';
 
-import 'antd/dist/antd.css';
+//import 'antd/dist/antd.css';
 import 'normalize.css';
 import './index.css';
+import '../src/constants/themes/customized.css'
 import { RouterPath } from './constants';
 import { AuthPage } from '@pages/authPage';
 import { SignInContent } from '@pages/authPage/components/signInContent';
