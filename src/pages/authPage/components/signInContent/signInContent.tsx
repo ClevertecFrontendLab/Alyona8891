@@ -5,26 +5,38 @@ import styles from './signInContent.module.scss';
 import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { TEXT } from '@constants/index';
+import { TEXT, VALIDATION_RULES } from '@constants/index';
 const { Link } = Anchor;
 
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
+    const [form] = Form.useForm();
+
+    const onFinish = (values: string) => {
+        console.log('Received values of form: ', values);
+    };
 
     return (
         <Form
+            form={form}
             className={styles[cn('form')]}
             name='basic'
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
-            onFinish={() => {}}
+            onFinish={onFinish}
             onFinishFailed={() => {}}
             autoComplete='off'
         >
             <Form.Item
-                name='username'
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                name='email'
+                rules={[
+                    { required: true, message: '' },
+                    {
+                        pattern: VALIDATION_RULES.email,
+                        message: '',
+                    },
+                ]}
             >
                 <Input
                     size='large'
@@ -35,7 +47,14 @@ export const SignInContent: React.FC = () => {
 
             <Form.Item
                 name='password'
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[
+                    { required: true, message: '' },
+                    { min: 8, message: '' },
+                    {
+                        pattern: VALIDATION_RULES.password,
+                        message: '',
+                    },
+                ]}
             >
                 <Input.Password
                     size='large'

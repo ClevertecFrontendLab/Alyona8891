@@ -12,25 +12,30 @@ export const TEXT = {
     },
     input: {
         email: {
-            label: 'e-mail:'
+            label: 'e-mail:',
         },
         password: {
             helper: 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
-            placeholder: 'Пароль'
+            placeholder: 'Пароль',
         },
         confirmPassword: {
-            placeholder: 'Повторите пароль'
+            placeholder: 'Повторите пароль',
         },
         rememberMeCheckbox: {
-            label: 'Запомнить меня'
-        }
+            label: 'Запомнить меня',
+        },
     },
     button: {
         signIn: 'Войти',
         signInUsingGoogle: 'Войти через Google',
-        signUpUsingGoogle: 'Регистрация через Google'
+        signUpUsingGoogle: 'Регистрация через Google',
     },
     link: {
-        forgetPassword: 'Забыли пароль?'
-    }
-}
+        forgetPassword: 'Забыли пароль?',
+    },
+};
+
+export const VALIDATION_RULES = {
+    email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    password: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
+};

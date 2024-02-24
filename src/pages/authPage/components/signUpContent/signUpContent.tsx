@@ -5,25 +5,37 @@ import styles from './signUpContent.module.scss';
 import { Button, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { TEXT } from '@constants/index';
+import { TEXT, VALIDATION_RULES } from '@constants/index';
 
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
+    const [form] = Form.useForm();
+
+    const onFinish = (values: string) => {
+        console.log('Received values of form: ', values);
+    };
 
     return (
         <Form
+            form={form}
             className={styles[cn('form')]}
-            name='basic'
+            name='register'
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
-            onFinish={() => {}}
+            onFinish={onFinish}
             onFinishFailed={() => {}}
             autoComplete='off'
             requiredMark={false}
         >
             <Form.Item
-                name='username'
-                rules={[{ required: true, message: 'Please input your username!' }]}
+                name='email'
+                rules={[
+                    { required: true, message: '' },
+                    {
+                        pattern: VALIDATION_RULES.email,
+                        message: '',
+                    },
+                ]}
             >
                 <Input
                     size='large'
@@ -34,20 +46,51 @@ export const SignUpContent: React.FC = () => {
 
             <Form.Item
                 name='password'
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                help={
+                    <span className={styles[cn('password_helper')]}>
+                        {TEXT.input.password.helper}
+                    </span>
+                }
+                rules={[
+                    { required: true, message: '' },
+                    { min: 8, message: '' },
+                    {
+                        pattern: VALIDATION_RULES.password,
+                        message: '',
+                    },
+                ]}
             >
                 <Input.Password
                     size='large'
                     className={styles[cn('input')]}
                     placeholder={TEXT.input.password.placeholder}
-                    iconRender={(visible) => (visible ? <EyeOutlined style={{ color: 'var(--color-primary)' }} /> : <EyeInvisibleOutlined />)}
+                    iconRender={(visible) =>
+                        visible ? (
+                            <EyeOutlined style={{ color: 'var(--color-primary)' }} />
+                        ) : (
+                            <EyeInvisibleOutlined />
+                        )
+                    }
                 />
-                <span className={styles[cn('password_helper')]}>{TEXT.input.password.helper}</span>
             </Form.Item>
 
             <Form.Item
+                dependencies={['password']}
                 name='confirmPassword'
-                rules={[{ required: true, message: 'Please input your password!' }]}
+                rules={[
+                    {
+                        required: true,
+                        message: '',
+                    },
+                    ({ getFieldValue }) => ({
+                        validator(_, value) {
+                            if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve();
+                            }
+                            return Promise.reject(new Error(''));
+                        },
+                    }),
+                ]}
             >
                 <Input.Password
                     size='large'
