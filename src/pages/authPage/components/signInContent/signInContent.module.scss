@@ -1,35 +1,61 @@
 .form {
-  margin-top: -2rem;
-  width: 100%;
+    margin-top: -2rem;
+    width: 100%;
 
-  :global {
-    .ant-col-16 {
-      max-width: 100%;
-      flex: 0 0 100%;
-    }
+    :global {
+        .ant-col-16 {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
 
-    .ant-input-group-addon {
-      padding: 0 0.875rem;
+        .ant-input-group-addon {
+            padding: 0 0.77rem;
+        }
+
+        .ant-anchor-ink {
+            &::before {
+                display: none;
+            }
+        }
+        .ant-anchor-link {
+            @media (max-width: 400px) {
+                padding: 2px 0 2px 2px;
+            }
+        }
     }
-  }
-  
 }
 
 .input {
-  width: 100%;
+    width: 100%;
 }
 
 .button {
-  width: 100%;
+    width: 100%;
+
+    @media (max-width: 400px) {
+        font-size: 0.875rem;
+    }
 }
 
 .checkbox_container {
-  width: 100%;
-  justify-content: space-between;
-  padding: 1.19rem 0;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1.19rem 0;
+
+    @media (max-width: 991px) {
+        padding: 1.12rem 0;
+    }
+
+    @media (max-width: 400px) {
+        padding: 1.2rem 6px 1rem 0px;
+    }
 }
 
 .buttons_container {
-  width: 100%;
-  justify-content: space-between;
+    width: 100%;
+    justify-content: space-between;
+
+    @media (max-width: 400px) {
+        padding-top: 4px;
+    }
 }

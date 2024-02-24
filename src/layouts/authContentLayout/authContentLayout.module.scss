@@ -16,12 +16,34 @@
     flex-direction: column;
     gap: 2.4rem;
 
+    @media (max-width: 991px) {
+        margin: 12.5rem auto 0px;
+        gap: 2.53rem;
+    }
+
+    @media (max-width: 580px) {
+        gap: 2.4rem;
+        width: 95%;
+        padding: 4rem 1rem;
+        margin: 5.625rem auto 0px;
+    }
+
+    @media (max-width: 400px) {
+        width: 20.5rem;
+        padding: 2rem 1rem 5.75rem;
+        gap: 2.3rem;
+        height: fit-content;
+    }
+
     :global {
         .ant-tabs-nav-list {
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
+            @media (max-width: 400px) {
+                margin: -4px 0 4px;
+            }
         }
         .ant-tabs-tab {
             width: 100%;
@@ -33,20 +55,30 @@
         }
 
         .ant-tabs-tab-active {
-            padding: 10px 0;
+            padding: 0.6875rem 0;
         }
 
         .ant-tabs-tab-active,
         .ant-tabs-tab {
             div {
-                width: 184px;
+                width: 11.5rem;
+                @media (max-width: 580px) {
+                    width: 9.25rem;
+                }
             }
+        }
+        .ant-tabs-small > .ant-tabs-nav .ant-tabs-tab {
+            padding: 10.5px 0;
         }
     }
 }
 
 .logo_block {
     padding: 0 2rem;
+
+    @media (max-width: 400px) {
+        padding: 0 3rem;
+    }
 
     & .logo {
         width: 100%;

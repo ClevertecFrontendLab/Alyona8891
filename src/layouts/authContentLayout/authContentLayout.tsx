@@ -6,25 +6,21 @@ import styles from './authContentLayout.module.scss';
 import { Tabs } from 'antd';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { useSelector } from 'react-redux';
-import { RouterPath } from '@constants/constants';
+import { RouterPath, TEXT } from '@constants/constants';
 import { changeAuthPageContent } from '@redux/reducers/appReducer';
-
-const TABS_LABELS = {
-    signIn: 'Вход',
-    signUp: 'Регистрация',
-};
-
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 export const AuthContentLayout: React.FC = () => {
     const activeKey = useSelector((state: RootState) => state.app.authPageContent);
     const dispatch: AppDispatch = useAppDispatch();
+    const breakpoint = useBreakpoint();
 
     const navigate = useNavigate();
 
     const onChange = () => {
-        if(activeKey === 'signIn') {
+        if (activeKey === 'signIn') {
             dispatch(changeAuthPageContent());
-            navigate(RouterPath.SIGN_UP)
+            navigate(RouterPath.SIGN_UP);
         } else {
             dispatch(changeAuthPageContent());
             navigate(RouterPath.SIGN_IN);
@@ -41,22 +37,22 @@ export const AuthContentLayout: React.FC = () => {
                 />
             </div>
             <Tabs
-                    centered
-                    size='large'
-                    defaultActiveKey={activeKey}
-                    onChange={onChange}
-                    items={[
-                        {
-                            label: TABS_LABELS.signIn,
-                            key: '1',
-                        },
-                        {
-                            label: TABS_LABELS.signUp,
-                            key: '2',
-                        },
-                    ]}
-                />
-                <Outlet />
+                centered
+                size={breakpoint.xs && !breakpoint.sm ? 'small' : 'large'}
+                defaultActiveKey={activeKey}
+                onChange={onChange}
+                items={[
+                    {
+                        label: TEXT.tabs.signIn,
+                        key: '1',
+                    },
+                    {
+                        label: TEXT.tabs.signUp,
+                        key: '2',
+                    },
+                ]}
+            />
+            <Outlet />
         </section>
     );
 };

@@ -4,9 +4,13 @@ import cn from 'classnames';
 import styles from './signInContent.module.scss';
 import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone, GooglePlusOutlined } from '@ant-design/icons';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { TEXT } from '@constants/index';
 const { Link } = Anchor;
 
 export const SignInContent: React.FC = () => {
+    const breakpoint = useBreakpoint();
+
     return (
         <Form
             className={styles[cn('form')]}
@@ -22,7 +26,7 @@ export const SignInContent: React.FC = () => {
                 name='username'
                 rules={[{ required: true, message: 'Please input your username!' }]}
             >
-                <Input size='large' className={styles[cn('input')]} addonBefore='e-mail:' />
+                <Input size='large' className={styles[cn('input')]} addonBefore={TEXT.input.email.label} />
             </Form.Item>
 
             <Form.Item
@@ -31,7 +35,7 @@ export const SignInContent: React.FC = () => {
             >
                 <Input.Password
                     size='large'
-                    placeholder='Пароль'
+                    placeholder={TEXT.input.password.placeholder}
                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                 />
             </Form.Item>
@@ -42,10 +46,10 @@ export const SignInContent: React.FC = () => {
                 align='center'
                 size='large'
             >
-                <Checkbox defaultChecked>Запомнить меня</Checkbox>
-                <Anchor affix={true}>
+                <Checkbox defaultChecked>{TEXT.input.rememberMeCheckbox.label}</Checkbox>
+                <Anchor affix={false}>
                     <Typography.Link>
-                        <Link href='#' title='Забыли пароль?' />
+                        <Link href='' title={TEXT.link.forgetPassword} />
                     </Typography.Link>
                 </Anchor>
             </Space>
@@ -62,14 +66,14 @@ export const SignInContent: React.FC = () => {
                         type='primary'
                         htmlType='submit'
                     >
-                        Войти
+                        {TEXT.button.signIn}
                     </Button>
                     <Button
                         className={styles[cn('button')]}
                         size='large'
-                        icon={<GooglePlusOutlined />}
+                        icon={breakpoint.xs ? '' : <GooglePlusOutlined />}
                     >
-                        Войти через Google
+                        {TEXT.button.signInUsingGoogle}
                     </Button>
                 </Space>
             </Form.Item>
