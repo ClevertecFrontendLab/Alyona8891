@@ -28,7 +28,7 @@ export const AuthContentLayout: React.FC = () => {
     };
 
     return (
-        <section className={styles[cn('container')]}>
+        <section className={styles[cn(activeKey === 'signUp' ? 'container_sign_up' : 'container')]}>
             <div className={styles[cn('logo_block')]}>
                 <img
                     className={styles[cn('logo')]}

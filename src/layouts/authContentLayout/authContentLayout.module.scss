@@ -8,10 +8,10 @@
     text-align: center;
     z-index: 1;
     width: 33.69rem;
-    height: 46.375rem;
+    height: fit-content;
     border-radius: 0.125rem;
     background-color: var(--backgroud-color-element);
-    padding: 4rem 5.3rem;
+    padding: 4rem 5.3rem 0;
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
@@ -31,6 +31,83 @@
     @media (max-width: 400px) {
         width: 20.5rem;
         padding: 2rem 1rem 5.75rem;
+        gap: 2.3rem;
+        height: fit-content;
+    }
+
+    :global {
+        .ant-tabs-nav-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            @media (max-width: 400px) {
+                margin: -4px 0 4px;
+            }
+        }
+        .ant-tabs-tab {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .ant-tabs-tab + .ant-tabs-tab {
+            margin: 0;
+        }
+
+        .ant-tabs-tab-active {
+            padding: 0.6875rem 0;
+        }
+
+        .ant-tabs-tab-active,
+        .ant-tabs-tab {
+            div {
+                width: 11.5rem;
+                @media (max-width: 580px) {
+                    width: 9.25rem;
+                }
+            }
+        }
+        .ant-tabs-small > .ant-tabs-nav .ant-tabs-tab {
+            padding: 10.5px 0;
+        }
+    }
+}
+
+.container_sign_up {
+    position: absolute;
+    margin: 169px auto 0px;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    z-index: 1;
+    width: 33.69rem;
+    height: fit-content;
+    border-radius: 0.125rem;
+    background-color: var(--backgroud-color-element);
+    padding: 3.9rem 5.3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    @media (max-width: 991px) {
+        padding: 4rem 5.3rem 0;
+        margin: 228px auto 0px;
+        gap: 2.53rem;
+    }
+
+    @media (max-width: 580px) {
+        gap: 2.4rem;
+        width: 95%;
+        padding: 4rem 1rem;
+        margin: 5.625rem auto 0px;
+    }
+
+    @media (max-width: 400px) {
+        margin: 114px auto 0px;
+        width: 20.5rem;
+        padding: 2rem 1rem 0rem;
         gap: 2.3rem;
         height: fit-content;
     }

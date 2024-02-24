@@ -15,7 +15,11 @@ export const TEXT = {
             label: 'e-mail:'
         },
         password: {
+            helper: 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
             placeholder: 'Пароль'
+        },
+        confirmPassword: {
+            placeholder: 'Повторите пароль'
         },
         rememberMeCheckbox: {
             label: 'Запомнить меня'
@@ -24,6 +28,7 @@ export const TEXT = {
     button: {
         signIn: 'Войти',
         signInUsingGoogle: 'Войти через Google',
+        signUpUsingGoogle: 'Регистрация через Google'
     },
     link: {
         forgetPassword: 'Забыли пароль?'
