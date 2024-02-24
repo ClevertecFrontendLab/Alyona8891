@@ -1,12 +1,7 @@
 .container {
     position: relative;
     margin: auto;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     text-align: center;
-    z-index: 1;
     width: 33.69rem;
     height: fit-content;
     border-radius: 0.125rem;
@@ -17,7 +12,7 @@
     gap: 2.4rem;
 
     @media (max-width: 991px) {
-
+        margin: 12.5rem auto 0px;
         gap: 2.53rem;
     }
 
@@ -76,12 +71,7 @@
 .container_sign_up {
     position: relative;
     margin: 169px auto 0px;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
     text-align: center;
-    z-index: 1;
     width: 33.69rem;
     height: fit-content;
     border-radius: 0.125rem;
