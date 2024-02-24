@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import styles from './signInContent.module.scss';
 import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone, GooglePlusOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { TEXT } from '@constants/index';
 const { Link } = Anchor;
@@ -26,7 +26,11 @@ export const SignInContent: React.FC = () => {
                 name='username'
                 rules={[{ required: true, message: 'Please input your username!' }]}
             >
-                <Input size='large' className={styles[cn('input')]} addonBefore={TEXT.input.email.label} />
+                <Input
+                    size='large'
+                    className={styles[cn('input')]}
+                    addonBefore={TEXT.input.email.label}
+                />
             </Form.Item>
 
             <Form.Item
@@ -36,7 +40,13 @@ export const SignInContent: React.FC = () => {
                 <Input.Password
                     size='large'
                     placeholder={TEXT.input.password.placeholder}
-                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    iconRender={(visible) =>
+                        visible ? (
+                            <EyeOutlined style={{ color: 'var(--color-primary)' }} />
+                        ) : (
+                            <EyeInvisibleOutlined />
+                        )
+                    }
                 />
             </Form.Item>
 

@@ -17,7 +17,7 @@
     gap: 2.4rem;
 
     @media (max-width: 991px) {
-        margin: 12.5rem auto 0px;
+
         gap: 2.53rem;
     }
 
@@ -74,7 +74,7 @@
 }
 
 .container_sign_up {
-    position: absolute;
+    position: relative;
     margin: 169px auto 0px;
     left: 0;
     right: 0;

@@ -3,7 +3,7 @@ import cn from 'classnames';
 
 import styles from './signUpContent.module.scss';
 import { Button, Form, Input, Space } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone, GooglePlusOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { TEXT } from '@constants/index';
 
@@ -40,7 +40,7 @@ export const SignUpContent: React.FC = () => {
                     size='large'
                     className={styles[cn('input')]}
                     placeholder={TEXT.input.password.placeholder}
-                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    iconRender={(visible) => (visible ? <EyeOutlined style={{ color: 'var(--color-primary)' }} /> : <EyeInvisibleOutlined />)}
                 />
                 <span className={styles[cn('password_helper')]}>{TEXT.input.password.helper}</span>
             </Form.Item>
@@ -53,7 +53,13 @@ export const SignUpContent: React.FC = () => {
                     size='large'
                     className={styles[cn('input')]}
                     placeholder={TEXT.input.confirmPassword.placeholder}
-                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    iconRender={(visible) =>
+                        visible ? (
+                            <EyeOutlined style={{ color: 'var(--color-primary)' }} />
+                        ) : (
+                            <EyeInvisibleOutlined />
+                        )
+                    }
                 />
             </Form.Item>
 
