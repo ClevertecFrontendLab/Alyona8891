@@ -12,6 +12,7 @@ export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
+    const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
 
     const onFinish = (values: string) => {
         console.log('Received values of form: ', values);
@@ -27,7 +28,10 @@ export const SignUpContent: React.FC = () => {
     }
 
     function isValid() {
-        setIsDisabled(true);
+        if (isFirstValidation) {
+            setIsFirstValidation(false);
+            setIsDisabled(true);
+        }
         const fields = form
             .getFieldsError()
             .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
@@ -47,7 +51,7 @@ export const SignUpContent: React.FC = () => {
             }}
             autoComplete='off'
             requiredMark={false}
-            onChange={isValid}
+            onFieldsChange={isValid}
         >
             <Form.Item
                 shouldUpdate
@@ -70,7 +74,7 @@ export const SignUpContent: React.FC = () => {
             <Form.Item
                 name='password'
                 help={
-                    <span className={styles[cn('password_helper')]}>
+                    <span className={styles[cn(`password_helper`)]}>
                         {TEXT.input.password.helper}
                     </span>
                 }

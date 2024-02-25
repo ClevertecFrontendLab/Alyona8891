@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signInContent.module.scss';
@@ -6,15 +6,39 @@ import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { TEXT, VALIDATION_RULES } from '@constants/index';
+import { FieldError } from 'rc-field-form/es/interface';
 const { Link } = Anchor;
 
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
+    const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
 
     const onFinish = (values: string) => {
         console.log('Received values of form: ', values);
     };
+
+    function fieldIsEmpty(field: FieldError) {
+        const fieldValue = form.getFieldValue(field.name.join('.'));
+        return fieldValue === undefined || [].concat(fieldValue).join().trim() === '';
+    }
+
+    function fieldHasError(field: FieldError) {
+        return field.errors.length > 0;
+    }
+
+    function isValid() {
+        if (isFirstValidation) {
+            setIsFirstValidation(false);
+            setIsDisabled(true);
+        }
+        const fields = form
+            .getFieldsError()
+            .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
+        setIsDisabled(fields.length > 0);
+    }
+
 
     return (
         <Form
@@ -27,6 +51,7 @@ export const SignInContent: React.FC = () => {
             onFinish={onFinish}
             onFinishFailed={() => {}}
             autoComplete='off'
+            onFieldsChange={isValid}
         >
             <Form.Item
                 name='email'
@@ -94,6 +119,7 @@ export const SignInContent: React.FC = () => {
                         size='large'
                         type='primary'
                         htmlType='submit'
+                        disabled={isDisabled}
                     >
                         {TEXT.button.signIn}
                     </Button>
