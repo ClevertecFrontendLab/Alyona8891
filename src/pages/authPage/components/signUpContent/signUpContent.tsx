@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signUpContent.module.scss';
@@ -6,14 +6,33 @@ import { Button, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { TEXT, VALIDATION_RULES } from '@constants/index';
+import { FieldError } from 'rc-field-form/es/interface';
 
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
     const onFinish = (values: string) => {
         console.log('Received values of form: ', values);
     };
+
+    function fieldIsEmpty(field: FieldError) {
+        const fieldValue = form.getFieldValue(field.name.join('.'));
+        return fieldValue === undefined || [].concat(fieldValue).join().trim() === '';
+    }
+
+    function fieldHasError(field: FieldError) {
+        return field.errors.length > 0;
+    }
+
+    function isValid() {
+        setIsDisabled(true);
+        const fields = form
+            .getFieldsError()
+            .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
+        setIsDisabled(fields.length > 0);
+    }
 
     return (
         <Form
@@ -23,11 +42,15 @@ export const SignUpContent: React.FC = () => {
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            onFinishFailed={() => {}}
+            onFinishFailed={(error) => {
+                console.log({ error });
+            }}
             autoComplete='off'
             requiredMark={false}
+            onChange={isValid}
         >
             <Form.Item
+                shouldUpdate
                 name='email'
                 rules={[
                     { required: true, message: '' },
@@ -117,6 +140,7 @@ export const SignUpContent: React.FC = () => {
                         size='large'
                         type='primary'
                         htmlType='submit'
+                        disabled={isDisabled}
                     >
                         {TEXT.button.signIn}
                     </Button>

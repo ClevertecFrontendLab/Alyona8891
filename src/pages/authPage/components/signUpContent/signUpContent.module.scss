@@ -65,6 +65,15 @@
         .ant-form-item-label > label::after {
             display: none;
         }
+
+        .ant-input-group-wrapper-status-error .ant-input-group-addon {
+            color: var(--color-title);
+            border-right-color: var( --color-addon-border);
+
+        }
+        .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
+            border-left-color: var( --color-addon-border);
+        }
     }
 }
 
