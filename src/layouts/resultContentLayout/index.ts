@@ -1,0 +1,1 @@
+export { ResultContentLayout } from './resultContentLayout';

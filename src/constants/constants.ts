@@ -2,7 +2,13 @@ export enum RouterPath {
     MAIN = '/main',
     AUTH = '/auth',
     SIGN_IN = '/auth',
+    SIGN_IN_RESULT = '/auth/result',
+    SIGN_IN_RESULT_ERROR = '/auth/result/error-login',
     SIGN_UP = '/auth/registration',
+    SIGN_UP_RESULT = '/auth/registration/result',
+    SIGN_UP_RESULT_SUCCESS = '/auth/registration/result/success',
+    SIGN_UP_RESULT_ERROR_409 = '/auth/registration/result/error-user-exist',
+    SIGN_UP_RESULT_ERRORS = '/auth/registration/result/error',
 }
 
 export const TEXT = {

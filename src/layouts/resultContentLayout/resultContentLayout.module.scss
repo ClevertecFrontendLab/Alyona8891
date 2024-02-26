@@ -1,0 +1,43 @@
+.container {
+    position: relative;
+    margin: auto;
+    text-align: center;
+    width: 33.69rem;
+    height: fit-content;
+    border-radius: 0.125rem;
+    background-color: var(--backgroud-color-element);
+
+    @media (max-width: 580px) {
+        width: 95%;
+    }
+
+    @media (max-width: 400px) {
+        width: 20.5rem;
+    }
+
+    :global {
+        .ant-result-icon {
+            margin-bottom: 24px;
+        }
+
+        .ant-result {
+            padding: 4rem 2rem;
+
+            @media (max-width: 400px) {
+                padding: 2rem 1rem;
+            }
+        }
+
+        .ant-result-subtitle {
+            line-height: 1;
+        }
+
+        .ant-btn {
+            font-size: 0.875rem;
+            width: 368px;
+            @media (max-width: 580px) {
+                width: 100%;
+            }
+        }
+    }
+}
