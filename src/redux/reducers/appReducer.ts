@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 
 interface IAppSliceState {
     authPageContent: 'signIn' | 'signUp';
+    isLoading: boolean;
 }
 
 const initialState: IAppSliceState = {
     authPageContent: 'signIn',
+    isLoading: false,
 };
 
 export const appSlice = createSlice({
@@ -19,8 +21,11 @@ export const appSlice = createSlice({
                 state.authPageContent = 'signIn';
             }
         },
+        setIsLoading: (state, action) => {
+            state.isLoading = action.payload;
+        },
     },
 });
 
-export const { changeAuthPageContent } = appSlice.actions;
+export const { changeAuthPageContent, setIsLoading } = appSlice.actions;
 export const appReducer = appSlice.reducer;

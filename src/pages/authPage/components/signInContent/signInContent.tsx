@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signInContent.module.scss';
@@ -10,6 +10,8 @@ import { FieldError } from 'rc-field-form/es/interface';
 import { useSignInUserMutation } from '@redux/utils/api';
 import { ISignUpData } from '../../../../types';
 import { useNavigate } from 'react-router-dom';
+import { AppDispatch, useAppDispatch } from '@redux/configure-store';
+import { setIsLoading } from '@redux/reducers/appReducer';
 const { Link } = Anchor;
 
 export const SignInContent: React.FC = () => {
@@ -17,16 +19,26 @@ export const SignInContent: React.FC = () => {
     const [form] = Form.useForm();
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
-    const [signInUser] = useSignInUserMutation();
+    const [signInUser, { isLoading }] = useSignInUserMutation();
     const navigate = useNavigate();
+    const dispatch: AppDispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (isLoading) {
+            dispatch(setIsLoading(true));
+        } else {
+            dispatch(setIsLoading(false));
+        }
+    }, [dispatch, isLoading ]);
 
     const onFinish = (values: ISignUpData) => {
         console.log('Received values of form: ', values);
+
         signInUser({ email: values.email, password: values.password })
             .unwrap()
             .then((res) => {
                 localStorage.setItem('alyona8891_token', res.accessToken);
-                navigate(RouterPath.MAIN);      
+                navigate(RouterPath.MAIN);
             })
             .catch((status) => {
                 console.log(status);

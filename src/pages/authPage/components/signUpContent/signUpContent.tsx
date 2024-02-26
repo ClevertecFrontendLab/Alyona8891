@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signUpContent.module.scss';
@@ -11,16 +11,24 @@ import { useSignUpUserMutation } from '@redux/utils/api';
 import { ISignInData } from '../../../../types';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
-import { changeAuthPageContent } from '@redux/reducers/appReducer';
+import { changeAuthPageContent, setIsLoading } from '@redux/reducers/appReducer';
 
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
-    const [signUpUser] = useSignUpUserMutation();
+    const [signUpUser, { isLoading }] = useSignUpUserMutation();
     const navigate = useNavigate();
     const dispatch: AppDispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (isLoading) {
+            dispatch(setIsLoading(true));
+        } else {
+            dispatch(setIsLoading(false));
+        }
+    }, [dispatch, isLoading]);
 
     const onFinish = (values: ISignInData) => {
         console.log('Received values of form: ', values);
