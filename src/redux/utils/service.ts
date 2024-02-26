@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
 import axiosInstance from './interceptor';
-import { ISignInData } from '../../types';
+import { IUserData } from '../../types';
 
 type QueryOptions = {
     url: string;
@@ -8,7 +8,7 @@ type QueryOptions = {
     data?: AxiosRequestConfig['data'];
     params?: AxiosRequestConfig['params'];
     headers?: AxiosRequestConfig['headers'];
-    body?: ISignInData;
+    body?: IUserData;
 };
 
 export const axiosBaseQuery =

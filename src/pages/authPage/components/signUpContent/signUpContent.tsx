@@ -8,10 +8,11 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { FieldError } from 'rc-field-form/es/interface';
 import { useSignUpUserMutation } from '@redux/utils/api';
-import { ISignInData } from '../../../../types';
-import { useNavigate } from 'react-router-dom';
-import { AppDispatch, useAppDispatch } from '@redux/configure-store';
-import { changeAuthPageContent, setIsLoading } from '@redux/reducers/appReducer';
+import { ISignUpData } from '../../../../types';
+import { history } from '@redux/configure-store';
+import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
+import { setIsLoading, setUserData } from '@redux/reducers/appReducer';
+import { useSelector } from 'react-redux';
 
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
@@ -19,8 +20,9 @@ export const SignUpContent: React.FC = () => {
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
     const [signUpUser, { isLoading }] = useSignUpUserMutation();
-    const navigate = useNavigate();
     const dispatch: AppDispatch = useAppDispatch();
+    const userData = useSelector((state: RootState) => state.app.userData);
+    const router = useSelector((state: RootState) => state.router);
 
     useEffect(() => {
         if (isLoading) {
@@ -30,16 +32,17 @@ export const SignUpContent: React.FC = () => {
         }
     }, [dispatch, isLoading]);
 
-    const onFinish = (values: ISignInData) => {
-        console.log('Received values of form: ', values);
-        signUpUser({ email: values.email, password: values.password })
+    const onFinish = (values: ISignUpData) => {
+        const { email, password } = values;
+        dispatch(setUserData(values));
+        
+        signUpUser({ email, password })
             .unwrap()
             .then(() => {
-                dispatch(changeAuthPageContent());
-                navigate(RouterPath.SIGN_IN);                
+                history.push(RouterPath.SIGN_UP_RESULT_SUCCESS);            
             })
             .catch((status) => {
-                console.log(status);
+                history.push(RouterPath.SIGN_IN_RESULT_ERROR);
             });
     };
 

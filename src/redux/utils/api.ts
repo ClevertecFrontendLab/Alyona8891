@@ -1,13 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from './service';
-import { ISignInData } from '../../types';
+import { IUserData } from '../../types';
 
 export const apiService = createApi({
     reducerPath: 'apiService',
     baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         signUpUser: builder.mutation({
-            query: (formData: ISignInData) => ({
+            query: (formData: IUserData) => ({
                 url: '/auth/registration',
                 headers: { authorization: 'authorization' },
                 method: 'post',
@@ -15,7 +15,7 @@ export const apiService = createApi({
             }),
         }),
         signInUser: builder.mutation({
-            query: (formData: ISignInData) => ({
+            query: (formData: IUserData) => ({
                 url: '/auth/login',
                 headers: { authorization: 'authorization' },
                 method: 'post',

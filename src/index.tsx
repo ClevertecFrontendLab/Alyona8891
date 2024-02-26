@@ -34,17 +34,69 @@ root.render(
                                 <Result
                                     status='warning'
                                     title='Вход не выполнен'
-                                    subTitle="Что-то пошло не так. Попробуйте еще раз"
+                                    subTitle='Что-то пошло не так. Попробуйте еще раз'
                                     extra={
-                                        <ResultPageButton path={RouterPath.SIGN_IN} />
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN}
+                                            text='Повторить'
+                                        />
                                     }
                                 />
                             }
                         />
                     </Route>
-                    <Route path={RouterPath.SIGN_UP_RESULT_ERRORS} element={<ResultPage />} />
-                    <Route path={RouterPath.SIGN_UP_RESULT_ERROR_409} element={<ResultPage />} />
-                    <Route path={RouterPath.SIGN_UP_RESULT_SUCCESS} element={<ResultPage />} />
+                    <Route path={RouterPath.SIGN_UP_RESULT} element={<ResultPage />}>
+                        <Route
+                            path={RouterPath.SIGN_UP_RESULT_ERRORS}
+                            element={
+                                <Result
+                                    status='success'
+                                    title='Регистрация успешна'
+                                    subTitle='Что-то пошло не так. Попробуйте еще раз'
+                                    extra={
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN}
+                                            text='Повторить'
+                                        />
+                                    }
+                                />
+                            }
+                        />
+                        <Route
+                            path={RouterPath.SIGN_UP_RESULT_ERROR_409}
+                            element={
+                                <Result
+                                    status='warning'
+                                    title='Вход не выполнен'
+                                    subTitle='Что-то пошло не так. Попробуйте еще раз'
+                                    extra={
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN}
+                                            text='Повторить'
+                                        />
+                                    }
+                                />
+                            }
+                        />
+                        <Route
+                            path={RouterPath.SIGN_UP_RESULT_SUCCESS}
+                            element={
+                                <Result
+                                    status='success'
+                                    title='Регистрация успешна'
+                                    subTitle={
+                                        <>
+                                            <div>Регистрация прошла успешно. Зайдите</div>
+                                            <div>в приложение, используя свои e-mail и пароль.</div>
+                                        </>
+                                    }
+                                    extra={
+                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Войти' />
+                                    }
+                                />
+                            }
+                        />
+                    </Route>
                     <Route path={RouterPath.AUTH} element={<AuthPage />}>
                         <Route path={RouterPath.SIGN_IN} element={<SignInContent />} />
                         <Route path={RouterPath.SIGN_UP} element={<SignUpContent />} />

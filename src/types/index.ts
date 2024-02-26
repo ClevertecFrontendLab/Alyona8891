@@ -1,8 +1,12 @@
-export interface ISignInData {
+export interface IUserData {
     email: string;
     password: string;
 }
 
-export interface ISignUpData extends ISignInData {
+export interface ISignInData extends IUserData {
+    isRemembered?: boolean;
+}
+
+export interface ISignUpData extends IUserData {
     confirmPassword: string;
 }

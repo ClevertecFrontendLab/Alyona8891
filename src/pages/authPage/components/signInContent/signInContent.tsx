@@ -2,26 +2,25 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signInContent.module.scss';
-import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
+import { Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
+import { history } from '@redux/configure-store';
 import { FieldError } from 'rc-field-form/es/interface';
 import { useSignInUserMutation } from '@redux/utils/api';
-import { ISignUpData } from '../../../../types';
-import { useNavigate } from 'react-router-dom';
+import { ISignInData } from '../../../../types';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
-import { setIsLoading } from '@redux/reducers/appReducer';
-const { Link } = Anchor;
+import { setActiveToken, setIsLoading} from '@redux/reducers/appReducer';
 
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
-    const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
+    const [isFirstValidation, setIsFirstValidation] = useState<boolean>(false);
     const [signInUser, { isLoading }] = useSignInUserMutation();
-    const navigate = useNavigate();
     const dispatch: AppDispatch = useAppDispatch();
+    const [isRemembered, setIsRemembered] = useState(false);
 
     useEffect(() => {
         if (isLoading) {
@@ -29,19 +28,24 @@ export const SignInContent: React.FC = () => {
         } else {
             dispatch(setIsLoading(false));
         }
-    }, [dispatch, isLoading ]);
+    }, [dispatch, isLoading]);
 
-    const onFinish = (values: ISignUpData) => {
-        console.log('Received values of form: ', values);
 
-        signInUser({ email: values.email, password: values.password })
+    const onFinish = (values: ISignInData) => {
+        const { email, password } = values;
+        
+        signInUser({ email, password })
             .unwrap()
             .then((res) => {
-                localStorage.setItem('alyona8891_token', res.accessToken);
-                navigate(RouterPath.MAIN);
+                if (isRemembered) {
+                    localStorage.setItem('alyona8891_token', res.accessToken);
+                } else {
+                    dispatch(setActiveToken(res.accessToken));
+                }
+                history.push(RouterPath.MAIN);
             })
-            .catch((status) => {
-                console.log(status);
+            .catch(() => {
+                history.push(RouterPath.SIGN_IN_RESULT_ERROR);
             });
     };
 
@@ -123,12 +127,15 @@ export const SignInContent: React.FC = () => {
                 align='center'
                 size='large'
             >
-                <Checkbox defaultChecked>{TEXT.input.rememberMeCheckbox.label}</Checkbox>
-                <Anchor affix={false}>
-                    <Typography.Link>
-                        <Link href='' title={TEXT.link.forgetPassword} />
-                    </Typography.Link>
-                </Anchor>
+                <Form.Item>
+                    <Checkbox
+                        checked={isRemembered}
+                        onChange={() => setIsRemembered(!isRemembered)}
+                    >
+                        {TEXT.input.rememberMeCheckbox.label}
+                    </Checkbox>
+                </Form.Item>
+                <Typography.Link>{TEXT.link.forgetPassword}</Typography.Link>
             </Space>
 
             <Form.Item>
