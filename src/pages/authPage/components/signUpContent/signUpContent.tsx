@@ -5,17 +5,34 @@ import styles from './signUpContent.module.scss';
 import { Button, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { TEXT, VALIDATION_RULES } from '@constants/index';
+import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { FieldError } from 'rc-field-form/es/interface';
+import { useSignUpUserMutation } from '@redux/utils/api';
+import { ISignInData } from '../../../../types';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch, useAppDispatch } from '@redux/configure-store';
+import { changeAuthPageContent } from '@redux/reducers/appReducer';
 
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
+    const [signUpUser] = useSignUpUserMutation();
+    const navigate = useNavigate();
+    const dispatch: AppDispatch = useAppDispatch();
 
-    const onFinish = (values: string) => {
+    const onFinish = (values: ISignInData) => {
         console.log('Received values of form: ', values);
+        signUpUser({ email: values.email, password: values.password })
+            .unwrap()
+            .then(() => {
+                dispatch(changeAuthPageContent());
+                navigate(RouterPath.SIGN_IN);                
+            })
+            .catch((status) => {
+                console.log(status);
+            });
     };
 
     function fieldIsEmpty(field: FieldError) {

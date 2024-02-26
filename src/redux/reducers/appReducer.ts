@@ -1,5 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { EActiveKeys } from '../../types';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface IAppSliceState {
     authPageContent: 'signIn' | 'signUp';

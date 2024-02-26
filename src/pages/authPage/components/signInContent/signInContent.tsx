@@ -5,8 +5,11 @@ import styles from './signInContent.module.scss';
 import { Anchor, Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { TEXT, VALIDATION_RULES } from '@constants/index';
+import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { FieldError } from 'rc-field-form/es/interface';
+import { useSignInUserMutation } from '@redux/utils/api';
+import { ISignUpData } from '../../../../types';
+import { useNavigate } from 'react-router-dom';
 const { Link } = Anchor;
 
 export const SignInContent: React.FC = () => {
@@ -14,9 +17,20 @@ export const SignInContent: React.FC = () => {
     const [form] = Form.useForm();
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
+    const [signInUser] = useSignInUserMutation();
+    const navigate = useNavigate();
 
-    const onFinish = (values: string) => {
+    const onFinish = (values: ISignUpData) => {
         console.log('Received values of form: ', values);
+        signInUser({ email: values.email, password: values.password })
+            .unwrap()
+            .then((res) => {
+                localStorage.setItem('alyona8891_token', res.accessToken);
+                navigate(RouterPath.MAIN);      
+            })
+            .catch((status) => {
+                console.log(status);
+            });
     };
 
     function fieldIsEmpty(field: FieldError) {
@@ -39,7 +53,6 @@ export const SignInContent: React.FC = () => {
         setIsDisabled(fields.length > 0);
     }
 
-
     return (
         <Form
             form={form}
@@ -49,7 +62,6 @@ export const SignInContent: React.FC = () => {
             wrapperCol={{ span: 16 }}
             initialValues={{ remember: true }}
             onFinish={onFinish}
-            onFinishFailed={() => {}}
             autoComplete='off'
             onFieldsChange={isValid}
         >
@@ -74,7 +86,6 @@ export const SignInContent: React.FC = () => {
                 name='password'
                 rules={[
                     { required: true, message: '' },
-                    { min: 8, message: '' },
                     {
                         pattern: VALIDATION_RULES.password,
                         message: '',

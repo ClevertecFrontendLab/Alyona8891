@@ -1,4 +1,8 @@
-export enum EActiveKeys {
-    signIn = '1',
-    signUp = '2',
+export interface ISignInData {
+    email: string;
+    password: string;
+}
+
+export interface ISignUpData extends ISignInData {
+    confirmPassword: string;
 }
