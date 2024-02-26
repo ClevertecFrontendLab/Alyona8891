@@ -1,16 +1,15 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { HistoryRouter } from 'redux-first-history/rr6';
+import { HistoryRouter as Router } from 'redux-first-history/rr6';
 import { Route, Routes } from 'react-router-dom';
 
 import { store, history } from '@redux/configure-store';
 import { MainPage } from './pages';
 
-//import 'antd/dist/antd.css';
 import 'normalize.css';
 import './index.css';
-import '../src/constants/themes/customized.css'
+import '../src/constants/themes/customized.css';
 import { RouterPath } from './constants';
 import { AuthPage } from '@pages/authPage';
 import { SignInContent } from '@pages/authPage/components/signInContent';
@@ -22,7 +21,7 @@ const root = createRoot(domNode);
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-            <HistoryRouter history={history}>
+            <Router history={history}>
                 <Routes>
                     <Route index={true} path={RouterPath.MAIN} element={<MainPage />} />
                     <Route path={RouterPath.AUTH} element={<AuthPage />}>
@@ -30,7 +29,7 @@ root.render(
                         <Route path={RouterPath.SIGN_UP} element={<SignUpContent />} />
                     </Route>
                 </Routes>
-            </HistoryRouter>
+            </Router>
         </Provider>
     </React.StrictMode>,
 );
