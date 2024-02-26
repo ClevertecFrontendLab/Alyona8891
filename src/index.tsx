@@ -50,12 +50,12 @@ root.render(
                             path={RouterPath.SIGN_UP_RESULT_ERRORS}
                             element={
                                 <Result
-                                    status='success'
-                                    title='Регистрация успешна'
+                                    status='error'
+                                    title='Данные не сохранились'
                                     subTitle='Что-то пошло не так. Попробуйте еще раз'
                                     extra={
                                         <ResultPageButton
-                                            path={RouterPath.SIGN_IN}
+                                            path={RouterPath.SIGN_UP}
                                             text='Повторить'
                                         />
                                     }
@@ -66,13 +66,20 @@ root.render(
                             path={RouterPath.SIGN_UP_RESULT_ERROR_409}
                             element={
                                 <Result
-                                    status='warning'
-                                    title='Вход не выполнен'
-                                    subTitle='Что-то пошло не так. Попробуйте еще раз'
+                                    status='error'
+                                    title='Данные не сохранились'
+                                    subTitle={
+                                        <>
+                                            <div>
+                                                Такой e-mail уже записан в системе. Попробуйте
+                                            </div>
+                                            <div>зарегистрироваться по другому e-mail.</div>
+                                        </>
+                                    }
                                     extra={
                                         <ResultPageButton
-                                            path={RouterPath.SIGN_IN}
-                                            text='Повторить'
+                                            path={RouterPath.SIGN_UP}
+                                            text='Назад к регистрации'
                                         />
                                     }
                                 />
@@ -86,12 +93,15 @@ root.render(
                                     title='Регистрация успешна'
                                     subTitle={
                                         <>
-                                            <div>Регистрация прошла успешно. Зайдите</div>
-                                            <div>в приложение, используя свои e-mail и пароль.</div>
+                                            <div>Что-то пошло не так и ваша регистрация</div>
+                                            <div>не завершилась. Попробуйте ещё раз.</div>
                                         </>
                                     }
                                     extra={
-                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Войти' />
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN}
+                                            text='Войти'
+                                        />
                                     }
                                 />
                             }

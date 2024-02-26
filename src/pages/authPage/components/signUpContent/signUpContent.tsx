@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signUpContent.module.scss';
@@ -32,19 +32,39 @@ export const SignUpContent: React.FC = () => {
         }
     }, [dispatch, isLoading]);
 
-    const onFinish = (values: ISignUpData) => {
-        const { email, password } = values;
-        dispatch(setUserData(values));
-        
-        signUpUser({ email, password })
-            .unwrap()
-            .then(() => {
-                history.push(RouterPath.SIGN_UP_RESULT_SUCCESS);            
-            })
-            .catch((status) => {
-                history.push(RouterPath.SIGN_IN_RESULT_ERROR);
-            });
-    };
+    const onFinish = useCallback(
+        (values: ISignUpData) => {
+            const { email, password } = values;
+            dispatch(setUserData(values));
+
+            signUpUser({ email, password })
+                .unwrap()
+                .then(() => {
+                    history.push(RouterPath.SIGN_UP_RESULT_SUCCESS);
+                })
+                .catch((status) => {
+                    if (status.message === '409') {
+                        history.push(RouterPath.SIGN_UP_RESULT_ERROR_409);
+                        return;
+                    } else {
+                        history.push(RouterPath.SIGN_UP_RESULT_ERRORS);
+                    }
+                });
+        },
+        [dispatch, signUpUser],
+    );
+
+    useEffect(() => {
+        console.log(router);
+        if (
+            userData &&
+            router.previousLocations &&
+            router.previousLocations?.length > 0 &&
+            router.previousLocations[1].location?.pathname === RouterPath.SIGN_UP_RESULT_ERRORS
+        ) {
+            onFinish(userData);
+        }
+    }, [onFinish, router, router.previousLocations, userData]);
 
     function fieldIsEmpty(field: FieldError) {
         const fieldValue = form.getFieldValue(field.name.join('.'));
@@ -72,7 +92,7 @@ export const SignUpContent: React.FC = () => {
             className={styles[cn('form')]}
             name='register'
             wrapperCol={{ span: 16 }}
-            initialValues={{ remember: true }}
+            initialValues={userData ? userData : undefined}
             onFinish={onFinish}
             onFinishFailed={(error) => {
                 console.log({ error });

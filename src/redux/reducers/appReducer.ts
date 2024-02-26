@@ -19,12 +19,8 @@ export const appSlice = createSlice({
     name: 'appData',
     initialState,
     reducers: {
-        changeAuthPageContent: (state) => {
-            if (state.authPageContent === 'signIn') {
-                state.authPageContent = 'signUp';
-            } else {
-                state.authPageContent = 'signIn';
-            }
+        setAuthPageContent: (state, action) => {
+            state.authPageContent = action.payload;
         },
         setIsLoading: (state, action) => {
             state.isLoading = action.payload;
@@ -38,6 +34,6 @@ export const appSlice = createSlice({
     },
 });
 
-export const { changeAuthPageContent, setIsLoading, setUserData, setActiveToken } =
+export const { setAuthPageContent, setIsLoading, setUserData, setActiveToken } =
     appSlice.actions;
 export const appReducer = appSlice.reducer;

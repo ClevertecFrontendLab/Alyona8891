@@ -8,6 +8,7 @@ import { createReduxHistoryContext } from 'redux-first-history';
 
 const { createReduxHistory, routerMiddleware, routerReducer } = createReduxHistoryContext({
     history: createBrowserHistory(),
+    savePreviousLocations:100,
 });
 
 export const store = configureStore({
