@@ -36,10 +36,12 @@ export const ConfirmPasswordContent = () => {
             });
     };
 
-    return isConfirmedWithError ? (
+    return (
         <Result
-            status='error'
-            title={CONFIRM_PASSWORD.error.title}
+            status={isConfirmedWithError ? 'error' : undefined}
+            title={
+                isConfirmedWithError ? CONFIRM_PASSWORD.error.title : CONFIRM_PASSWORD.content.title
+            }
             subTitle={
                 <>
                     <div>
@@ -69,42 +71,6 @@ export const ConfirmPasswordContent = () => {
                     />
                     <div style={{ fontSize: '0.875rem', color: 'var(--color-info)' }}>
                         {CONFIRM_PASSWORD.error.subtitle.part3}
-                    </div>
-                </>
-            }
-        />
-    ) : (
-        <Result
-            title={CONFIRM_PASSWORD.content.title}
-            subTitle={
-                <>
-                    <div>
-                        {CONFIRM_PASSWORD.content.subtitle.part1}{' '}
-                        <span style={{ fontWeight: '700' }}>{email}</span>
-                    </div>
-                    <div>{CONFIRM_PASSWORD.content.subtitle.part2}</div>
-                </>
-            }
-            extra={
-                <>
-                    <VerificationInput
-                        inputProps={{ 'data-test-id': 'verification-input' }}
-                        onComplete={(code: string) => {
-                            handleCompletingInputs(code);
-                        }}
-                        value={value}
-                        onChange={(val) => setValue(val)}
-                        classNames={{
-                            container: styles[cn('container')],
-                            character: styles[cn('character')],
-                            characterInactive: styles[cn('character--inactive')],
-                            characterSelected: styles[cn('character--selected')],
-                            characterFilled: styles[cn('character--filled')],
-                        }}
-                        placeholder=''
-                    />
-                    <div style={{ fontSize: '0.875rem', color: 'var(--color-info)' }}>
-                        {CONFIRM_PASSWORD.content.subtitle.part3}
                     </div>
                 </>
             }
