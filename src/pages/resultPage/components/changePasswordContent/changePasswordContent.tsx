@@ -31,9 +31,7 @@ export const ChangePasswordContent = () => {
 
     const onFinish = useCallback(
         (values: { password: string; confirmPassword: string }) => {
-            console.log(values.password)
             dispatch(setNewPassword(values.password));
-            console.log(values.password)
 
             changePassword(values)
                 .unwrap()

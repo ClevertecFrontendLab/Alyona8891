@@ -6,7 +6,6 @@ import { Button, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
-import { FieldError } from 'rc-field-form/es/interface';
 import { useSignUpUserMutation } from '@redux/utils/api';
 import { ISignUpData } from '../../../../types';
 import { history } from '@redux/configure-store';
@@ -17,7 +16,6 @@ import { useSelector } from 'react-redux';
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
-    const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
     const [signUpUser, { isLoading }] = useSignUpUserMutation();
     const dispatch: AppDispatch = useAppDispatch();
@@ -66,24 +64,10 @@ export const SignUpContent: React.FC = () => {
         }
     }, [onFinish, router, router.previousLocations, userData]);
 
-    function fieldIsEmpty(field: FieldError) {
-        const fieldValue = form.getFieldValue(field.name.join('.'));
-        return fieldValue === undefined || [].concat(fieldValue).join().trim() === '';
-    }
-
-    function fieldHasError(field: FieldError) {
-        return field.errors.length > 0;
-    }
-
     function isValid() {
         if (isFirstValidation) {
             setIsFirstValidation(false);
-            setIsDisabled(true);
         }
-        const fields = form
-            .getFieldsError()
-            .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
-        setIsDisabled(fields.length > 0);
     }
 
     return (
