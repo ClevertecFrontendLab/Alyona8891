@@ -40,7 +40,14 @@ export const ConfirmPasswordContent = () => {
         <Result
             status={isConfirmedWithError ? 'error' : undefined}
             title={
-                isConfirmedWithError ? CONFIRM_PASSWORD.error.title : CONFIRM_PASSWORD.content.title
+                <>
+                    <div style={{lineHeight: '1.5'}}>
+                        {isConfirmedWithError
+                            ? CONFIRM_PASSWORD.error.title.part1
+                            : CONFIRM_PASSWORD.content.title.part1}{' '}
+                    </div>
+                    <div style={{lineHeight: '1.5'}}>{CONFIRM_PASSWORD.error.title.part2}</div>
+                </>
             }
             subTitle={
                 <>
@@ -62,7 +69,8 @@ export const ConfirmPasswordContent = () => {
                         onChange={(val) => setValue(val)}
                         classNames={{
                             container: styles[cn('container')],
-                            character: styles[cn('character--error')],
+                            character:
+                                styles[cn(isConfirmedWithError ? 'character--error' : 'character')],
                             characterInactive: styles[cn('character--inactive')],
                             characterSelected: styles[cn('character--selected')],
                             characterFilled: styles[cn('character--filled')],

@@ -92,7 +92,9 @@ export const ChangePasswordContent = () => {
             requiredMark={false}
             onFieldsChange={isValid}
         >
-            <Title level={3}>{CHANGE_PASSWORD_CONTENT.title}</Title>
+            <Form.Item>
+                <Title level={3}>{CHANGE_PASSWORD_CONTENT.title}</Title>
+            </Form.Item>
             <Form.Item
                 name='password'
                 help={

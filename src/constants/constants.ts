@@ -59,7 +59,7 @@ export const CHANGE_PASSWORD_CONTENT = {
 
 export const CONFIRM_PASSWORD = {
     error: {
-        title: 'Неверный код. Введите код для восстановления аккауанта',
+        title: { part1: 'Неверный код. Введите код', part2: 'для восстановления аккауанта' },
         subtitle: {
             part1: 'Мы отправили вам на e-mail',
             part2: 'шестизначный код. Введите его в поле ниже.',
@@ -67,7 +67,7 @@ export const CONFIRM_PASSWORD = {
         },
     },
     content: {
-        title: 'Введите код для восстановления аккауанта',
+        title: { part1: 'Введите код', part2: 'для восстановления аккауанта' },
         subtitle: {
             part1: 'Мы отправили вам на e-mail',
             part2: 'шестизначный код. Введите его в поле ниже.',
