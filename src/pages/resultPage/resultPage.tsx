@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
-import { AuthLayout } from '../../layouts/authLayout/';
-import { ResultContentLayout } from '../../layouts/resultContentLayout';
 import { RootState } from '@redux/configure-store';
-import { Loader } from '../../UI/loader';
+import { Loader } from '@ui/loader';
+import { AuthLayout } from '@layouts/authLayout';
+import { ResultContentLayout } from '@layouts/resultContentLayout';
+
 
 export const ResultPage: React.FC = () => {
     const isLoading = useSelector((state: RootState) => state.app.isLoading);

@@ -1,9 +1,8 @@
-import React from 'react';
-import { AuthLayout } from '../../layouts/authLayout';
-import { AuthContentLayout } from '../../layouts/authContentLayout';
-import { Loader } from '../../UI/loader';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
+import { Loader } from '@ui/loader';
+import { AuthContentLayout } from '@layouts/authContentLayout';
+import { AuthLayout } from '@layouts/authLayout';
 
 export const AuthPage: React.FC = () => {
     const isLoading = useSelector((state: RootState) => state.app.isLoading);

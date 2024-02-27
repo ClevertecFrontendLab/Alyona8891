@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './mainPage.module.scss';
@@ -7,7 +7,8 @@ import { SiderComponent } from './components/siderComponent';
 import { HeaderComponent } from './components/headerComponent';
 import { ContentComponent } from './components/contentComponent';
 import { FooterComponent } from './components/footerComponent';
-import { Loader } from '../../UI/loader';
+import { Loader } from '@ui/loader';
+
 
 export const MainPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
