@@ -12,6 +12,8 @@ import React, { useState } from 'react';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './siderComponent.module.scss';
+import { history } from '@redux/configure-store';
+import { RouterPath } from '@constants/constants';
 
 const MENU_ITEMS = [
     {
@@ -48,9 +50,18 @@ export const SiderComponent: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const breakpoint = useBreakpoint();
 
+
     const handleSiderButton = () => {
         setCollapsed(!collapsed);
     };
+
+    const handleExitButton = () => {
+        sessionStorage.clear();
+        localStorage.clear();
+        history.push(RouterPath.SIGN_IN);
+    }
+
+
     return (
         <Sider
             className={styles[cn('sider')]}
@@ -123,6 +134,7 @@ export const SiderComponent: React.FC = () => {
                     lineHeight: '1rem',
                 }}
                 className={styles[cn('exit_button')]}
+                onClick={handleExitButton}
                 type='text'
             >
                 {collapsed || !breakpoint.xs  && (
