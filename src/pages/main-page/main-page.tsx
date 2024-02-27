@@ -7,7 +7,7 @@ import { SiderComponent } from './components/siderComponent';
 import { HeaderComponent } from './components/headerComponent';
 import { ContentComponent } from './components/contentComponent';
 import { FooterComponent } from './components/footerComponent';
-import { Loader } from '@ui/loader';
+import { LoaderComponent as Loader } from '@ui/loader';
 
 
 export const MainPage: React.FC = () => {
