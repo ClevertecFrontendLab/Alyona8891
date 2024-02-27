@@ -7,7 +7,6 @@ import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-desi
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { RootState, history } from '@redux/configure-store';
-import { FieldError } from 'rc-field-form/es/interface';
 import { useCheckEmailMutation, useSignInUserMutation } from '@redux/utils/api';
 import { ISignInData } from '../../../../types';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
@@ -17,8 +16,6 @@ import { useSelector } from 'react-redux';
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const [form] = Form.useForm();
-    const [isDisabled, setIsDisabled] = useState<boolean>(false);
-    const [isFirstValidation, setIsFirstValidation] = useState<boolean>(false);
     const [signInUser, { isLoading }] = useSignInUserMutation();
     const [checkEmail, { isLoading: isLoadingChecking }] = useCheckEmailMutation();
     const dispatch: AppDispatch = useAppDispatch();
@@ -35,81 +32,70 @@ export const SignInContent: React.FC = () => {
         }
     }, [dispatch, isLoading, isLoadingChecking]);
 
-    const onFinish = useCallback((values: ISignInData) => {
-        const { email, password } = values;
+    const onFinish = useCallback(
+        (values: ISignInData) => {
+            const { email, password } = values;
 
-        signInUser({ email, password })
-            .unwrap()
-            .then((res) => {
-                if (isRemembered) {
-                    localStorage.setItem('alyona8891_token', res.accessToken);
+            signInUser({ email, password })
+                .unwrap()
+                .then((res) => {
+                    if (isRemembered) {
+                        localStorage.setItem('alyona8891_token', res.accessToken);
+                    } else {
+                        sessionStorage.setItem('alyona8891_token', res.accessToken);
+                    }
+                    history.push(RouterPath.MAIN);
+                })
+                .catch(() => {
+                    history.push(RouterPath.SIGN_IN_RESULT_ERROR);
+                });
+        },
+        [isRemembered, signInUser],
+    );
+
+    const handleChangePassword = useCallback(
+        (email?: string) => {
+            if (isEmailValidated) {
+                let changingEmail;
+                if (email) {
+                    changingEmail = email;
                 } else {
-                    sessionStorage.setItem('alyona8891_token', res.accessToken);
+                    changingEmail = form.getFieldValue('email') as string;
+                    dispatch(setUserLoginData(changingEmail));
                 }
-                history.push(RouterPath.MAIN);
-            })
-            .catch(() => {
-                history.push(RouterPath.SIGN_IN_RESULT_ERROR);
-            });
-    }, [isRemembered, signInUser]);
 
-    const handleChangePassword = useCallback((email?: string) => {
-        let changingEmail;
-        if(email) {
-            changingEmail = email;
-        } else {
-            changingEmail = form.getFieldValue('email') as string;
-            dispatch(setUserLoginData(changingEmail));
-        }
-        console.log(changingEmail)
-
-        checkEmail({email: changingEmail })
-            .unwrap()
-            .then(() => {
-                history.push(RouterPath.SIGN_IN_CONFIRM_EMAIL);
-            })
-            .catch((error) => {
-                if (error.status === 404 && error.data.message === 'Email не найден') {
-                    history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404);
-                } else {
-                    history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERRORS);
-                }
-            });
-    }, [checkEmail, dispatch, form]);
+                checkEmail({ email: changingEmail })
+                    .unwrap()
+                    .then(() => {
+                        history.push(RouterPath.SIGN_IN_CONFIRM_EMAIL);
+                    })
+                    .catch((error) => {
+                        if (error.status === 404 && error.data.message === 'Email не найден') {
+                            history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404);
+                        } else {
+                            history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERRORS);
+                        }
+                    });
+            }
+        },
+        [checkEmail, dispatch, form, isEmailValidated],
+    );
 
     useEffect(() => {
         if (
             userLoginData &&
             router.previousLocations &&
             router.previousLocations?.length > 1 &&
-            router.previousLocations[1].location?.pathname === RouterPath.SIGN_IN_RESULT_CHECK_ERRORS
+            router.previousLocations[1].location?.pathname ===
+                RouterPath.SIGN_IN_RESULT_CHECK_ERRORS
         ) {
+            setisEmailValidated(true);
             handleChangePassword(userLoginData);
         }
     }, [handleChangePassword, router, router.previousLocations, userLoginData]);
 
-    function fieldIsEmpty(field: FieldError) {
-        const fieldValue = form.getFieldValue(field.name.join('.'));
-        return fieldValue === undefined || [].concat(fieldValue).join().trim() === '';
-    }
-
-    function fieldHasError(field: FieldError) {
-        return field.errors.length > 0;
-    }
-
     function fieldEmailHasError() {
-        setisEmailValidated(form.getFieldError('email').length > 0);
-    }
-
-    function isValid() {
-        if (isFirstValidation) {
-            setIsFirstValidation(false);
-            setIsDisabled(true);
-        }
-        const fields = form
-            .getFieldsError()
-            .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
-        setIsDisabled(fields.length > 0);
+        setisEmailValidated(!(form.getFieldError('email').length > 0));
     }
 
     return (
@@ -123,7 +109,6 @@ export const SignInContent: React.FC = () => {
             onFinish={onFinish}
             autoComplete='off'
             onFieldsChange={() => {
-                isValid();
                 fieldEmailHasError();
             }}
         >
@@ -138,6 +123,7 @@ export const SignInContent: React.FC = () => {
                 ]}
             >
                 <Input
+                    data-test-id='login-email'
                     size='large'
                     className={styles[cn('input')]}
                     addonBefore={TEXT.input.email.label}
@@ -155,6 +141,7 @@ export const SignInContent: React.FC = () => {
                 ]}
             >
                 <Input.Password
+                    data-test-id='login-password'
                     size='large'
                     placeholder={TEXT.input.password.placeholder}
                     iconRender={(visible) =>
@@ -175,13 +162,17 @@ export const SignInContent: React.FC = () => {
             >
                 <Form.Item>
                     <Checkbox
+                        data-test-id='login-remember'
                         checked={isRemembered}
                         onChange={() => setIsRemembered(!isRemembered)}
                     >
                         {TEXT.input.rememberMeCheckbox.label}
                     </Checkbox>
                 </Form.Item>
-                <Typography.Link onClick={() => handleChangePassword()} disabled={isEmailValidated}>
+                <Typography.Link
+                    data-test-id='login-forgot-button'
+                    onClick={() => handleChangePassword()}
+                >
                     {TEXT.link.forgetPassword}
                 </Typography.Link>
             </Space>
@@ -193,11 +184,11 @@ export const SignInContent: React.FC = () => {
                     size='middle'
                 >
                     <Button
+                        data-test-id='login-submit-button'
                         className={styles[cn('button')]}
                         size='large'
                         type='primary'
                         htmlType='submit'
-                        disabled={isDisabled}
                     >
                         {TEXT.button.signIn}
                     </Button>

@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { HistoryRouter as Router } from 'redux-first-history/rr6';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { store, history } from '@redux/configure-store';
 import { MainPage } from './pages';
@@ -19,6 +19,12 @@ import { ResultPage } from '@pages/resultPage/';
 import { ResultPageButton } from '@pages/resultPage/components/button';
 import { ConfirmPasswordContent } from '@pages/resultPage/components/confirmPasswordContent';
 import { ChangePasswordContent } from '@pages/resultPage/components/changePasswordContent';
+
+const AuthRedirect = () => {
+    const isAuthenticated = localStorage.getItem('alyona8891_token');
+
+    return isAuthenticated ? <Navigate to='/main' replace /> : <Navigate to='/auth' replace />;
+};
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -46,6 +52,7 @@ root.render(
                                     subTitle='Что-то пошло не так. Попробуйте ещё раз'
                                     extra={
                                         <ResultPageButton
+                                            data='change-retry-button'
                                             path={RouterPath.SIGN_IN_CHANGE_PASSWORD}
                                             text='Повторить'
                                         />
@@ -66,7 +73,11 @@ root.render(
                                         </>
                                     }
                                     extra={
-                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Вход' />
+                                        <ResultPageButton
+                                            data='change-entry-button'
+                                            path={RouterPath.SIGN_IN}
+                                            text='Вход'
+                                        />
                                     }
                                 />
                             }
@@ -87,6 +98,7 @@ root.render(
                                     subTitle='Что-то пошло не так. Попробуйте еще раз'
                                     extra={
                                         <ResultPageButton
+                                            data='login-retry-button'
                                             path={RouterPath.SIGN_IN}
                                             text='Повторить'
                                         />
@@ -103,6 +115,7 @@ root.render(
                                     subTitle='Мы не нашли в базе вашего e-mail. Попробуйте войти с другим e-mail.'
                                     extra={
                                         <ResultPageButton
+                                            data='check-retry-button'
                                             path={RouterPath.SIGN_IN}
                                             text='Попробовать снова'
                                         />
@@ -118,7 +131,11 @@ root.render(
                                     title='Что-то пошло не так'
                                     subTitle='Произошла ошибка, попробуйте отправить форму ещё раз.'
                                     extra={
-                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Назад' />
+                                        <ResultPageButton
+                                            data='check-back-button'
+                                            path={RouterPath.SIGN_IN}
+                                            text='Назад'
+                                        />
                                     }
                                 />
                             }
@@ -134,6 +151,7 @@ root.render(
                                     subTitle='Что-то пошло не так. Попробуйте еще раз'
                                     extra={
                                         <ResultPageButton
+                                            data='registration-retry-button'
                                             path={RouterPath.SIGN_UP}
                                             text='Повторить'
                                         />
@@ -157,6 +175,7 @@ root.render(
                                     }
                                     extra={
                                         <ResultPageButton
+                                            data='registration-back-button'
                                             path={RouterPath.SIGN_UP}
                                             text='Назад к регистрации'
                                         />
@@ -177,7 +196,11 @@ root.render(
                                         </>
                                     }
                                     extra={
-                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Войти' />
+                                        <ResultPageButton
+                                            data='registration-enter-button'
+                                            path={RouterPath.SIGN_IN}
+                                            text='Войти'
+                                        />
                                     }
                                 />
                             }
@@ -187,6 +210,7 @@ root.render(
                         <Route path={RouterPath.SIGN_IN} element={<SignInContent />} />
                         <Route path={RouterPath.SIGN_UP} element={<SignUpContent />} />
                     </Route>
+                    <Route path='/' element={<AuthRedirect />} />
                 </Routes>
             </Router>
         </Provider>

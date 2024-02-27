@@ -39,7 +39,7 @@ export const appSlice = createSlice({
             state.activeToken = action.payload;
         },
         setNewPassword: (state, action) => {
-            state.activeToken = action.payload;
+            state.newPassword = action.payload;
         },
     },
 });

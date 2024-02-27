@@ -14,6 +14,7 @@ export const ConfirmPasswordContent = () => {
     const [confirmEmail, { isLoading }] = useConfirmEmailMutation();
     const dispatch: AppDispatch = useAppDispatch();
     const email = useSelector((state: RootState) => state.app.userLoginData) as string;
+    const [value, setValue] = useState('');
 
     useEffect(() => {
         if (isLoading) {
@@ -31,6 +32,7 @@ export const ConfirmPasswordContent = () => {
             })
             .catch(() => {
                 setIsConfirmedWithError(true);
+                setValue('');
             });
     };
 
@@ -50,7 +52,12 @@ export const ConfirmPasswordContent = () => {
             extra={
                 <>
                     <VerificationInput
-                    onComplete={(code: string) => {handleCompletingInputs(code)}}
+                        inputProps={{ 'data-test-id': 'verification-input' }}
+                        onComplete={(code: string) => {
+                            handleCompletingInputs(code);
+                        }}
+                        value={value}
+                        onChange={(val) => setValue(val)}
                         classNames={{
                             container: styles[cn('container')],
                             character: styles[cn('character--error')],
@@ -81,7 +88,12 @@ export const ConfirmPasswordContent = () => {
             extra={
                 <>
                     <VerificationInput
-                    onComplete={(code: string) => {handleCompletingInputs(code)}}
+                        inputProps={{ 'data-test-id': 'verification-input' }}
+                        onComplete={(code: string) => {
+                            handleCompletingInputs(code);
+                        }}
+                        value={value}
+                        onChange={(val) => setValue(val)}
                         classNames={{
                             container: styles[cn('container')],
                             character: styles[cn('character')],

@@ -40,6 +40,7 @@ export const SignUpContent: React.FC = () => {
             signUpUser({ email, password })
                 .unwrap()
                 .then(() => {
+                    dispatch(setUserData(null));
                     history.push(RouterPath.SIGN_UP_RESULT_SUCCESS);
                 })
                 .catch((error) => {
@@ -91,7 +92,6 @@ export const SignUpContent: React.FC = () => {
             className={styles[cn('form')]}
             name='register'
             wrapperCol={{ span: 16 }}
-            initialValues={userData ? userData : undefined}
             onFinish={onFinish}
             onFinishFailed={(error) => {
                 console.log({ error });
@@ -112,6 +112,7 @@ export const SignUpContent: React.FC = () => {
                 ]}
             >
                 <Input
+                    data-test-id='registration-email'
                     size='large'
                     className={styles[cn('input')]}
                     addonBefore={TEXT.input.email.label}
@@ -135,6 +136,7 @@ export const SignUpContent: React.FC = () => {
                 ]}
             >
                 <Input.Password
+                    data-test-id='registration-password'
                     size='large'
                     className={styles[cn('input')]}
                     placeholder={TEXT.input.password.placeholder}
@@ -167,6 +169,7 @@ export const SignUpContent: React.FC = () => {
                 ]}
             >
                 <Input.Password
+                    data-test-id='registration-confirm-password'
                     size='large'
                     className={styles[cn('input')]}
                     placeholder={TEXT.input.confirmPassword.placeholder}
@@ -187,11 +190,11 @@ export const SignUpContent: React.FC = () => {
                     size='middle'
                 >
                     <Button
+                        data-test-id='registration-submit-button'
                         className={styles[cn('button')]}
                         size='large'
                         type='primary'
                         htmlType='submit'
-                        disabled={isDisabled}
                     >
                         {TEXT.button.signIn}
                     </Button>

@@ -6,11 +6,10 @@ import { FieldError } from 'rc-field-form/es/interface';
 import styles from './changePasswordContent.module.scss';
 import { useChangePasswordMutation } from '@redux/utils/api';
 import { useCallback, useEffect, useState } from 'react';
-import { setIsLoading } from '@redux/reducers/appReducer';
+import { setIsLoading, setNewPassword } from '@redux/reducers/appReducer';
 import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/constants';
 import Title from 'antd/lib/typography/Title';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
-
 
 export const ChangePasswordContent = () => {
     const [changePassword, { isLoading }] = useChangePasswordMutation();
@@ -18,8 +17,8 @@ export const ChangePasswordContent = () => {
     const [form] = Form.useForm();
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
-    
-    const newPassword = useSelector((state: RootState) => state.app.newPassword) as string;
+
+    const newPassword = useSelector((state: RootState) => state.app.newPassword);
     const router = useSelector((state: RootState) => state.router);
 
     useEffect(() => {
@@ -30,26 +29,35 @@ export const ChangePasswordContent = () => {
         }
     }, [dispatch, isLoading]);
 
-    const onFinish = useCallback((values: {password: string, confirmPassword: string}) => {
-        
-        changePassword(values)
-            .unwrap()
-            .then(() => {
-                history.push(RouterPath.SIGN_IN_CHANGE_PASSWORD_SUCCESS);
-            })
-            .catch(() => {
-                history.push(RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS);
-            });
-    }, [changePassword]);
+    const onFinish = useCallback(
+        (values: { password: string; confirmPassword: string }) => {
+            console.log(values.password)
+            dispatch(setNewPassword(values.password));
+            console.log(values.password)
+
+            changePassword(values)
+                .unwrap()
+                .then(() => {
+                    dispatch(setNewPassword(values.password));
+                    history.push(RouterPath.SIGN_IN_CHANGE_PASSWORD_SUCCESS);
+                })
+                .catch(() => {
+                    history.push(RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS);
+                });
+        },
+        [changePassword, dispatch],
+    );
 
     useEffect(() => {
+        console.log(newPassword)
         if (
             newPassword &&
             router.previousLocations &&
             router.previousLocations?.length > 0 &&
-            router.previousLocations[1].location?.pathname === RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS
+            router.previousLocations[1].location?.pathname ===
+                RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS
         ) {
-            onFinish({password: newPassword, confirmPassword: newPassword});
+            onFinish({ password: newPassword, confirmPassword: newPassword });
         }
     }, [newPassword, onFinish, router, router.previousLocations]);
 
@@ -72,7 +80,6 @@ export const ChangePasswordContent = () => {
             .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
         setIsDisabled(fields.length > 0);
     }
-
 
     return (
         <Form
@@ -106,6 +113,7 @@ export const ChangePasswordContent = () => {
                 ]}
             >
                 <Input.Password
+                    data-test-id='change-password'
                     size='large'
                     className={styles[cn('input')]}
                     placeholder='Новый пароль'
@@ -138,6 +146,7 @@ export const ChangePasswordContent = () => {
                 ]}
             >
                 <Input.Password
+                    data-test-id='change-confirm-password'
                     size='large'
                     className={styles[cn('input')]}
                     placeholder='Повторите пароль'
@@ -153,6 +162,7 @@ export const ChangePasswordContent = () => {
 
             <Form.Item>
                 <Button
+                    data-test-id='change-submit-button'
                     className={styles[cn('button')]}
                     size='large'
                     type='primary'

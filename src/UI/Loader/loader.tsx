@@ -8,7 +8,7 @@ import loader from './loader.json';
 export const Loader: React.FC = () => {
     return (
         <div className={styles[cn('wrapper')]}>
-            <Lottie
+            <Lottie data-test-id='loader'
                 height={150}
                 width={150}
                 animationData={loader}
