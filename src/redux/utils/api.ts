@@ -9,7 +9,6 @@ export const apiService = createApi({
         signUpUser: builder.mutation({
             query: (formData: IUserData) => ({
                 url: '/auth/registration',
-                headers: { authorization: 'authorization' },
                 method: 'post',
                 data: formData,
             }),
@@ -17,15 +16,28 @@ export const apiService = createApi({
         signInUser: builder.mutation({
             query: (formData: IUserData) => ({
                 url: '/auth/login',
-                headers: { authorization: 'authorization' },
                 method: 'post',
                 data: formData,
             }),
         }),
         checkEmail: builder.mutation({
             query: (data: { email: string }) => ({
-                url: '/auth/check-emailл',
-                headers: { authorization: 'authorization' },
+                url: '/auth/check-email',
+                method: 'post',
+                data,
+            }),
+        }),
+        confirmEmail: builder.mutation({
+            query: (data: { email: string, code: string}) => ({
+                url: '/auth/confirm-email',
+                method: 'post',
+                data,
+            }),
+        }),
+        changePassword: builder.mutation({
+            query: (data: {password: string,
+            confirmPassword: string}) => ({
+                url: '/auth/change-password',
                 method: 'post',
                 data,
             }),
@@ -33,4 +45,10 @@ export const apiService = createApi({
     }),
 });
 
-export const { useSignUpUserMutation, useSignInUserMutation, useCheckEmailMutation } = apiService;
+export const {
+    useSignUpUserMutation,
+    useSignInUserMutation,
+    useCheckEmailMutation,
+    useConfirmEmailMutation,
+    useChangePasswordMutation,
+} = apiService;

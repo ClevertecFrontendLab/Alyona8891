@@ -6,6 +6,7 @@ interface IAppSliceState {
     isLoading: boolean;
     userData: ISignUpData | null | Record<'email', string>;
     userLoginData: null | string;
+    newPassword: null | string;
     activeToken: null | string;
 }
 
@@ -14,6 +15,7 @@ const initialState: IAppSliceState = {
     isLoading: false,
     userData: null,
     userLoginData: null,
+    newPassword: null,
     activeToken: null,
 };
 
@@ -36,9 +38,18 @@ export const appSlice = createSlice({
         setActiveToken: (state, action) => {
             state.activeToken = action.payload;
         },
+        setNewPassword: (state, action) => {
+            state.activeToken = action.payload;
+        },
     },
 });
 
-export const { setAuthPageContent, setIsLoading, setUserData, setUserLoginData, setActiveToken } =
-    appSlice.actions;
+export const {
+    setAuthPageContent,
+    setIsLoading,
+    setUserData,
+    setUserLoginData,
+    setActiveToken,
+    setNewPassword,
+} = appSlice.actions;
 export const appReducer = appSlice.reducer;

@@ -5,13 +5,18 @@ const axiosInstance = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
+    withCredentials: true
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('alyona8891_token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        const localStorageToken = localStorage.getItem('alyona8891_token');
+        const sessionStorageToken = sessionStorage.getItem('alyona8891_token');
+
+        if (localStorageToken) {
+            config.headers.Authorization = `Bearer ${localStorageToken}`;
+        } else {
+            config.headers.Authorization = `Bearer ${sessionStorageToken}`;
         }
         return config;
     },

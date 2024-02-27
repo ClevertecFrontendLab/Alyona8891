@@ -17,6 +17,8 @@ import { SignUpContent } from '@pages/authPage/components/signUpContent/signUpCo
 import { Result } from 'antd';
 import { ResultPage } from '@pages/resultPage/';
 import { ResultPageButton } from '@pages/resultPage/components/button';
+import { ConfirmPasswordContent } from '@pages/resultPage/components/confirmPasswordContent';
+import { ChangePasswordContent } from '@pages/resultPage/components/changePasswordContent';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -27,6 +29,54 @@ root.render(
             <Router history={history}>
                 <Routes>
                     <Route index={true} path={RouterPath.MAIN} element={<MainPage />} />
+                    <Route path={RouterPath.SIGN_IN} element={<ResultPage />}>
+                        <Route
+                            path={RouterPath.SIGN_IN_CONFIRM_EMAIL}
+                            element={<ConfirmPasswordContent />}
+                        />
+                    </Route>
+
+                    <Route path={RouterPath.SIGN_IN} element={<ResultPage />}>
+                        <Route
+                            path={RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS}
+                            element={
+                                <Result
+                                    status='error'
+                                    title='Данные не сохранились'
+                                    subTitle='Что-то пошло не так. Попробуйте ещё раз'
+                                    extra={
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN_CHANGE_PASSWORD}
+                                            text='Повторить'
+                                        />
+                                    }
+                                />
+                            }
+                        />
+                        <Route
+                            path={RouterPath.SIGN_IN_CHANGE_PASSWORD_SUCCESS}
+                            element={
+                                <Result
+                                    status='success'
+                                    title='Пароль успешно изменен'
+                                    subTitle={
+                                        <>
+                                            <div>Теперь можно войти в аккаунт, используя</div>
+                                            <div>свой логин и новый пароль</div>
+                                        </>
+                                    }
+                                    extra={
+                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Вход' />
+                                    }
+                                />
+                            }
+                        />
+                        <Route
+                            path={RouterPath.SIGN_IN_CHANGE_PASSWORD}
+                            element={<ChangePasswordContent />}
+                        ></Route>
+                    </Route>
+
                     <Route path={RouterPath.SIGN_IN_RESULT} element={<ResultPage />}>
                         <Route
                             path={RouterPath.SIGN_IN_RESULT_ERROR}
@@ -68,10 +118,7 @@ root.render(
                                     title='Что-то пошло не так'
                                     subTitle='Произошла ошибка, попробуйте отправить форму ещё раз.'
                                     extra={
-                                        <ResultPageButton
-                                            path={RouterPath.SIGN_IN}
-                                            text='Назад'
-                                        />
+                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Назад' />
                                     }
                                 />
                             }

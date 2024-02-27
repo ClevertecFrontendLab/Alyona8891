@@ -1,0 +1,167 @@
+import { AppDispatch, RootState, useAppDispatch, history } from '@redux/configure-store';
+import { Button, Form, Input } from 'antd';
+import { useSelector } from 'react-redux';
+import cn from 'classnames';
+import { FieldError } from 'rc-field-form/es/interface';
+import styles from './changePasswordContent.module.scss';
+import { useChangePasswordMutation } from '@redux/utils/api';
+import { useCallback, useEffect, useState } from 'react';
+import { setIsLoading } from '@redux/reducers/appReducer';
+import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/constants';
+import Title from 'antd/lib/typography/Title';
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+
+
+export const ChangePasswordContent = () => {
+    const [changePassword, { isLoading }] = useChangePasswordMutation();
+    const dispatch: AppDispatch = useAppDispatch();
+    const [form] = Form.useForm();
+    const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
+    
+    const newPassword = useSelector((state: RootState) => state.app.newPassword) as string;
+    const router = useSelector((state: RootState) => state.router);
+
+    useEffect(() => {
+        if (isLoading) {
+            dispatch(setIsLoading(true));
+        } else {
+            dispatch(setIsLoading(false));
+        }
+    }, [dispatch, isLoading]);
+
+    const onFinish = useCallback((values: {password: string, confirmPassword: string}) => {
+        
+        changePassword(values)
+            .unwrap()
+            .then(() => {
+                history.push(RouterPath.SIGN_IN_CHANGE_PASSWORD_SUCCESS);
+            })
+            .catch(() => {
+                history.push(RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS);
+            });
+    }, [changePassword]);
+
+    useEffect(() => {
+        if (
+            newPassword &&
+            router.previousLocations &&
+            router.previousLocations?.length > 0 &&
+            router.previousLocations[1].location?.pathname === RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS
+        ) {
+            onFinish({password: newPassword, confirmPassword: newPassword});
+        }
+    }, [newPassword, onFinish, router, router.previousLocations]);
+
+    function fieldIsEmpty(field: FieldError) {
+        const fieldValue = form.getFieldValue(field.name.join('.'));
+        return fieldValue === undefined || [].concat(fieldValue).join().trim() === '';
+    }
+
+    function fieldHasError(field: FieldError) {
+        return field.errors.length > 0;
+    }
+
+    function isValid() {
+        if (isFirstValidation) {
+            setIsFirstValidation(false);
+            setIsDisabled(true);
+        }
+        const fields = form
+            .getFieldsError()
+            .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
+        setIsDisabled(fields.length > 0);
+    }
+
+
+    return (
+        <Form
+            form={form}
+            className={styles[cn('form')]}
+            name='register'
+            wrapperCol={{ span: 16 }}
+            onFinish={onFinish}
+            onFinishFailed={(error) => {
+                console.log({ error });
+            }}
+            autoComplete='off'
+            requiredMark={false}
+            onFieldsChange={isValid}
+        >
+            <Title level={3}>Восстановление аккауанта</Title>
+            <Form.Item
+                name='password'
+                help={
+                    <span className={styles[cn(`password_helper`)]}>
+                        {TEXT.input.password.helper}
+                    </span>
+                }
+                rules={[
+                    { required: true, message: '' },
+                    { min: 8, message: '' },
+                    {
+                        pattern: VALIDATION_RULES.password,
+                        message: '',
+                    },
+                ]}
+            >
+                <Input.Password
+                    size='large'
+                    className={styles[cn('input')]}
+                    placeholder='Новый пароль'
+                    iconRender={(visible) =>
+                        visible ? (
+                            <EyeOutlined style={{ color: 'var(--color-primary)' }} />
+                        ) : (
+                            <EyeInvisibleOutlined />
+                        )
+                    }
+                />
+            </Form.Item>
+
+            <Form.Item
+                dependencies={['password']}
+                name='confirmPassword'
+                rules={[
+                    {
+                        required: true,
+                        message: '',
+                    },
+                    ({ getFieldValue }) => ({
+                        validator(_, value) {
+                            if (!value || getFieldValue('password') === value) {
+                                return Promise.resolve();
+                            }
+                            return Promise.reject(new Error(''));
+                        },
+                    }),
+                ]}
+            >
+                <Input.Password
+                    size='large'
+                    className={styles[cn('input')]}
+                    placeholder='Повторите пароль'
+                    iconRender={(visible) =>
+                        visible ? (
+                            <EyeOutlined style={{ color: 'var(--color-primary)' }} />
+                        ) : (
+                            <EyeInvisibleOutlined />
+                        )
+                    }
+                />
+            </Form.Item>
+
+            <Form.Item>
+                <Button
+                    className={styles[cn('button')]}
+                    size='large'
+                    type='primary'
+                    htmlType='submit'
+                    disabled={isDisabled}
+                >
+                    Сохранить
+                </Button>
+            </Form.Item>
+        </Form>
+    );
+};

@@ -11,7 +11,7 @@ import { FieldError } from 'rc-field-form/es/interface';
 import { useCheckEmailMutation, useSignInUserMutation } from '@redux/utils/api';
 import { ISignInData } from '../../../../types';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
-import { setActiveToken, setIsLoading, setUserData, setUserLoginData } from '@redux/reducers/appReducer';
+import { setIsLoading, setUserLoginData } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 
 export const SignInContent: React.FC = () => {
@@ -44,28 +44,30 @@ export const SignInContent: React.FC = () => {
                 if (isRemembered) {
                     localStorage.setItem('alyona8891_token', res.accessToken);
                 } else {
-                    dispatch(setActiveToken(res.accessToken));
+                    sessionStorage.setItem('alyona8891_token', res.accessToken);
                 }
                 history.push(RouterPath.MAIN);
             })
             .catch(() => {
                 history.push(RouterPath.SIGN_IN_RESULT_ERROR);
             });
-    }, [dispatch, isRemembered, signInUser]);
+    }, [isRemembered, signInUser]);
 
     const handleChangePassword = useCallback((email?: string) => {
         let changingEmail;
         if(email) {
-            console.log(1)
             changingEmail = email;
         } else {
             changingEmail = form.getFieldValue('email') as string;
             dispatch(setUserLoginData(changingEmail));
         }
+        console.log(changingEmail)
 
         checkEmail({email: changingEmail })
             .unwrap()
-            .then(() => {})
+            .then(() => {
+                history.push(RouterPath.SIGN_IN_CONFIRM_EMAIL);
+            })
             .catch((error) => {
                 if (error.status === 404 && error.data.message === 'Email не найден') {
                     history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404);
@@ -76,16 +78,12 @@ export const SignInContent: React.FC = () => {
     }, [checkEmail, dispatch, form]);
 
     useEffect(() => {
-        console.log(userLoginData)
-        console.log(router)
-
         if (
             userLoginData &&
             router.previousLocations &&
             router.previousLocations?.length > 1 &&
             router.previousLocations[1].location?.pathname === RouterPath.SIGN_IN_RESULT_CHECK_ERRORS
         ) {
-            console.log(router.previousLocations[1].location?.pathname)
             handleChangePassword(userLoginData);
         }
     }, [handleChangePassword, router, router.previousLocations, userLoginData]);
