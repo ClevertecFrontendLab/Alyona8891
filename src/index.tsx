@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { HistoryRouter as Router } from 'redux-first-history/rr6';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { store, history } from '@redux/configure-store';
 import { MainPage } from './pages';
@@ -19,12 +19,7 @@ import { ResultPage } from '@pages/resultPage/';
 import { ResultPageButton } from '@pages/resultPage/components/button';
 import { ConfirmPasswordContent } from '@pages/resultPage/components/confirmPasswordContent';
 import { ChangePasswordContent } from '@pages/resultPage/components/changePasswordContent';
-
-const AuthRedirect = () => {
-    const isAuthenticated = localStorage.getItem('alyona8891_token');
-
-    return isAuthenticated ? <Navigate to='/main' replace /> : <Navigate to='/auth' replace />;
-};
+import { RedirectToSignIn } from './UI/redirectTosignIn/redirectTosignIn';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -41,7 +36,6 @@ root.render(
                             element={<ConfirmPasswordContent />}
                         />
                     </Route>
-
                     <Route path={RouterPath.SIGN_IN} element={<ResultPage />}>
                         <Route
                             path={RouterPath.SIGN_IN_CHANGE_PASSWORD_ERRORS}
@@ -210,7 +204,7 @@ root.render(
                         <Route path={RouterPath.SIGN_IN} element={<SignInContent />} />
                         <Route path={RouterPath.SIGN_UP} element={<SignUpContent />} />
                     </Route>
-                    <Route path='/' element={<AuthRedirect />} />
+                    <Route path='/' element={<RedirectToSignIn />} />
                 </Routes>
             </Router>
         </Provider>
