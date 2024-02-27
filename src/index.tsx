@@ -19,7 +19,7 @@ import { ResultPage } from '@pages/resultPage/';
 import { ResultPageButton } from '@pages/resultPage/components/button';
 import { ConfirmPasswordContent } from '@pages/resultPage/components/confirmPasswordContent';
 import { ChangePasswordContent } from '@pages/resultPage/components/changePasswordContent';
-import { RedirectToSignIn } from './UI/redirectTosignIn/redirectTosignIn';
+import { RedirectToSignIn } from './pages/ui/redirectTosignIn/redirectTosignIn';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);

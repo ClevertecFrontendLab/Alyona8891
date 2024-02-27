@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
-import { LoaderComponent as Loader } from '@ui/loader';
+import { LoaderComponent as Loader } from '@pages/ui/loader';
 import { AuthContentLayout } from '@layouts/authContentLayout';
 import { AuthLayout } from '@layouts/authLayout';
 
