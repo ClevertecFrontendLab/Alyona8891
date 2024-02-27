@@ -7,7 +7,7 @@ import styles from './changePasswordContent.module.scss';
 import { useChangePasswordMutation } from '@redux/utils/api';
 import { useCallback, useEffect, useState } from 'react';
 import { setIsLoading, setNewPassword } from '@redux/reducers/appReducer';
-import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/constants';
+import { CHANGE_PASSWORD_CONTENT, RouterPath, VALIDATION_RULES } from '@constants/constants';
 import Title from 'antd/lib/typography/Title';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
@@ -17,7 +17,6 @@ export const ChangePasswordContent = () => {
     const [form] = Form.useForm();
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
     const newPassword = useSelector((state: RootState) => state.app.newPassword);
     const router = useSelector((state: RootState) => state.router);
 
@@ -47,7 +46,7 @@ export const ChangePasswordContent = () => {
     );
 
     useEffect(() => {
-        console.log(newPassword)
+        console.log(newPassword);
         if (
             newPassword &&
             router.previousLocations &&
@@ -93,12 +92,12 @@ export const ChangePasswordContent = () => {
             requiredMark={false}
             onFieldsChange={isValid}
         >
-            <Title level={3}>Восстановление аккауанта</Title>
+            <Title level={3}>{CHANGE_PASSWORD_CONTENT.title}</Title>
             <Form.Item
                 name='password'
                 help={
                     <span className={styles[cn(`password_helper`)]}>
-                        {TEXT.input.password.helper}
+                        {CHANGE_PASSWORD_CONTENT.inputHelper}
                     </span>
                 }
                 rules={[
@@ -114,7 +113,7 @@ export const ChangePasswordContent = () => {
                     data-test-id='change-password'
                     size='large'
                     className={styles[cn('input')]}
-                    placeholder='Новый пароль'
+                    placeholder={CHANGE_PASSWORD_CONTENT.inputsPlaceholders.input1}
                     iconRender={(visible) =>
                         visible ? (
                             <EyeOutlined style={{ color: 'var(--color-primary)' }} />
@@ -147,7 +146,7 @@ export const ChangePasswordContent = () => {
                     data-test-id='change-confirm-password'
                     size='large'
                     className={styles[cn('input')]}
-                    placeholder='Повторите пароль'
+                    placeholder={CHANGE_PASSWORD_CONTENT.inputsPlaceholders.input2}
                     iconRender={(visible) =>
                         visible ? (
                             <EyeOutlined style={{ color: 'var(--color-primary)' }} />
@@ -167,7 +166,7 @@ export const ChangePasswordContent = () => {
                     htmlType='submit'
                     disabled={isDisabled}
                 >
-                    Сохранить
+                    {CHANGE_PASSWORD_CONTENT.button}
                 </Button>
             </Form.Item>
         </Form>

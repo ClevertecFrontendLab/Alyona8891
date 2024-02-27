@@ -10,7 +10,7 @@ import { MainPage } from './pages';
 import 'normalize.css';
 import './index.css';
 import '../src/constants/themes/customized.css';
-import { RouterPath } from './constants';
+import { RESULT_CARDS_DATA, RouterPath } from './constants';
 import { AuthPage } from '@pages/authPage';
 import { SignInContent } from '@pages/authPage/components/signInContent';
 import { SignUpContent } from '@pages/authPage/components/signUpContent/signUpContent';
@@ -42,13 +42,13 @@ root.render(
                             element={
                                 <Result
                                     status='error'
-                                    title='Данные не сохранились'
-                                    subTitle='Что-то пошло не так. Попробуйте ещё раз'
+                                    title={RESULT_CARDS_DATA.changePassword.errors.title}
+                                    subTitle={RESULT_CARDS_DATA.changePassword.errors.subtitle}
                                     extra={
                                         <ResultPageButton
                                             data='change-retry-button'
                                             path={RouterPath.SIGN_IN_CHANGE_PASSWORD}
-                                            text='Повторить'
+                                            text={RESULT_CARDS_DATA.changePassword.errors.button}
                                         />
                                     }
                                 />
@@ -59,18 +59,28 @@ root.render(
                             element={
                                 <Result
                                     status='success'
-                                    title='Пароль успешно изменен'
+                                    title={RESULT_CARDS_DATA.changePassword.success.title}
                                     subTitle={
                                         <>
-                                            <div>Теперь можно войти в аккаунт, используя</div>
-                                            <div>свой логин и новый пароль</div>
+                                            <div>
+                                                {
+                                                    RESULT_CARDS_DATA.changePassword.success
+                                                        .subtitle.part1
+                                                }
+                                            </div>
+                                            <div>
+                                                {
+                                                    RESULT_CARDS_DATA.changePassword.success
+                                                        .subtitle.part2
+                                                }
+                                            </div>
                                         </>
                                     }
                                     extra={
                                         <ResultPageButton
                                             data='change-entry-button'
                                             path={RouterPath.SIGN_IN}
-                                            text='Вход'
+                                            text={RESULT_CARDS_DATA.changePassword.success.button}
                                         />
                                     }
                                 />
@@ -88,13 +98,13 @@ root.render(
                             element={
                                 <Result
                                     status='warning'
-                                    title='Вход не выполнен'
-                                    subTitle='Что-то пошло не так. Попробуйте еще раз'
+                                    title={RESULT_CARDS_DATA.signIn.errors.title}
+                                    subTitle={RESULT_CARDS_DATA.signIn.errors.subtitle}
                                     extra={
                                         <ResultPageButton
                                             data='login-retry-button'
                                             path={RouterPath.SIGN_IN}
-                                            text='Повторить'
+                                            text={RESULT_CARDS_DATA.signIn.errors.button}
                                         />
                                     }
                                 />
@@ -105,13 +115,13 @@ root.render(
                             element={
                                 <Result
                                     status='error'
-                                    title='Такой e-mail не зарегистрирован'
-                                    subTitle='Мы не нашли в базе вашего e-mail. Попробуйте войти с другим e-mail.'
+                                    title={RESULT_CARDS_DATA.signIn.error404.title}
+                                    subTitle={RESULT_CARDS_DATA.signIn.error404.subtitle}
                                     extra={
                                         <ResultPageButton
                                             data='check-retry-button'
                                             path={RouterPath.SIGN_IN}
-                                            text='Попробовать снова'
+                                            text={RESULT_CARDS_DATA.signIn.error404.button}
                                         />
                                     }
                                 />
@@ -122,13 +132,13 @@ root.render(
                             element={
                                 <Result
                                     status='500'
-                                    title='Что-то пошло не так'
-                                    subTitle='Произошла ошибка, попробуйте отправить форму ещё раз.'
+                                    title={RESULT_CARDS_DATA.checkPassword.errors.title}
+                                    subTitle={RESULT_CARDS_DATA.checkPassword.errors.subtitle}
                                     extra={
                                         <ResultPageButton
                                             data='check-back-button'
                                             path={RouterPath.SIGN_IN}
-                                            text='Назад'
+                                            text={RESULT_CARDS_DATA.checkPassword.errors.button}
                                         />
                                     }
                                 />
@@ -141,13 +151,13 @@ root.render(
                             element={
                                 <Result
                                     status='error'
-                                    title='Данные не сохранились'
-                                    subTitle='Что-то пошло не так. Попробуйте еще раз'
+                                    title={RESULT_CARDS_DATA.signUp.errors.title}
+                                    subTitle={RESULT_CARDS_DATA.signUp.errors.subtitle}
                                     extra={
                                         <ResultPageButton
                                             data='registration-retry-button'
                                             path={RouterPath.SIGN_UP}
-                                            text='Повторить'
+                                            text={RESULT_CARDS_DATA.signUp.errors.button}
                                         />
                                     }
                                 />
@@ -158,20 +168,22 @@ root.render(
                             element={
                                 <Result
                                     status='error'
-                                    title='Данные не сохранились'
+                                    title={RESULT_CARDS_DATA.signUp.error409.title}
                                     subTitle={
                                         <>
                                             <div>
-                                                Такой e-mail уже записан в системе. Попробуйте
+                                                {RESULT_CARDS_DATA.signUp.error409.subtitle.part1}
                                             </div>
-                                            <div>зарегистрироваться по другому e-mail.</div>
+                                            <div>
+                                                {RESULT_CARDS_DATA.signUp.error409.subtitle.part2}
+                                            </div>
                                         </>
                                     }
                                     extra={
                                         <ResultPageButton
                                             data='registration-back-button'
                                             path={RouterPath.SIGN_UP}
-                                            text='Назад к регистрации'
+                                            text={RESULT_CARDS_DATA.signUp.error409.button}
                                         />
                                     }
                                 />
@@ -182,18 +194,22 @@ root.render(
                             element={
                                 <Result
                                     status='success'
-                                    title='Регистрация успешна'
+                                    title={RESULT_CARDS_DATA.signUp.success.title}
                                     subTitle={
                                         <>
-                                            <div>Что-то пошло не так и ваша регистрация</div>
-                                            <div>не завершилась. Попробуйте ещё раз.</div>
+                                            <div>
+                                                {RESULT_CARDS_DATA.signUp.success.subtitle.part1}
+                                            </div>
+                                            <div>
+                                                {RESULT_CARDS_DATA.signUp.success.subtitle.part2}
+                                            </div>
                                         </>
                                     }
                                     extra={
                                         <ResultPageButton
                                             data='registration-enter-button'
                                             path={RouterPath.SIGN_IN}
-                                            text='Войти'
+                                            text={RESULT_CARDS_DATA.signUp.success.button}
                                         />
                                     }
                                 />

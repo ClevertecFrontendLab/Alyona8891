@@ -7,7 +7,7 @@ import styles from './confirmPasswordContent.module.scss';
 import { useConfirmEmailMutation } from '@redux/utils/api';
 import { useEffect, useState } from 'react';
 import { setIsLoading } from '@redux/reducers/appReducer';
-import { RouterPath } from '@constants/constants';
+import { CONFIRM_PASSWORD, RouterPath } from '@constants/constants';
 
 export const ConfirmPasswordContent = () => {
     const [isConfirmedWithError, setIsConfirmedWithError] = useState(false);
@@ -39,14 +39,14 @@ export const ConfirmPasswordContent = () => {
     return isConfirmedWithError ? (
         <Result
             status='error'
-            title='Неверный код. Введите код для восстановления аккауанта'
+            title={CONFIRM_PASSWORD.error.title}
             subTitle={
                 <>
                     <div>
-                        Мы отправили вам на e-mail{' '}
+                        {CONFIRM_PASSWORD.error.subtitle.part1}{' '}
                         <span style={{ fontWeight: '700' }}>{email}</span>
                     </div>
-                    <div>шестизначный код. Введите его в поле ниже.</div>
+                    <div>{CONFIRM_PASSWORD.error.subtitle.part2}</div>
                 </>
             }
             extra={
@@ -68,21 +68,21 @@ export const ConfirmPasswordContent = () => {
                         placeholder=''
                     />
                     <div style={{ fontSize: '0.875rem', color: 'var(--color-info)' }}>
-                        Не пришло письмо? Проверьте папку Спам.
+                        {CONFIRM_PASSWORD.error.subtitle.part3}
                     </div>
                 </>
             }
         />
     ) : (
         <Result
-            title='Введите код для восстановления аккауанта'
+            title={CONFIRM_PASSWORD.content.title}
             subTitle={
                 <>
                     <div>
-                        Мы отправили вам на e-mail{' '}
+                        {CONFIRM_PASSWORD.content.subtitle.part1}{' '}
                         <span style={{ fontWeight: '700' }}>{email}</span>
                     </div>
-                    <div>шестизначный код. Введите его в поле ниже.</div>
+                    <div>{CONFIRM_PASSWORD.content.subtitle.part2}</div>
                 </>
             }
             extra={
@@ -104,7 +104,7 @@ export const ConfirmPasswordContent = () => {
                         placeholder=''
                     />
                     <div style={{ fontSize: '0.875rem', color: 'var(--color-info)' }}>
-                        Не пришло письмо? Проверьте папку Спам.
+                        {CONFIRM_PASSWORD.content.subtitle.part3}
                     </div>
                 </>
             }
