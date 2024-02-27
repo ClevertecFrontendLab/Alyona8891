@@ -2,7 +2,7 @@ import Lottie from 'lottie-react';
 import cn from 'classnames';
 
 import styles from './loader.module.scss';
-import loader from './loader.json';
+import animation from './animation.json';
 
 export const LoaderComponent: React.FC = () => {
     return (
@@ -10,7 +10,7 @@ export const LoaderComponent: React.FC = () => {
             <Lottie data-test-id='loader'
                 height={150}
                 width={150}
-                animationData={loader}
+                animationData={animation}
                 loop={true}
                 className={styles[cn('loader')]}
             />
