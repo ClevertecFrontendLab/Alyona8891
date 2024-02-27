@@ -9,11 +9,12 @@ import { ContentComponent } from './components/contentComponent';
 import { FooterComponent } from './components/footerComponent';
 import { LoaderComponent as Loader } from '@ui/loader';
 
-
 export const MainPage: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        setTimeout(() => {setIsLoading(false)}, 1);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1);
     }, []);
 
     return (
