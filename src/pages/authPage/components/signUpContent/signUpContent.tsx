@@ -42,8 +42,8 @@ export const SignUpContent: React.FC = () => {
                 .then(() => {
                     history.push(RouterPath.SIGN_UP_RESULT_SUCCESS);
                 })
-                .catch((status) => {
-                    if (status.message === '409') {
+                .catch((error) => {
+                    if (error.status === 409) {
                         history.push(RouterPath.SIGN_UP_RESULT_ERROR_409);
                         return;
                     } else {
@@ -55,14 +55,13 @@ export const SignUpContent: React.FC = () => {
     );
 
     useEffect(() => {
-        console.log(router);
         if (
             userData &&
             router.previousLocations &&
             router.previousLocations?.length > 0 &&
             router.previousLocations[1].location?.pathname === RouterPath.SIGN_UP_RESULT_ERRORS
         ) {
-            onFinish(userData);
+            onFinish(userData as ISignUpData);
         }
     }, [onFinish, router, router.previousLocations, userData]);
 

@@ -26,6 +26,11 @@ export const axiosBaseQuery =
             return Promise.resolve(result);
         } catch (axiosError) {
             const err = axiosError as AxiosError;
-            return Promise.reject(err?.response?.status);
+            return {
+                error: {
+                  status: err.response?.status,
+                  data: err.response?.data,
+                },
+              }
         }
     };

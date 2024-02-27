@@ -4,6 +4,8 @@ export enum RouterPath {
     SIGN_IN = '/auth',
     SIGN_IN_RESULT = '/auth/result',
     SIGN_IN_RESULT_ERROR = '/auth/result/error-login',
+    SIGN_IN_RESULT_CHECK_ERROR_404 = '/auth/result/error-check-email-no-exist',
+    SIGN_IN_RESULT_CHECK_ERRORS = '/auth/result/error-check-email',
     SIGN_UP = '/auth/registration',
     SIGN_UP_RESULT = '/auth/registration/result',
     SIGN_UP_RESULT_SUCCESS = '/auth/registration/result/success',

@@ -4,7 +4,8 @@ import { ISignUpData } from '../../types';
 interface IAppSliceState {
     authPageContent: 'signIn' | 'signUp';
     isLoading: boolean;
-    userData: ISignUpData | null;
+    userData: ISignUpData | null | Record<'email', string>;
+    userLoginData: null | string;
     activeToken: null | string;
 }
 
@@ -12,6 +13,7 @@ const initialState: IAppSliceState = {
     authPageContent: 'signIn',
     isLoading: false,
     userData: null,
+    userLoginData: null,
     activeToken: null,
 };
 
@@ -28,12 +30,15 @@ export const appSlice = createSlice({
         setUserData: (state, action) => {
             state.userData = action.payload;
         },
+        setUserLoginData: (state, action) => {
+            state.userLoginData = action.payload;
+        },
         setActiveToken: (state, action) => {
             state.activeToken = action.payload;
         },
     },
 });
 
-export const { setAuthPageContent, setIsLoading, setUserData, setActiveToken } =
+export const { setAuthPageContent, setIsLoading, setUserData, setUserLoginData, setActiveToken } =
     appSlice.actions;
 export const appReducer = appSlice.reducer;

@@ -22,7 +22,15 @@ export const apiService = createApi({
                 data: formData,
             }),
         }),
+        checkEmail: builder.mutation({
+            query: (data: { email: string }) => ({
+                url: '/auth/check-emailл',
+                headers: { authorization: 'authorization' },
+                method: 'post',
+                data,
+            }),
+        }),
     }),
 });
 
-export const { useSignUpUserMutation, useSignInUserMutation } = apiService;
+export const { useSignUpUserMutation, useSignInUserMutation, useCheckEmailMutation } = apiService;

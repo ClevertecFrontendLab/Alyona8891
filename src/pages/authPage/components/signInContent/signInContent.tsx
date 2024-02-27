@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cn from 'classnames';
 
 import styles from './signInContent.module.scss';
@@ -6,12 +6,13 @@ import { Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
-import { history } from '@redux/configure-store';
+import { RootState, history } from '@redux/configure-store';
 import { FieldError } from 'rc-field-form/es/interface';
-import { useSignInUserMutation } from '@redux/utils/api';
+import { useCheckEmailMutation, useSignInUserMutation } from '@redux/utils/api';
 import { ISignInData } from '../../../../types';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
-import { setActiveToken, setIsLoading} from '@redux/reducers/appReducer';
+import { setActiveToken, setIsLoading, setUserData, setUserLoginData } from '@redux/reducers/appReducer';
+import { useSelector } from 'react-redux';
 
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
@@ -19,21 +20,24 @@ export const SignInContent: React.FC = () => {
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(false);
     const [signInUser, { isLoading }] = useSignInUserMutation();
+    const [checkEmail, { isLoading: isLoadingChecking }] = useCheckEmailMutation();
     const dispatch: AppDispatch = useAppDispatch();
+    const [isEmailValidated, setisEmailValidated] = useState<boolean>(false);
     const [isRemembered, setIsRemembered] = useState(false);
+    const userLoginData = useSelector((state: RootState) => state.app.userLoginData);
+    const router = useSelector((state: RootState) => state.router);
 
     useEffect(() => {
-        if (isLoading) {
+        if (isLoading || isLoadingChecking) {
             dispatch(setIsLoading(true));
         } else {
             dispatch(setIsLoading(false));
         }
-    }, [dispatch, isLoading]);
+    }, [dispatch, isLoading, isLoadingChecking]);
 
-
-    const onFinish = (values: ISignInData) => {
+    const onFinish = useCallback((values: ISignInData) => {
         const { email, password } = values;
-        
+
         signInUser({ email, password })
             .unwrap()
             .then((res) => {
@@ -47,7 +51,44 @@ export const SignInContent: React.FC = () => {
             .catch(() => {
                 history.push(RouterPath.SIGN_IN_RESULT_ERROR);
             });
-    };
+    }, [dispatch, isRemembered, signInUser]);
+
+    const handleChangePassword = useCallback((email?: string) => {
+        let changingEmail;
+        if(email) {
+            console.log(1)
+            changingEmail = email;
+        } else {
+            changingEmail = form.getFieldValue('email') as string;
+            dispatch(setUserLoginData(changingEmail));
+        }
+
+        checkEmail({email: changingEmail })
+            .unwrap()
+            .then(() => {})
+            .catch((error) => {
+                if (error.status === 404 && error.data.message === 'Email не найден') {
+                    history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404);
+                } else {
+                    history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERRORS);
+                }
+            });
+    }, [checkEmail, dispatch, form]);
+
+    useEffect(() => {
+        console.log(userLoginData)
+        console.log(router)
+
+        if (
+            userLoginData &&
+            router.previousLocations &&
+            router.previousLocations?.length > 1 &&
+            router.previousLocations[1].location?.pathname === RouterPath.SIGN_IN_RESULT_CHECK_ERRORS
+        ) {
+            console.log(router.previousLocations[1].location?.pathname)
+            handleChangePassword(userLoginData);
+        }
+    }, [handleChangePassword, router, router.previousLocations, userLoginData]);
 
     function fieldIsEmpty(field: FieldError) {
         const fieldValue = form.getFieldValue(field.name.join('.'));
@@ -56,6 +97,10 @@ export const SignInContent: React.FC = () => {
 
     function fieldHasError(field: FieldError) {
         return field.errors.length > 0;
+    }
+
+    function fieldEmailHasError() {
+        setisEmailValidated(form.getFieldError('email').length > 0);
     }
 
     function isValid() {
@@ -79,7 +124,10 @@ export const SignInContent: React.FC = () => {
             initialValues={{ remember: true }}
             onFinish={onFinish}
             autoComplete='off'
-            onFieldsChange={isValid}
+            onFieldsChange={() => {
+                isValid();
+                fieldEmailHasError();
+            }}
         >
             <Form.Item
                 name='email'
@@ -135,7 +183,9 @@ export const SignInContent: React.FC = () => {
                         {TEXT.input.rememberMeCheckbox.label}
                     </Checkbox>
                 </Form.Item>
-                <Typography.Link>{TEXT.link.forgetPassword}</Typography.Link>
+                <Typography.Link onClick={() => handleChangePassword()} disabled={isEmailValidated}>
+                    {TEXT.link.forgetPassword}
+                </Typography.Link>
             </Space>
 
             <Form.Item>

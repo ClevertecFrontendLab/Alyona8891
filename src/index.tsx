@@ -44,6 +44,38 @@ root.render(
                                 />
                             }
                         />
+                        <Route
+                            path={RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404}
+                            element={
+                                <Result
+                                    status='error'
+                                    title='Такой e-mail не зарегистрирован'
+                                    subTitle='Мы не нашли в базе вашего e-mail. Попробуйте войти с другим e-mail.'
+                                    extra={
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN}
+                                            text='Попробовать снова'
+                                        />
+                                    }
+                                />
+                            }
+                        />
+                        <Route
+                            path={RouterPath.SIGN_IN_RESULT_CHECK_ERRORS}
+                            element={
+                                <Result
+                                    status='500'
+                                    title='Что-то пошло не так'
+                                    subTitle='Произошла ошибка, попробуйте отправить форму ещё раз.'
+                                    extra={
+                                        <ResultPageButton
+                                            path={RouterPath.SIGN_IN}
+                                            text='Назад'
+                                        />
+                                    }
+                                />
+                            }
+                        />
                     </Route>
                     <Route path={RouterPath.SIGN_UP_RESULT} element={<ResultPage />}>
                         <Route
@@ -98,10 +130,7 @@ root.render(
                                         </>
                                     }
                                     extra={
-                                        <ResultPageButton
-                                            path={RouterPath.SIGN_IN}
-                                            text='Войти'
-                                        />
+                                        <ResultPageButton path={RouterPath.SIGN_IN} text='Войти' />
                                     }
                                 />
                             }
