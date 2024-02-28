@@ -7,22 +7,38 @@
     color: rgb(0, 0, 0);
 
     --background-main-page-image: url('/src/assets/images/main_page_light.jpg');
-    --backgroud-color-element: #ffffff;
+    --background-auth-page-image: url('/src/assets/images/auth_page_light.png');
+    --background-auth-page-blure: rgba(121, 156, 212, 0.5);
+    
+    --backgroud-color-element: #fff;
     --background-color-header: #f0f5ff;
 
     --color-elements: #061178;
     --color-title: #262626;
-
     --color-info: #8c8c8c;
-
+    --color-error: #FF4D4F;
     --color-primary: #2f54eb;
-
-    --color-exit-icon: #000000;
+    --color-exit-icon: #000;
+    --color-addon-border: #D9D9D9;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+* {
+    box-sizing: border-box;
+    letter-spacing: 0.5px;
+}
+
+a {
+    font-size: 1rem;
+}
+
+@media (max-width: 400px) {
+    a {
+        font-size: 0.875rem;   
+    }
 }
 
 body,

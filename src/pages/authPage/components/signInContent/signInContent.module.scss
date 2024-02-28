@@ -1,0 +1,79 @@
+.form {
+    margin-top: -2rem;
+    width: 100%;
+    margin-bottom: 143px;
+
+    @media (max-width: 400px) {
+        margin-bottom: 0px;
+    }
+
+    :global {
+        .ant-col-16 {
+            max-width: 100%;
+            flex: 0 0 100%;
+        }
+
+        .ant-input-group-addon {
+            padding: 0 0.77rem;
+        }
+
+        .ant-anchor-ink {
+            &::before {
+                display: none;
+            }
+        }
+        .ant-anchor-link {
+            @media (max-width: 400px) {
+                padding: 2px 0 2px 2px;
+            }
+        }
+        .ant-input-group-wrapper-status-error .ant-input-group-addon {
+            color: var(--color-title);
+            border-right-color: var( --color-addon-border);
+        }
+        .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
+            border-left-color: var( --color-addon-border);
+        }
+    }
+}
+
+.input {
+    width: 100%;
+}
+
+.button {
+    width: 100%;
+
+    @media (max-width: 400px) {
+        font-size: 0.875rem;
+    }
+}
+
+.checkbox_container {
+    width: 100%;
+    justify-content: space-between;
+    padding: 1.19rem 0;
+
+    @media (max-width: 991px) {
+        padding: 1.12rem 0;
+    }
+
+    @media (max-width: 400px) {
+        padding: 1.2rem 6px 1rem 0px;
+    }
+
+    :global {
+        .ant-form-item {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.buttons_container {
+    width: 100%;
+    justify-content: space-between;
+
+    @media (max-width: 400px) {
+        padding-top: 4px;
+    }
+}

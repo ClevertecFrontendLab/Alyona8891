@@ -1,0 +1,19 @@
+.wrapper {
+    background-image: var(--background-auth-page-image);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+
+    &::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        min-height: 100%;
+        background-color: var(--background-auth-page-blure);
+        backdrop-filter: blur(0.3rem);
+    }
+}

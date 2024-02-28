@@ -1,0 +1,1 @@
+export { AuthContentLayout } from './authContentLayout';
