@@ -30,11 +30,18 @@ export const AuthContentLayout: React.FC = () => {
     useEffect(() => {
         if (router.location?.pathname === RouterPath.SIGN_UP) {
             dispatch(setAuthPageContent('signUp'));
+        } else if (router.location?.pathname === RouterPath.SIGN_IN) {
+            dispatch(setAuthPageContent('signIn'));
         }
     }, [dispatch, router.location?.pathname]);
 
     return (
-        <section className={styles[cn(activeKey === 'signUp' ? 'container_sign_up' : 'container')]}>
+        <section
+            className={cn([styles.container], {
+                [styles.container_sign_up]: activeKey === 'signUp',
+                [styles.container_sign_in]: activeKey === 'signIn',
+            })}
+        >
             <div className={styles[cn('logo_block')]}>
                 <img
                     className={styles[cn('logo')]}
