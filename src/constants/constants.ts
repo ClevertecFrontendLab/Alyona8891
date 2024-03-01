@@ -1,5 +1,6 @@
 export enum RouterPath {
     MAIN = '/main',
+    FEEDBACKS = '/feedbacks',
     AUTH = '/auth',
     SIGN_IN = '/auth',
     SIGN_IN_RESULT = '/auth/result',

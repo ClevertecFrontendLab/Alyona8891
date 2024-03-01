@@ -28,18 +28,23 @@ export const apiService = createApi({
             }),
         }),
         confirmEmail: builder.mutation({
-            query: (data: { email: string, code: string}) => ({
+            query: (data: { email: string; code: string }) => ({
                 url: '/auth/confirm-email',
                 method: 'post',
                 data,
             }),
         }),
         changePassword: builder.mutation({
-            query: (data: {password: string,
-            confirmPassword: string}) => ({
+            query: (data: { password: string; confirmPassword: string }) => ({
                 url: '/auth/change-password',
                 method: 'post',
                 data,
+            }),
+        }),
+        getFeedbacks: builder.mutation({
+            query: () => ({
+                url: '/feedback',
+                method: 'get',
             }),
         }),
     }),
@@ -51,4 +56,5 @@ export const {
     useCheckEmailMutation,
     useConfirmEmailMutation,
     useChangePasswordMutation,
+    useGetFeedbacksMutation,
 } = apiService;

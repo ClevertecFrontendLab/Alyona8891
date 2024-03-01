@@ -2910,12 +2910,12 @@ li:last-child > .ant-breadcrumb-separator {
 .ant-btn-text:hover,
 .ant-btn-text:focus {
   color: #262626;
-  background: rgba(0, 0, 0, 0.018);
+  background: transparent;
   border-color: transparent;
 }
 .ant-btn-text:active {
   color: #262626;
-  background: rgba(0, 0, 0, 0.028);
+  background: rgba(0, 0, 0, 0.01);
   border-color: transparent;
 }
 .ant-btn-text[disabled],
@@ -3347,7 +3347,7 @@ li:last-child > .ant-breadcrumb-separator {
 .ant-btn-dangerous.ant-btn-text:focus {
   color: #ff7875;
   border-color: transparent;
-  background: rgba(0, 0, 0, 0.018);
+  background: transparent;
 }
 .ant-btn-dangerous.ant-btn-text:hover > a:only-child,
 .ant-btn-dangerous.ant-btn-text:focus > a:only-child {
@@ -3366,7 +3366,7 @@ li:last-child > .ant-breadcrumb-separator {
 .ant-btn-dangerous.ant-btn-text:active {
   color: #d9363e;
   border-color: transparent;
-  background: rgba(0, 0, 0, 0.028);
+  background: rgba(0, 0, 0, 0.01);
 }
 .ant-btn-dangerous.ant-btn-text:active > a:only-child {
   color: currentcolor;

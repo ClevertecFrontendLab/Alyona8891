@@ -4,6 +4,11 @@ import { Footer } from 'antd/lib/layout/layout';
 import { FooterCardComponent } from './components';
 
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { useCallback } from 'react';
+import { useGetFeedbacksMutation } from '@redux/utils/api';
+import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
+import { RouterPath } from '@constants/constants';
+import { setIsLoading } from '@redux/reducers/appReducer';
 
 export interface IFooterCardsData {
     key: number;
@@ -35,6 +40,22 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
 
 export const FooterComponent: React.FC = () => {
     const breakpoint = useBreakpoint();
+    const dispatch: AppDispatch = useAppDispatch();
+    const [getFeedbacks, {isLoading}] = useGetFeedbacksMutation();
+
+    const handleLookFeedbacks = useCallback(() => {
+        const token =
+            localStorage.getItem('alyona8891_token') || sessionStorage.getItem('alyona8891_token');
+        dispatch(setIsLoading(isLoading));
+        getFeedbacks(token)
+        .unwrap()
+            .then(() => {
+                history.push(RouterPath.FEEDBACKS);
+            })
+            .catch(() => {
+                history.push(RouterPath.SIGN_IN_RESULT_ERROR);
+            });
+    }, [dispatch, getFeedbacks, isLoading]);
 
     return (
         <Footer
@@ -64,6 +85,7 @@ export const FooterComponent: React.FC = () => {
                                 fontSize: '16px',
                             }}
                             type='text'
+                            onClick={handleLookFeedbacks}
                         >
                             {link.text}
                         </Button>
