@@ -1,7 +1,7 @@
 import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 import { Button, Space } from 'antd';
 import { Footer } from 'antd/lib/layout/layout';
-import { FooterCardComponent } from './components/footerCardComponent';
+import { FooterCardComponent } from './components';
 
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
@@ -53,7 +53,7 @@ export const FooterComponent: React.FC = () => {
                             justifyContent: 'space-between',
                             flexDirection: breakpoint.xs ? 'column-reverse' : 'row',
                         }}
-                        direction={(breakpoint.md || breakpoint.xs) ? 'vertical' : 'horizontal'}
+                        direction={breakpoint.md || breakpoint.xs ? 'vertical' : 'horizontal'}
                     >
                         <Button
                             key={i}

@@ -1,5 +1,5 @@
 import { Button, Card, Space } from 'antd';
-import { IFooterCardsData } from '../../footerComponent';
+import { IFooterCardsData } from '../footerComponent';
 import Title from 'antd/lib/typography/Title';
 import Text from 'antd/lib/typography/Text';
 import cn from 'classnames';
