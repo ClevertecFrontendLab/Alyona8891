@@ -1,0 +1,33 @@
+.wrapper {
+    :global {
+        .ant-result-title {
+            line-height: 1;
+        }
+        .ant-modal-body {
+            padding: 4rem 24px 2rem;
+        }
+        .ant-result {
+            padding: 0 2rem;
+
+            @media (max-width: 500px) {
+                padding: 0;
+            }
+        }
+        .ant-result-subtitle {
+            @media (max-width: 500px) {
+                max-width: 200px;
+                margin: auto;
+                line-height: 1.44;
+            }
+        }
+        .ant-btn-lg {
+            font-size: 0.875rem;
+        }
+    }
+}
+
+.button {
+    width: 74px;
+    @media (max-width: 500px) {
+    }
+}

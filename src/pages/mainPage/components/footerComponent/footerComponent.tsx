@@ -41,20 +41,26 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
 export const FooterComponent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const dispatch: AppDispatch = useAppDispatch();
-    const [getFeedbacks, {isLoading}] = useGetFeedbacksMutation();
+    const [getFeedbacks, { isLoading }] = useGetFeedbacksMutation();
 
     const handleLookFeedbacks = useCallback(() => {
         const token =
             localStorage.getItem('alyona8891_token') || sessionStorage.getItem('alyona8891_token');
-        dispatch(setIsLoading(isLoading));
-        getFeedbacks(token)
-        .unwrap()
-            .then(() => {
-                history.push(RouterPath.FEEDBACKS);
-            })
-            .catch(() => {
-                history.push(RouterPath.SIGN_IN_RESULT_ERROR);
-            });
+        if (!token) {
+            localStorage.clear();
+            sessionStorage.clear();
+            history.push(RouterPath.AUTH);
+        } else {
+            dispatch(setIsLoading(isLoading));
+            getFeedbacks(token)
+                .unwrap()
+                .then(() => {
+                    history.push(RouterPath.FEEDBACKS);
+                })
+                .catch(() => {
+                    history.push(RouterPath.SIGN_IN_RESULT_ERROR);
+                });
+        }
     }, [dispatch, getFeedbacks, isLoading]);
 
     return (

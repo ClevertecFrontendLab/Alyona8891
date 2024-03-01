@@ -140,4 +140,13 @@ export const RESULT_CARDS_DATA = {
             button: 'Войти',
         },
     },
+    feedbacks: {
+        errors: {
+            title: 'Что-то пошло не так',
+            subtitle: {
+                part1: 'Произошла ошибка, попробуйте ещё раз.',
+            },
+            button: 'Назад',
+        },
+    },
 };

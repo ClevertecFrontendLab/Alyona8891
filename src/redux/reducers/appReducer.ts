@@ -8,6 +8,7 @@ interface IAppSliceState {
     userLoginData: null | string;
     newPassword: null | string;
     activeToken: null | string;
+    isModal: boolean;
 }
 
 const initialState: IAppSliceState = {
@@ -17,6 +18,7 @@ const initialState: IAppSliceState = {
     userLoginData: null,
     newPassword: null,
     activeToken: null,
+    isModal: true,
 };
 
 export const appSlice = createSlice({
@@ -41,6 +43,9 @@ export const appSlice = createSlice({
         setNewPassword: (state, action) => {
             state.newPassword = action.payload;
         },
+        setIsModal: (state, action) => {
+            state.isModal = action.payload;
+        },
     },
 });
 
@@ -51,5 +56,6 @@ export const {
     setUserLoginData,
     setActiveToken,
     setNewPassword,
+    setIsModal,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
