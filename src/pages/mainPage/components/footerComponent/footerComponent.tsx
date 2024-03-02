@@ -8,7 +8,7 @@ import { useCallback } from 'react';
 import { useGetFeedbacksMutation } from '@redux/utils/api';
 import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
 import { ErrorCodes, RouterPath } from '@constants/constants';
-import { setFeedbacks, setIsLoading, setIsModal } from '@redux/reducers/appReducer';
+import { setFeedbacks, setIsLoading, setIsErrorModal } from '@redux/reducers/appReducer';
 
 export interface IFooterCardsData {
     key: number;
@@ -67,7 +67,7 @@ export const FooterComponent: React.FC = () => {
                         redirectToLogin();
                     } else {
                         history.push(RouterPath.FEEDBACKS);
-                        dispatch(setIsModal(true));
+                        dispatch(setIsErrorModal(true));
                     }
                 });
         }

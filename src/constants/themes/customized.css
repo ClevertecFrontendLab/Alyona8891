@@ -19446,7 +19446,7 @@ span.ant-radio + * {
   display: inline-block;
   margin: 0;
   padding: 0;
-  color: #fadb14;
+  color: #FAAD14;
   font-size: 20px;
   line-height: unset;
   list-style: none;
@@ -19477,12 +19477,12 @@ span.ant-radio + * {
   outline: 0;
 }
 .ant-rate-star > div:focus-visible {
-  outline: 1px dashed #fadb14;
+  outline: 1px dashed #FAAD14;
   transform: scale(1.1);
 }
 .ant-rate-star-first,
 .ant-rate-star-second {
-  color: #f0f0f0;
+  color: #FAAD14;
   transition: all 0.3s;
   user-select: none;
 }

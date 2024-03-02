@@ -9,11 +9,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
 import { ModalComponent } from '@pages/ui/modalComponent';
 import { RouterPath } from '@constants/constants';
+import { FeedbackModal } from '@pages/feedbacksPage/components/feedbackModal';
 
 export const MainLayout = (props: { children: React.ReactNode }) => {
     const { children } = props;
     const [isLoading, setIsLoading] = useState(true);
-    const isModal = useSelector((state: RootState) => state.app.isModal);
+    const isErrorModal = useSelector((state: RootState) => state.app.isErrorModal);
+    const isFeedbackModal = useSelector((state: RootState) => state.app.isFeedbackModal);
 
     useEffect(() => {
         setTimeout(() => {
@@ -38,7 +40,8 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                 </Layout>
             </div>
             {isLoading && <Loader />}
-            {isModal && <ModalComponent path={RouterPath.MAIN} />}
+            {isErrorModal && <ModalComponent path={RouterPath.MAIN} />}
+            {isFeedbackModal && <FeedbackModal />}
         </>
     );
 };

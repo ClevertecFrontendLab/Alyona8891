@@ -8,7 +8,8 @@ interface IAppSliceState {
     userLoginData: null | string;
     newPassword: null | string;
     activeToken: null | string;
-    isModal: boolean;
+    isErrorModal: boolean;
+    isFeedbackModal: boolean;
     feedbacks: IFeedback[] | [];
 }
 
@@ -19,7 +20,8 @@ const initialState: IAppSliceState = {
     userLoginData: null,
     newPassword: null,
     activeToken: null,
-    isModal: false,
+    isErrorModal: false,
+    isFeedbackModal: true,
     feedbacks: [],
 };
 
@@ -45,8 +47,11 @@ export const appSlice = createSlice({
         setNewPassword: (state, action) => {
             state.newPassword = action.payload;
         },
-        setIsModal: (state, action) => {
-            state.isModal = action.payload;
+        setIsErrorModal: (state, action) => {
+            state.isErrorModal = action.payload;
+        },
+        setIsFeedbackModal: (state, action) => {
+            state.isFeedbackModal = action.payload;
         },
         setFeedbacks: (state, action) => {
             state.feedbacks = [];
@@ -61,7 +66,8 @@ export const {
     setUserLoginData,
     setActiveToken,
     setNewPassword,
-    setIsModal,
+    setIsErrorModal,
+    setIsFeedbackModal,
     setFeedbacks,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

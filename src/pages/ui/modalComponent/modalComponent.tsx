@@ -8,16 +8,16 @@ import Modal from 'antd/lib/modal/Modal';
 import { useSelector } from 'react-redux';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { history } from '@redux/configure-store';
-import { setIsModal } from '@redux/reducers/appReducer';
+import { setIsErrorModal } from '@redux/reducers/appReducer';
 
 export const ModalComponent = (props: { path: RouterPath }) => {
     const { path } = props;
-    const isModal = useSelector((state: RootState) => state.app.isModal);
+    const isErrorModal = useSelector((state: RootState) => state.app.isErrorModal);
     const breakpoint = useBreakpoint();
     const dispatch: AppDispatch = useAppDispatch();
 
     const handleBackButton = () => {
-        dispatch(setIsModal(false));
+        dispatch(setIsErrorModal(false));
         history.push(path);
     };
 
@@ -25,10 +25,10 @@ export const ModalComponent = (props: { path: RouterPath }) => {
         <Modal
             wrapClassName={styles[cn('wrapper')]}
             centered
-            open={isModal}
+            open={isErrorModal}
             width={breakpoint.xs ? 328 : 539}
             closable={false}
-            footer={[]}
+            footer={null}
             maskStyle={{
                 backgroundColor: 'var(--background-auth-page-blure)',
                 backdropFilter: 'blur(.3rem)',
