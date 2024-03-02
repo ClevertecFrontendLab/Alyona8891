@@ -5,7 +5,7 @@ import styles from './signInContent.module.scss';
 import { Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
+import { ErrorCodes, RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { RootState, history } from '@redux/configure-store';
 import { useCheckEmailMutation, useSignInUserMutation } from '@redux/utils/api';
 import { ISignInData } from '../../../../types';
@@ -70,7 +70,10 @@ export const SignInContent: React.FC = () => {
                         history.push(RouterPath.SIGN_IN_CONFIRM_EMAIL);
                     })
                     .catch((error) => {
-                        if (error.status === 404 && error.data.message === 'Email не найден') {
+                        if (
+                            error.status === ErrorCodes.NOT_FOUND &&
+                            error.data.message === 'Email не найден'
+                        ) {
                             history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404);
                         } else {
                             history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERRORS);

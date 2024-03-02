@@ -5,7 +5,7 @@ import styles from './signUpContent.module.scss';
 import { Button, Form, Input, Space } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
+import { ErrorCodes, RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { useSignUpUserMutation } from '@redux/utils/api';
 import { ISignUpData } from '../../../../types';
 import { history } from '@redux/configure-store';
@@ -42,7 +42,7 @@ export const SignUpContent: React.FC = () => {
                     history.push(RouterPath.SIGN_UP_RESULT_SUCCESS);
                 })
                 .catch((error) => {
-                    if (error.status === 409) {
+                    if (error.status === ErrorCodes.CONFLICT) {
                         history.push(RouterPath.SIGN_UP_RESULT_ERROR_409);
                         return;
                     } else {

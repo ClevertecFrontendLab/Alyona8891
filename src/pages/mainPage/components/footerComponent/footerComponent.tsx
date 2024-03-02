@@ -7,8 +7,8 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useCallback } from 'react';
 import { useGetFeedbacksMutation } from '@redux/utils/api';
 import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
-import { RouterPath } from '@constants/constants';
-import { setIsLoading } from '@redux/reducers/appReducer';
+import { ErrorCodes, RouterPath } from '@constants/constants';
+import { setIsLoading, setIsModal } from '@redux/reducers/appReducer';
 
 export interface IFooterCardsData {
     key: number;
@@ -38,6 +38,12 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
     },
 ];
 
+const redirectToLogin = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    history.push(RouterPath.AUTH);
+};
+
 export const FooterComponent: React.FC = () => {
     const breakpoint = useBreakpoint();
     const dispatch: AppDispatch = useAppDispatch();
@@ -47,9 +53,7 @@ export const FooterComponent: React.FC = () => {
         const token =
             localStorage.getItem('alyona8891_token') || sessionStorage.getItem('alyona8891_token');
         if (!token) {
-            localStorage.clear();
-            sessionStorage.clear();
-            history.push(RouterPath.AUTH);
+            redirectToLogin();
         } else {
             dispatch(setIsLoading(isLoading));
             getFeedbacks(token)
@@ -57,8 +61,13 @@ export const FooterComponent: React.FC = () => {
                 .then(() => {
                     history.push(RouterPath.FEEDBACKS);
                 })
-                .catch(() => {
-                    history.push(RouterPath.SIGN_IN_RESULT_ERROR);
+                .catch((error) => {
+                    if (error.status === ErrorCodes.FORBIDDEN) {
+                        redirectToLogin();
+                    } else {
+                        history.push(RouterPath.FEEDBACKS);
+                        dispatch(setIsModal(true));
+                    }
                 });
         }
     }, [dispatch, getFeedbacks, isLoading]);

@@ -8,6 +8,7 @@ import { SiderComponent } from '@pages/mainPage/components/siderComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
 import { ModalComponent } from '@pages/ui/modalComponent';
+import { RouterPath } from '@constants/constants';
 
 export const MainLayout = (props: { children: React.ReactNode }) => {
     const { children } = props;
@@ -37,9 +38,7 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                 </Layout>
             </div>
             {isLoading && <Loader />}
-            {isModal && (
-                <ModalComponent />
-            )}
+            {isModal && <ModalComponent path={RouterPath.MAIN} />}
         </>
     );
 };

@@ -18,7 +18,7 @@ const initialState: IAppSliceState = {
     userLoginData: null,
     newPassword: null,
     activeToken: null,
-    isModal: true,
+    isModal: false,
 };
 
 export const appSlice = createSlice({

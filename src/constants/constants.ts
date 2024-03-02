@@ -18,6 +18,14 @@ export enum RouterPath {
     SIGN_UP_RESULT_ERRORS = '/auth/registration/result/error',
 }
 
+export enum ErrorCodes {
+    INTERNAL_SERVER_ERROR = 500,
+    NOT_FOUND = 404,
+    BAD_REQUEST = 400,
+    FORBIDDEN = 403,
+    CONFLICT = 409,
+}
+
 export const TEXT = {
     tabs: {
         signIn: 'Вход',
