@@ -12,10 +12,16 @@ export interface ISignUpData extends IUserData {
 }
 
 export interface IFeedback {
-    id: string,
-    fullName: null | string,
-    imageSrc: null | string,
-    message: null | string,
-    rating: number,
-    createdAt: string
-} 
+    id: string;
+    fullName: null | string;
+    imageSrc: null | string;
+    message: null | string;
+    rating: number;
+    createdAt: string;
+}
+
+export interface IBreadcrumbItemData {
+    key: number;
+    path: string;
+    breadcrumbName: string;
+}

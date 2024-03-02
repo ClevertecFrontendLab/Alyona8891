@@ -4,10 +4,13 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './headerComponent.module.scss';
 import { SettingOutlined } from '@ant-design/icons';
+import { BreadcrumpComponent } from '@pages/ui/breadcrumbComponent';
+import { RouterPath } from '@constants/constants';
 
 const routes = [
     {
-        path: 'index',
+        key: 1,
+        path: RouterPath.MAIN,
         breadcrumbName: 'Главная',
     },
 ];
@@ -18,7 +21,7 @@ export const HeaderComponent: React.FC = () => {
     const breakpoint = useBreakpoint();
     return (
         <PageHeader
-            breadcrumb={{ routes }}
+            breadcrumbRender={() => <BreadcrumpComponent routes={routes} />}
             style={{
                 backgroundColor: 'var(--background-color-header)',
                 color: 'var(--color-title)',
@@ -39,8 +42,7 @@ export const HeaderComponent: React.FC = () => {
                         <Button
                             icon={<SettingOutlined />}
                             className={styles[cn('setting_button')]}
-                            style={{ marginTop: breakpoint.xs ? '0' : '-5px',
-                         }}
+                            style={{ marginTop: breakpoint.xs ? '0' : '-5px' }}
                             type='text'
                         >
                             {SETTING_BUTTON}
