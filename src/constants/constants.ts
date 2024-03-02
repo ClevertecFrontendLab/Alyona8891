@@ -161,5 +161,6 @@ export const RESULT_CARDS_DATA = {
 
 export const FEEDBACK_MODAL = {
     title: 'Ваш отзыв',
-    button: 'Опубликовать'
-  }
+    button: 'Опубликовать',
+    placeholder: 'Autosize height based on content lines',
+};

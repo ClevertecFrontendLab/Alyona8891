@@ -11,6 +11,8 @@ import { setIsFeedbackModal } from '@redux/reducers/appReducer';
 import { FEEDBACK_MODAL } from '@constants/constants';
 import { useState } from 'react';
 import { CustomRate } from '@pages/ui/customRate';
+import { Input } from 'antd';
+const { TextArea } = Input;
 
 export const FeedbackModal = () => {
     const isFeedbackModal = useSelector((state: RootState) => state.app.isFeedbackModal);
@@ -51,6 +53,7 @@ export const FeedbackModal = () => {
             }}
         >
             <CustomRate value={value} setValue={setValue} />
+            <TextArea style={{ height: 46 }} placeholder={FEEDBACK_MODAL.placeholder} />
         </Modal>
     );
 };

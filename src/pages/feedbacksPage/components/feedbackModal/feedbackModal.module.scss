@@ -1,0 +1,51 @@
+.wrapper {
+    :global {
+        .ant-modal-close {
+            top: 16px;
+            right: 19px;
+
+            @media (max-width: 550px) {
+              right: 0.7rem;
+            }
+        }
+
+        .ant-modal-header {
+            padding: 1rem 24px 0px;
+            
+            @media (max-width: 550px) {
+              padding: 1rem 1rem 0px;
+            }
+        }
+
+        .ant-modal-body {
+            padding: 1rem 24px 0;
+            margin-bottom: 0.6rem;
+            
+            @media (max-width: 550px) {
+              padding: 1rem 1rem 0px;
+            }
+        }
+
+        .ant-rate {
+            margin: 1rem 3px 1rem;
+        }
+
+        .ant-modal-footer {
+            padding: 1.7rem 24px 8px;
+            @media (max-width: 550px) {
+              padding: 1.4rem 1rem 11px;
+            }
+        }
+
+        .ant-btn-lg {
+            font-size: 14px;
+        }
+    }
+}
+
+.button {
+    width: 130px;
+    @media (max-width: 500px) {
+      width: 100%;
+    }
+}
