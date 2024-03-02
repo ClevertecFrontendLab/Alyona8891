@@ -9,7 +9,7 @@ interface IAppSliceState {
     newPassword: null | string;
     activeToken: null | string;
     isModal: boolean;
-    feedbacks: IFeedback[] | null;
+    feedbacks: IFeedback[] | [];
 }
 
 const initialState: IAppSliceState = {
@@ -49,7 +49,7 @@ export const appSlice = createSlice({
             state.isModal = action.payload;
         },
         setFeedbacks: (state, action) => {
-            state.feedbacks = action.payload;
+            state.feedbacks = [];
         },
     },
 });

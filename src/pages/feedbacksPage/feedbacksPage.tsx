@@ -3,9 +3,13 @@ import { useEffect } from 'react';
 import { RootState, history } from '@redux/configure-store';
 import { RouterPath } from '@constants/constants';
 import { useSelector } from 'react-redux';
+import { ContentWithFeedbacks } from './components/contentWithFeedbacks';
+import { ContentWithoutFeedbacks } from './components/contentWithoutFeedbacks';
+import { HeaderComponent } from './components/headerComponent';
 
 export const FeedbacksPage: React.FC = () => {
     const feedbacks = useSelector((state: RootState) => state.app.feedbacks);
+
     useEffect(() => {
         const token =
             localStorage.getItem('alyona8891_token') || sessionStorage.getItem('alyona8891_token');
@@ -13,7 +17,11 @@ export const FeedbacksPage: React.FC = () => {
             history.push(RouterPath.AUTH);
         }
     });
-    return <MainLayout>
-        {feedbacks && feedbacks.map((e) => <div>{e.id}</div>)}
-    </MainLayout>;
+
+    return (
+        <MainLayout>
+            <HeaderComponent />
+            {feedbacks.length > 0 ? <ContentWithFeedbacks /> : <ContentWithoutFeedbacks />}
+        </MainLayout>
+    );
 };

@@ -65,6 +65,10 @@ html {
     margin-left: -6px;
 }
 
+.ant-page-header.has-breadcrumb {
+    padding-top: 0;
+}
+
 @media (max-width: 576px) {
     .ant-menu-inline .ant-menu-item {
         margin-left: -15px;

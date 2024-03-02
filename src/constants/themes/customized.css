@@ -17915,7 +17915,7 @@ textarea.ant-mentions {
   background-color: inherit;
 }
 .ant-page-header.has-breadcrumb {
-  padding-top: 12px;
+  padding-top: 0.875rem;
 }
 .ant-page-header.has-footer {
   padding-bottom: 0;
