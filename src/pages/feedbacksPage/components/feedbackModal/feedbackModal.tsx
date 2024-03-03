@@ -6,9 +6,8 @@ import { Button, Form } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { useSelector } from 'react-redux';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { history } from '@redux/configure-store';
-import { setIsFeedbackModal, setIsLoading } from '@redux/reducers/appReducer';
-import { FEEDBACK_MODAL } from '@constants/constants';
+import { setIsErrorModal, setIsFeedbackModal, setIsLoading, setRequestResult } from '@redux/reducers/appReducer';
+import { FEEDBACK_MODAL, RequestResult } from '@constants/constants';
 import { useEffect, useState } from 'react';
 import { CustomRate } from '@pages/ui/customRate';
 import { Input } from 'antd';
@@ -35,11 +34,15 @@ export const FeedbackModal = () => {
         const message = form.getFieldValue('feedback');
         postFeedback({ message, rating })
             .unwrap()
-            .then((res) => {
-                console.log('success');
+            .then(() => {
+                dispatch(setIsFeedbackModal(false));
+                dispatch(setRequestResult(RequestResult.SUCCESS));
+                dispatch(setIsErrorModal(true));
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
+                dispatch(setIsFeedbackModal(false));
+                dispatch(setRequestResult(RequestResult.ERROR_FEEDBACK));
+                dispatch(setIsErrorModal(true));
             });
     };
 

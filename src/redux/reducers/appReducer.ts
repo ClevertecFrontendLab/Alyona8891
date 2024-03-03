@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IFeedback, ISignUpData } from '../../types';
+import { RequestResult } from '@constants/constants';
 
 interface IAppSliceState {
     authPageContent: 'signIn' | 'signUp';
@@ -11,6 +12,7 @@ interface IAppSliceState {
     isErrorModal: boolean;
     isFeedbackModal: boolean;
     feedbacks: IFeedback[] | [];
+    requestResult: null | RequestResult,
 }
 
 const initialState: IAppSliceState = {
@@ -21,8 +23,9 @@ const initialState: IAppSliceState = {
     newPassword: null,
     activeToken: null,
     isErrorModal: false,
-    isFeedbackModal: true,
+    isFeedbackModal: false,
     feedbacks: [],
+    requestResult: null,
 };
 
 export const appSlice = createSlice({
@@ -56,6 +59,9 @@ export const appSlice = createSlice({
         setFeedbacks: (state, action) => {
             state.feedbacks = [];
         },
+        setRequestResult: (state, action) => {
+            state.requestResult = action.payload;
+        },
     },
 });
 
@@ -69,5 +75,6 @@ export const {
     setIsErrorModal,
     setIsFeedbackModal,
     setFeedbacks,
+    setRequestResult,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

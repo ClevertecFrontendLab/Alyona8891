@@ -40,7 +40,7 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                 </Layout>
             </div>
             {isLoading && <Loader />}
-            {isErrorModal && <ModalComponent path={RouterPath.MAIN} />}
+            {isErrorModal && <ModalComponent />}
             {isFeedbackModal && <FeedbackModal />}
         </>
     );

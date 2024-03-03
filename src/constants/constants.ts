@@ -26,6 +26,12 @@ export enum ErrorCodes {
     CONFLICT = 409,
 }
 
+export enum RequestResult {
+    SUCCESS = 'success',
+    ERROR_403 = 'error403',
+    ERROR_FEEDBACK = 'errorFeedback',
+}
+
 export const TEXT = {
     tabs: {
         signIn: 'Вход',
@@ -149,12 +155,26 @@ export const RESULT_CARDS_DATA = {
         },
     },
     feedbacks: {
-        errors: {
+        error403: {
             title: 'Что-то пошло не так',
             subtitle: {
                 part1: 'Произошла ошибка, попробуйте ещё раз.',
             },
             button: 'Назад',
+        },
+        errors: {
+            title: 'Данные не сохранились',
+            subtitle: {
+                part1: 'Что-то пошло не так. Попробуйте ещё раз.',
+            },
+            buttons: {
+                button1: 'Написать отзыв',
+                button2: 'Закрыть',
+            },
+        },
+        success: {
+            title: 'Отзыв успешно опубликован',
+            button: 'Отлично',
         },
     },
 };

@@ -2,6 +2,8 @@ import cn from 'classnames';
 import styles from './contentWithoutFeedbacks.module.scss';
 import { Content } from 'antd/lib/layout/layout';
 import { Button, Card, Space, Typography } from 'antd';
+import { AppDispatch, useAppDispatch } from '@redux/configure-store';
+import { setIsFeedbackModal } from '@redux/reducers/appReducer';
 const { Text, Title } = Typography;
 
 const CONTENT_WITHOUT_FEEDBACKS = {
@@ -18,6 +20,12 @@ const CONTENT_WITHOUT_FEEDBACKS = {
 };
 
 export const ContentWithoutFeedbacks = () => {
+    const dispatch: AppDispatch = useAppDispatch();
+
+    const handleWriteFeedback = () => {
+        dispatch(setIsFeedbackModal(true));
+    };
+
     return (
         <Content className={styles[cn('wrapper')]}>
             <Card className={styles[cn('card')]} headStyle={{ textAlign: 'center' }}>
@@ -32,7 +40,12 @@ export const ContentWithoutFeedbacks = () => {
                     ))}
                 </Space>
             </Card>
-            <Button className={styles[cn('button')]} type='primary' size='large'>
+            <Button
+                className={styles[cn('button')]}
+                onClick={handleWriteFeedback}
+                type='primary'
+                size='large'
+            >
                 {CONTENT_WITHOUT_FEEDBACKS.button}
             </Button>
         </Content>

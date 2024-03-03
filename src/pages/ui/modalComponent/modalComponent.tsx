@@ -1,25 +1,15 @@
 import cn from 'classnames';
 import styles from './modalComponent.module.scss';
 
-import { RESULT_CARDS_DATA, RouterPath } from '@constants/constants';
-import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
-import { Button, Result } from 'antd';
+import { RootState } from '@redux/configure-store';
 import Modal from 'antd/lib/modal/Modal';
 import { useSelector } from 'react-redux';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { history } from '@redux/configure-store';
-import { setIsErrorModal } from '@redux/reducers/appReducer';
+import { ResultComponent } from '@pages/feedbacksPage/components/resultComponent';
 
-export const ModalComponent = (props: { path: RouterPath }) => {
-    const { path } = props;
+export const ModalComponent = () => {
     const isErrorModal = useSelector((state: RootState) => state.app.isErrorModal);
     const breakpoint = useBreakpoint();
-    const dispatch: AppDispatch = useAppDispatch();
-
-    const handleBackButton = () => {
-        dispatch(setIsErrorModal(false));
-        history.push(path);
-    };
 
     return (
         <Modal
@@ -34,21 +24,7 @@ export const ModalComponent = (props: { path: RouterPath }) => {
                 backdropFilter: 'blur(.3rem)',
             }}
         >
-            <Result
-                status='500'
-                title={RESULT_CARDS_DATA.feedbacks.errors.title}
-                subTitle={RESULT_CARDS_DATA.feedbacks.errors.subtitle.part1}
-                extra={
-                    <Button
-                        onClick={handleBackButton}
-                        className={styles[cn('button')]}
-                        type='primary'
-                        size='large'
-                    >
-                        {RESULT_CARDS_DATA.feedbacks.errors.button}
-                    </Button>
-                }
-            />
+            <ResultComponent />
         </Modal>
     );
 };

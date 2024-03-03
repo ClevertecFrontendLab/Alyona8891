@@ -7,8 +7,8 @@ import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useCallback } from 'react';
 import { useGetFeedbacksMutation } from '@redux/utils/api';
 import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
-import { ErrorCodes, RouterPath } from '@constants/constants';
-import { setFeedbacks, setIsLoading, setIsErrorModal } from '@redux/reducers/appReducer';
+import { ErrorCodes, RequestResult, RouterPath } from '@constants/constants';
+import { setFeedbacks, setIsLoading, setIsErrorModal, setRequestResult } from '@redux/reducers/appReducer';
 
 export interface IFooterCardsData {
     key: number;
@@ -67,6 +67,7 @@ export const FooterComponent: React.FC = () => {
                         redirectToLogin();
                     } else {
                         history.push(RouterPath.FEEDBACKS);
+                        dispatch(setRequestResult(RequestResult.ERROR_403));
                         dispatch(setIsErrorModal(true));
                     }
                 });
