@@ -4,20 +4,8 @@ import { Content } from 'antd/lib/layout/layout';
 import { Button, Card, Space, Typography } from 'antd';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { setIsFeedbackModal } from '@redux/reducers/appReducer';
+import { CONTENT_WITHOUT_FEEDBACKS } from '@constants/constants';
 const { Text, Title } = Typography;
-
-const CONTENT_WITHOUT_FEEDBACKS = {
-    title: 'Оставьте свой отзыв первым',
-    text: [
-        {
-            key: 1,
-            part: 'Вы можете быть первым, кто оставит отзыв об этом фитнесс приложении.',
-        },
-        { key: 2, part: 'Поделитесь своим мнением и опытом с другими пользователями,' },
-        { key: 3, part: 'и помогите им сделать правильный выбор.' },
-    ],
-    button: 'Написать отзыв',
-};
 
 export const ContentWithoutFeedbacks = () => {
     const dispatch: AppDispatch = useAppDispatch();

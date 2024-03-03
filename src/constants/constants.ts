@@ -184,3 +184,20 @@ export const FEEDBACK_MODAL = {
     button: 'Опубликовать',
     placeholder: 'Autosize height based on content lines',
 };
+
+export const CONTENT_WITHOUT_FEEDBACKS = {
+    title: 'Оставьте свой отзыв первым',
+    text: [
+        {
+            key: 1,
+            part: 'Вы можете быть первым, кто оставит отзыв об этом фитнесс приложении.',
+        },
+        { key: 2, part: 'Поделитесь своим мнением и опытом с другими пользователями,' },
+        { key: 3, part: 'и помогите им сделать правильный выбор.' },
+    ],
+    button: 'Написать отзыв',
+};
+
+export const CONTENT_WITH_FEEDBACKS = {
+    buttons: { button1: 'Написать отзыв', button2: 'Свернуть все отзывы' },
+};

@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { ContentWithFeedbacks } from './components/contentWithFeedbacks';
 import { ContentWithoutFeedbacks } from './components/contentWithoutFeedbacks';
 import { HeaderComponent } from './components/headerComponent';
+import { FooterComponent } from './components/footerComponent';
 
 export const FeedbacksPage: React.FC = () => {
     const feedbacks = useSelector((state: RootState) => state.app.feedbacks);
@@ -22,6 +23,7 @@ export const FeedbacksPage: React.FC = () => {
         <MainLayout>
             <HeaderComponent />
             {feedbacks.length > 0 ? <ContentWithFeedbacks /> : <ContentWithoutFeedbacks />}
+            {feedbacks.length > 0 ? <FooterComponent /> : undefined}
         </MainLayout>
     );
 };

@@ -12,8 +12,8 @@ interface IAppSliceState {
     isErrorModal: boolean;
     isFeedbackModal: boolean;
     feedbacks: IFeedback[] | [];
-    requestResult: null | RequestResult,
-    userFeedback: null | IPostFeedback,
+    requestResult: null | RequestResult;
+    userFeedback: null | IPostFeedback;
 }
 
 const initialState: IAppSliceState = {
@@ -25,7 +25,16 @@ const initialState: IAppSliceState = {
     activeToken: null,
     isErrorModal: false,
     isFeedbackModal: false,
-    feedbacks: [],
+    feedbacks: [
+        {
+            id: 'sc',
+            fullName: 'dlkld',
+            imageSrc: 'ldkodk',
+            message: 'djodj',
+            rating: 5,
+            createdAt: '2024-03-03T22:01:19.360Z',
+        },
+    ],
     requestResult: null,
     userFeedback: null,
 };
@@ -81,6 +90,6 @@ export const {
     setIsFeedbackModal,
     setFeedbacks,
     setRequestResult,
-    setUserFeedback
+    setUserFeedback,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
