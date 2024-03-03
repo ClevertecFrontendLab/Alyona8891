@@ -6,7 +6,13 @@ import { Button, Form } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import { useSelector } from 'react-redux';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { setIsErrorModal, setIsFeedbackModal, setIsLoading, setRequestResult } from '@redux/reducers/appReducer';
+import {
+    setIsErrorModal,
+    setIsFeedbackModal,
+    setIsLoading,
+    setRequestResult,
+    setUserFeedback,
+} from '@redux/reducers/appReducer';
 import { FEEDBACK_MODAL, RequestResult } from '@constants/constants';
 import { useEffect, useState } from 'react';
 import { CustomRate } from '@pages/ui/customRate';
@@ -16,10 +22,12 @@ const { TextArea } = Input;
 
 export const FeedbackModal = () => {
     const isFeedbackModal = useSelector((state: RootState) => state.app.isFeedbackModal);
+    const userFeedback = useSelector((state: RootState) => state.app.userFeedback);
+    const [textareaValue] = useState(userFeedback ? userFeedback.message : undefined)
     const breakpoint = useBreakpoint();
     const [postFeedback, { isLoading }] = usePostFeedbackMutation();
     const dispatch: AppDispatch = useAppDispatch();
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(userFeedback ? userFeedback.rating : 0);
     const [form] = Form.useForm();
 
     useEffect(() => {
@@ -40,6 +48,7 @@ export const FeedbackModal = () => {
                 dispatch(setIsErrorModal(true));
             })
             .catch(() => {
+                dispatch(setIsFeedbackModal({ message, rating }));
                 dispatch(setIsFeedbackModal(false));
                 dispatch(setRequestResult(RequestResult.ERROR_FEEDBACK));
                 dispatch(setIsErrorModal(true));
@@ -47,6 +56,8 @@ export const FeedbackModal = () => {
     };
 
     const handleCancel = () => {
+        const message = form.getFieldValue('feedback');
+        dispatch(setUserFeedback({ message, rating }));
         dispatch(setIsFeedbackModal(false));
     };
 
@@ -79,7 +90,11 @@ export const FeedbackModal = () => {
             <CustomRate value={rating} setValue={setRating} />
             <Form form={form} onFinish={handlePublish}>
                 <Form.Item name='feedback'>
-                    <TextArea style={{ height: 46 }} placeholder={FEEDBACK_MODAL.placeholder} />
+                    <TextArea
+                        defaultValue={textareaValue}
+                        style={{ height: 46 }}
+                        placeholder={FEEDBACK_MODAL.placeholder}
+                    />
                 </Form.Item>
             </Form>
         </Modal>

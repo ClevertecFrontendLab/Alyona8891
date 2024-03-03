@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IFeedback, ISignUpData } from '../../types';
+import { IFeedback, IPostFeedback, ISignUpData } from '../../types';
 import { RequestResult } from '@constants/constants';
 
 interface IAppSliceState {
@@ -13,6 +13,7 @@ interface IAppSliceState {
     isFeedbackModal: boolean;
     feedbacks: IFeedback[] | [];
     requestResult: null | RequestResult,
+    userFeedback: null | IPostFeedback,
 }
 
 const initialState: IAppSliceState = {
@@ -26,6 +27,7 @@ const initialState: IAppSliceState = {
     isFeedbackModal: false,
     feedbacks: [],
     requestResult: null,
+    userFeedback: null,
 };
 
 export const appSlice = createSlice({
@@ -62,6 +64,9 @@ export const appSlice = createSlice({
         setRequestResult: (state, action) => {
             state.requestResult = action.payload;
         },
+        setUserFeedback: (state, action) => {
+            state.userFeedback = action.payload;
+        },
     },
 });
 
@@ -76,5 +81,6 @@ export const {
     setIsFeedbackModal,
     setFeedbacks,
     setRequestResult,
+    setUserFeedback
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
