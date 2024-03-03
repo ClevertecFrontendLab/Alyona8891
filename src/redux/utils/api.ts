@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from './service';
-import { IUserData } from '../../types';
+import { IPostFeedback, IUserData } from '../../types';
 
 export const apiService = createApi({
     reducerPath: 'apiService',
@@ -47,6 +47,13 @@ export const apiService = createApi({
                 method: 'get',
             }),
         }),
+        postFeedback: builder.mutation({
+            query: (data: IPostFeedback) => ({
+                url: '/feedback',
+                method: 'post',
+                data
+            }),
+        }),
     }),
 });
 
@@ -57,4 +64,5 @@ export const {
     useConfirmEmailMutation,
     useChangePasswordMutation,
     useGetFeedbacksMutation,
+    usePostFeedbackMutation,
 } = apiService;

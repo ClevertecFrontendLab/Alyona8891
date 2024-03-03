@@ -25,3 +25,8 @@ export interface IBreadcrumbItemData {
     path: string;
     breadcrumbName: string;
 }
+
+export interface IPostFeedback {
+    message: string;
+    rating: number;
+}

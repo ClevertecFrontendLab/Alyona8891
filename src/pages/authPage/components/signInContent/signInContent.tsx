@@ -19,7 +19,7 @@ export const SignInContent: React.FC = () => {
     const [signInUser, { isLoading }] = useSignInUserMutation();
     const [checkEmail, { isLoading: isLoadingChecking }] = useCheckEmailMutation();
     const dispatch: AppDispatch = useAppDispatch();
-    const [isEmailValidated, setisEmailValidated] = useState<boolean>(false);
+    const [isEmailValidated, setIsEmailValidated] = useState<boolean>(false);
     const [isRemembered, setIsRemembered] = useState(false);
     const userLoginData = useSelector((state: RootState) => state.app.userLoginData);
     const router = useSelector((state: RootState) => state.router);
@@ -92,13 +92,13 @@ export const SignInContent: React.FC = () => {
             router.previousLocations[1].location?.pathname ===
                 RouterPath.SIGN_IN_RESULT_CHECK_ERRORS
         ) {
-            setisEmailValidated(true);
+            setIsEmailValidated(true);
             handleChangePassword(userLoginData);
         }
     }, [handleChangePassword, router, router.previousLocations, userLoginData]);
 
     function fieldEmailHasError() {
-        setisEmailValidated(!(form.getFieldError('email').length > 0));
+        setIsEmailValidated(!(form.getFieldError('email').length > 0));
     }
 
     return (
