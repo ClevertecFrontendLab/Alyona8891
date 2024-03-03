@@ -49,7 +49,7 @@ export const apiService = createApi({
         }),
         postFeedback: builder.mutation({
             query: (data: IPostFeedback) => ({
-                url: '/feedbackko',
+                url: '/feedback',
                 method: 'post',
                 data
             }),

@@ -21,6 +21,7 @@ export const ResultComponent = () => {
         return (
             <Result
                 status='500'
+                className={styles[cn('result_error403_container')]}
                 title={RESULT_CARDS_DATA.feedbacks.error403.title}
                 subTitle={RESULT_CARDS_DATA.feedbacks.error403.subtitle.part1}
                 extra={
@@ -40,6 +41,7 @@ export const ResultComponent = () => {
         return (
             <Result
                 status='success'
+                className={styles[cn('result_success_container')]}
                 title={RESULT_CARDS_DATA.feedbacks.success.title}
                 extra={
                     <Button
@@ -58,13 +60,16 @@ export const ResultComponent = () => {
         return (
             <Result
                 status='error'
+                className={styles[cn('result_error_container')]}
                 title={RESULT_CARDS_DATA.feedbacks.errors.title}
                 subTitle={RESULT_CARDS_DATA.feedbacks.errors.subtitle.part1}
                 extra={[
-                    <Button type='primary' key='1'>
+                    <Button className={styles[cn('button')]} key='1' size='large' type='primary'>
                         {RESULT_CARDS_DATA.feedbacks.errors.buttons.button1}
                     </Button>,
-                    <Button key='2'>{RESULT_CARDS_DATA.feedbacks.errors.buttons.button2}</Button>,
+                    <Button className={styles[cn('button')]} key='2' size='large'>
+                        {RESULT_CARDS_DATA.feedbacks.errors.buttons.button2}
+                    </Button>,
                 ]}
             />
         );
