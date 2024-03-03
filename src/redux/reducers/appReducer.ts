@@ -59,7 +59,7 @@ export const appSlice = createSlice({
             state.isFeedbackModal = action.payload;
         },
         setFeedbacks: (state, action) => {
-            state.feedbacks = [];
+            state.feedbacks = [...action.payload];
         },
         setRequestResult: (state, action) => {
             state.requestResult = action.payload;

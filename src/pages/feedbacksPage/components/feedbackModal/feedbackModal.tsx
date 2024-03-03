@@ -23,7 +23,7 @@ const { TextArea } = Input;
 export const FeedbackModal = () => {
     const isFeedbackModal = useSelector((state: RootState) => state.app.isFeedbackModal);
     const userFeedback = useSelector((state: RootState) => state.app.userFeedback);
-    const [textareaValue] = useState(userFeedback ? userFeedback.message : undefined)
+    const [message] = useState(userFeedback ? userFeedback.message : '');
     const breakpoint = useBreakpoint();
     const [postFeedback, { isLoading }] = usePostFeedbackMutation();
     const dispatch: AppDispatch = useAppDispatch();
@@ -39,7 +39,7 @@ export const FeedbackModal = () => {
     }, [dispatch, isLoading]);
 
     const handlePublish = () => {
-        const message = form.getFieldValue('feedback');
+        dispatch(setUserFeedback({ message, rating }));
         postFeedback({ message, rating })
             .unwrap()
             .then(() => {
@@ -91,7 +91,7 @@ export const FeedbackModal = () => {
             <Form form={form} onFinish={handlePublish}>
                 <Form.Item name='feedback'>
                     <TextArea
-                        defaultValue={textareaValue}
+                        value={message}
                         style={{ height: 46 }}
                         placeholder={FEEDBACK_MODAL.placeholder}
                     />
