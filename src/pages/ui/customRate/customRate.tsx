@@ -3,19 +3,22 @@ import { StarFilled, StarOutlined } from '@ant-design/icons';
 
 export const CustomRate = (props: {
     value: number;
-    setValue: React.Dispatch<React.SetStateAction<number>>;
+    setValue?: React.Dispatch<React.SetStateAction<number>>;
+    size: number;
 }) => {
-    const { value, setValue } = props;
+    const { value, size, setValue } = props;
 
     const handleChange = (newValue: number) => {
-        setValue(newValue);
+        if (setValue) {
+            setValue(newValue);
+        }
     };
 
     const getIcon = (index: number) => {
         if (index + 1 <= value) {
-            return <StarFilled />;
+            return <StarFilled style={{ fontSize: size }} />;
         } else {
-            return <StarOutlined />;
+            return <StarOutlined style={{ fontSize: size }} />;
         }
     };
 
@@ -23,6 +26,7 @@ export const CustomRate = (props: {
         <Rate
             count={5}
             value={value}
+            disabled={!handleChange}
             onChange={handleChange}
             character={({ index }) => getIcon(index as number)}
         />

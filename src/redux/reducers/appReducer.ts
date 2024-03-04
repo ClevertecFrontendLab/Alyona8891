@@ -28,11 +28,19 @@ const initialState: IAppSliceState = {
     feedbacks: [
         {
             id: 'sc',
-            fullName: 'dlkld',
-            imageSrc: 'ldkodk',
+            fullName: 'Елена Ковалева',
+            imageSrc: null,
+            message: 'Классное приложение!',
+            rating: 4,
+            createdAt: '2024-01-17T22:01:19.360Z',
+        },
+        {
+            id: 'scd',
+            fullName: 'dvdvd dvdv',
+            imageSrc: null,
             message: 'djodj',
-            rating: 5,
-            createdAt: '2024-03-03T22:01:19.360Z',
+            rating: 3,
+            createdAt: '2024-05-05T22:01:19.360Z',
         },
     ],
     requestResult: null,

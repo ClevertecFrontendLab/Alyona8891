@@ -87,7 +87,7 @@ export const FeedbackModal = () => {
                 backdropFilter: 'blur(.3rem)',
             }}
         >
-            <CustomRate value={rating} setValue={setRating} />
+            <CustomRate size={16} value={rating} setValue={setRating} />
             <Form form={form} onFinish={handlePublish}>
                 <Form.Item name='feedback'>
                     <TextArea
