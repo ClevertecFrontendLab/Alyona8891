@@ -1,7 +1,12 @@
 import { MainLayout } from '@layouts/mainLayout';
 import { useEffect } from 'react';
 import { AppDispatch, RootState, history, useAppDispatch } from '@redux/configure-store';
-import { ErrorCodes, RequestResult, RouterPath } from '@constants/constants';
+import {
+    ErrorCodes,
+    RequestResult,
+    RouterPath,
+    TOKEN_STORAGE_PROPERTY,
+} from '@constants/constants';
 import { useSelector } from 'react-redux';
 import { ContentWithFeedbacks } from './components/contentWithFeedbacks';
 import { ContentWithoutFeedbacks } from './components/contentWithoutFeedbacks';
@@ -12,7 +17,7 @@ import { ModalComponent } from '@pages/ui/modalComponent';
 import { FeedbackModal } from './components/feedbackModal';
 import { LoaderComponent as Loader } from '@pages/ui/loader';
 import { setIsErrorModal, setRequestResult } from '@redux/reducers/appReducer';
-import { IError } from '../../types';
+import { ErrorType } from '../../types';
 import { redirectToLogin } from '@utils/index';
 
 export const FeedbacksPage: React.FC = () => {
@@ -23,12 +28,13 @@ export const FeedbacksPage: React.FC = () => {
 
     useEffect(() => {
         const token =
-            localStorage.getItem('alyona8891_token') || sessionStorage.getItem('alyona8891_token');
+            localStorage.getItem(TOKEN_STORAGE_PROPERTY) ||
+            sessionStorage.getItem(TOKEN_STORAGE_PROPERTY);
         if (!token) {
             redirectToLogin();
         } else {
             if (error) {
-                const e = error as IError;
+                const e = error as ErrorType;
                 if (e.status === ErrorCodes.FORBIDDEN) {
                     dispatch(setRequestResult(RequestResult.ERROR_403));
                     dispatch(setIsErrorModal(true));

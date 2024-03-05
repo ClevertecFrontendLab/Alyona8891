@@ -7,11 +7,12 @@ import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-desi
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { ErrorCodes, RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
 import { useSignUpUserMutation } from '@redux/utils/api';
-import { ISignUpData } from '../../../../types';
+import { SignUpData } from '../../../../types';
 import { history } from '@redux/configure-store';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { setIsLoading, setUserData } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
+import { routerSelector } from '@utils/index';
 
 export const SignUpContent: React.FC = () => {
     const breakpoint = useBreakpoint();
@@ -20,7 +21,7 @@ export const SignUpContent: React.FC = () => {
     const [signUpUser, { isLoading }] = useSignUpUserMutation();
     const dispatch: AppDispatch = useAppDispatch();
     const userData = useSelector((state: RootState) => state.app.userData);
-    const router = useSelector((state: RootState) => state.router);
+    const router = useSelector(routerSelector);
 
     useEffect(() => {
         if (isLoading) {
@@ -31,7 +32,7 @@ export const SignUpContent: React.FC = () => {
     }, [dispatch, isLoading]);
 
     const onFinish = useCallback(
-        (values: ISignUpData) => {
+        (values: SignUpData) => {
             const { email, password } = values;
             dispatch(setUserData(values));
 
@@ -60,15 +61,15 @@ export const SignUpContent: React.FC = () => {
             router.previousLocations?.length > 0 &&
             router.previousLocations[1].location?.pathname === RouterPath.SIGN_UP_RESULT_ERRORS
         ) {
-            onFinish(userData as ISignUpData);
+            onFinish(userData as SignUpData);
         }
     }, [onFinish, router, router.previousLocations, userData]);
 
-    function isValid() {
+    const isValid = () => {
         if (isFirstValidation) {
             setIsFirstValidation(false);
         }
-    }
+    };
 
     return (
         <Form

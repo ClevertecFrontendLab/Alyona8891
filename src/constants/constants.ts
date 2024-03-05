@@ -201,3 +201,5 @@ export const CONTENT_WITHOUT_FEEDBACKS = {
 export const CONTENT_WITH_FEEDBACKS = {
     buttons: { button1: 'Написать отзыв', button2: 'Развернуть все отзывы', button3: 'Свернуть все отзывы' },
 };
+
+export const TOKEN_STORAGE_PROPERTY = 'alyona8891_token';

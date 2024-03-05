@@ -1,11 +1,11 @@
-import { RouterPath } from '@constants/constants';
+import { RouterPath, TOKEN_STORAGE_PROPERTY } from '@constants/constants';
 import { useEffect } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 
 export const RedirectToSignIn = () => {
     const isAuthenticated =
-        localStorage.getItem('alyona8891_token') ||
-        sessionStorage.getItem('alyona8891_token');
+        localStorage.getItem(TOKEN_STORAGE_PROPERTY) ||
+        sessionStorage.getItem(TOKEN_STORAGE_PROPERTY);
 
     const [searchParams] = useSearchParams();
     const token = searchParams.get('accessToken');
@@ -13,7 +13,7 @@ export const RedirectToSignIn = () => {
 
     useEffect(()=> {
         if (token) {
-            localStorage.setItem('alyona8891_token', token);
+            localStorage.setItem(TOKEN_STORAGE_PROPERTY, token);
             navigate(RouterPath.MAIN);
         }
     }, [navigate, token])

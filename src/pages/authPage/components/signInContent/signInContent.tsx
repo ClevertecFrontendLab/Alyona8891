@@ -5,13 +5,20 @@ import styles from './signInContent.module.scss';
 import { Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { ErrorCodes, RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
+import {
+    ErrorCodes,
+    RouterPath,
+    TEXT,
+    TOKEN_STORAGE_PROPERTY,
+    VALIDATION_RULES,
+} from '@constants/index';
 import { RootState, history } from '@redux/configure-store';
 import { useCheckEmailMutation, useSignInUserMutation } from '@redux/utils/api';
-import { ISignInData } from '../../../../types';
+import { SignInData } from '../../../../types';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { setIsLoading, setUserLoginData } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
+import { routerSelector } from '@utils/index';
 
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
@@ -22,7 +29,7 @@ export const SignInContent: React.FC = () => {
     const [isEmailValidated, setIsEmailValidated] = useState<boolean>(false);
     const [isRemembered, setIsRemembered] = useState(false);
     const userLoginData = useSelector((state: RootState) => state.app.userLoginData);
-    const router = useSelector((state: RootState) => state.router);
+    const router = useSelector(routerSelector);
 
     useEffect(() => {
         if (isLoading || isLoadingChecking) {
@@ -33,16 +40,16 @@ export const SignInContent: React.FC = () => {
     }, [dispatch, isLoading, isLoadingChecking]);
 
     const onFinish = useCallback(
-        (values: ISignInData) => {
+        (values: SignInData) => {
             const { email, password } = values;
 
             signInUser({ email, password })
                 .unwrap()
                 .then((res) => {
                     if (isRemembered) {
-                        localStorage.setItem('alyona8891_token', res.accessToken);
+                        localStorage.setItem(TOKEN_STORAGE_PROPERTY, res.accessToken);
                     } else {
-                        sessionStorage.setItem('alyona8891_token', res.accessToken);
+                        sessionStorage.setItem(TOKEN_STORAGE_PROPERTY, res.accessToken);
                     }
                     history.push(RouterPath.MAIN);
                 })
@@ -85,8 +92,8 @@ export const SignInContent: React.FC = () => {
     );
 
     const handleAuthGoogle = async () => {
-        window.location.href = 'https://marathon-api.clevertec.ru/auth/google'
-    }
+        window.location.href = 'https://marathon-api.clevertec.ru/auth/google';
+    };
 
     useEffect(() => {
         if (
@@ -101,9 +108,9 @@ export const SignInContent: React.FC = () => {
         }
     }, [handleChangePassword, router, router.previousLocations, userLoginData]);
 
-    function fieldEmailHasError() {
+    const fieldEmailHasError = () => {
         setIsEmailValidated(!(form.getFieldError('email').length > 0));
-    }
+    };
 
     return (
         <Form

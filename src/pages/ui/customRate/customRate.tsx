@@ -3,8 +3,8 @@ import { StarFilled, StarOutlined } from '@ant-design/icons';
 
 export const CustomRate = (props: {
     value: number;
-    setValue?: React.Dispatch<React.SetStateAction<number>>;
     size: number;
+    setValue?: React.Dispatch<React.SetStateAction<number>>;
 }) => {
     const { value, size, setValue } = props;
 
@@ -15,7 +15,7 @@ export const CustomRate = (props: {
     };
 
     const getIcon = (index: number) => {
-        if (index + 1 <= value) {
+        if (index  < value) {
             return <StarFilled style={{ fontSize: size }} />;
         } else {
             return <StarOutlined style={{ fontSize: size }} />;

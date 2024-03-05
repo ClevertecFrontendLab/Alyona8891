@@ -6,9 +6,9 @@ import { FeedbackCard } from './components/feedbackCard';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
 import { Space } from 'antd';
-import { IFeedback } from '../../../../types';
+import { Feedback } from '../../../../types';
 
-export const ContentWithFeedbacks = (props: { data: IFeedback[] }) => {
+export const ContentWithFeedbacks = (props: { data: Feedback[] }) => {
     const { data } = props;
 
     const isAllFeedbacksVisible = useSelector(

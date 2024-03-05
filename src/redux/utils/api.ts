@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from './service';
-import { IPostFeedback, IUserData } from '../../types';
+import { PostFeedback, UserData } from '../../types';
 
 export const apiService = createApi({
     reducerPath: 'apiService',
@@ -8,14 +8,14 @@ export const apiService = createApi({
     tagTypes: ['feedbacks'],
     endpoints: (builder) => ({
         signUpUser: builder.mutation({
-            query: (formData: IUserData) => ({
+            query: (formData: UserData) => ({
                 url: '/auth/registration',
                 method: 'post',
                 data: formData,
             }),
         }),
         signInUser: builder.mutation({
-            query: (formData: IUserData) => ({
+            query: (formData: UserData) => ({
                 url: '/auth/login',
                 method: 'post',
                 data: formData,
@@ -50,7 +50,7 @@ export const apiService = createApi({
             providesTags: ['feedbacks'],
         }),
         postFeedback: builder.mutation({
-            query: (data: IPostFeedback) => ({
+            query: (data: PostFeedback) => ({
                 url: '/feedback',
                 method: 'post',
                 data,

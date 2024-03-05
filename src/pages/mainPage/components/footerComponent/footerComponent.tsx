@@ -5,10 +5,10 @@ import { FooterCardComponent } from './components';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useCallback } from 'react';
 import { history } from '@redux/configure-store';
-import { RouterPath } from '@constants/constants';
+import { RouterPath, TOKEN_STORAGE_PROPERTY } from '@constants/constants';
 import { redirectToLogin } from '@utils/index';
 
-export interface IFooterCardsData {
+export type FooterCardsData = {
     key: number;
     title: { text: string; style: React.CSSProperties };
     info: { text: string; style: React.CSSProperties };
@@ -21,7 +21,7 @@ export interface IFooterCardsData {
 
 const FOOTER_LINKS = [{ id: 1, text: 'Смотреть отзывы' }];
 
-const FOOTER_CARDS_DATA: IFooterCardsData[] = [
+const FOOTER_CARDS_DATA: FooterCardsData[] = [
     {
         key: 1,
         title: {
@@ -44,7 +44,8 @@ export const FooterComponent: React.FC = () => {
 
     const handleLookFeedbacks = useCallback(() => {
         const token =
-            localStorage.getItem('alyona8891_token') || sessionStorage.getItem('alyona8891_token');
+            localStorage.getItem(TOKEN_STORAGE_PROPERTY) ||
+            sessionStorage.getItem(TOKEN_STORAGE_PROPERTY);
         if (!token) {
             redirectToLogin();
         } else {

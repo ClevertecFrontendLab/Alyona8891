@@ -1,3 +1,4 @@
+import { TOKEN_STORAGE_PROPERTY } from '@constants/constants';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -5,13 +6,13 @@ const axiosInstance = axios.create({
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true
+    withCredentials: true,
 });
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const localStorageToken = localStorage.getItem('alyona8891_token');
-        const sessionStorageToken = sessionStorage.getItem('alyona8891_token');
+        const localStorageToken = localStorage.getItem(TOKEN_STORAGE_PROPERTY);
+        const sessionStorageToken = sessionStorage.getItem(TOKEN_STORAGE_PROPERTY);
 
         if (localStorageToken) {
             config.headers.Authorization = `Bearer ${localStorageToken}`;

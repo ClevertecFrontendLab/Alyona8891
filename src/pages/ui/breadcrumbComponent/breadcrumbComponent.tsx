@@ -1,11 +1,11 @@
 import { Breadcrumb } from 'antd';
 import cn from 'classnames';
 import styles from './breadcrumbComponent.module.scss';
-import { IBreadcrumbItemData } from '../../../types';
+import { BreadcrumbItemData } from '../../../types';
 import { Link } from 'react-router-dom';
+import { FC } from 'react';
 
-export const BreadcrumpComponent = (props: { routes: IBreadcrumbItemData[] }) => {
-    const { routes } = props;
+export const BreadcrumpComponent: FC<{ routes: BreadcrumbItemData[] }> = ({ routes }) => {
     return (
         <Breadcrumb>
             {routes.map((route) => (

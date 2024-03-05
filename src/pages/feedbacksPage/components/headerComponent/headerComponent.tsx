@@ -4,6 +4,7 @@ import styles from './headerComponent.module.scss';
 
 import { RouterPath } from '@constants/constants';
 import { BreadcrumpComponent } from '@pages/ui/breadcrumbComponent';
+import { FC } from 'react';
 
 const routes = [
     {
@@ -18,13 +19,9 @@ const routes = [
     },
 ];
 
-export const HeaderComponent: React.FC = () => {
-    return (
-        <PageHeader
-            className={styles[cn('header')]}
-            breadcrumbRender={() => (
-                <BreadcrumpComponent routes={routes} />
-            )}
-        />
-    );
-};
+export const HeaderComponent: FC = () => (
+    <PageHeader
+        className={styles[cn('header')]}
+        breadcrumbRender={() => <BreadcrumpComponent routes={routes} />}
+    />
+);

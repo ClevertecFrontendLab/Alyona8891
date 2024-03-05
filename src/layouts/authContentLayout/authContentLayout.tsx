@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import cn from 'classnames';
 import { Outlet } from 'react-router-dom';
 
@@ -10,12 +10,13 @@ import { RouterPath, TEXT } from '@constants/constants';
 import { setAuthPageContent } from '@redux/reducers/appReducer';
 import { history } from '@redux/configure-store';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { routerSelector } from '@utils/index';
 
-export const AuthContentLayout: React.FC = () => {
+export const AuthContentLayout: FC = () => {
     const activeKey = useSelector((state: RootState) => state.app.authPageContent);
     const dispatch: AppDispatch = useAppDispatch();
     const breakpoint = useBreakpoint();
-    const router = useSelector((state: RootState) => state.router);
+    const router = useSelector(routerSelector);
 
     const onChange = () => {
         if (activeKey === 'signIn') {

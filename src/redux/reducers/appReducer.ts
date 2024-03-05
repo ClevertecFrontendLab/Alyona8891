@@ -1,23 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IFeedback, IPostFeedback, ISignUpData } from '../../types';
+import { Feedback, PostFeedback, SignUpData } from '../../types';
 import { RequestResult } from '@constants/constants';
 
-interface IAppSliceState {
+type AppSliceState = {
     authPageContent: 'signIn' | 'signUp';
     isLoading: boolean;
-    userData: ISignUpData | null | Record<'email', string>;
+    userData: SignUpData | null | Record<'email', string>;
     userLoginData: null | string;
     newPassword: null | string;
     activeToken: null | string;
     isErrorModal: boolean;
     isFeedbackModal: boolean;
-    feedbacks: IFeedback[] | [];
+    feedbacks: Feedback[] | [];
     requestResult: null | RequestResult;
-    userFeedback: null | IPostFeedback;
+    userFeedback: null | PostFeedback;
     isAllFeedbacksVisible: boolean;
-}
+};
 
-const initialState: IAppSliceState = {
+const initialState: AppSliceState = {
     authPageContent: 'signIn',
     isLoading: false,
     userData: null,
@@ -70,7 +70,7 @@ export const appSlice = createSlice({
             state.userFeedback = action.payload;
         },
         setIsAllFeedbacksVisible: (state) => {
-            const currentState = state.isAllFeedbacksVisible
+            const currentState = state.isAllFeedbacksVisible;
             state.isAllFeedbacksVisible = !currentState;
         },
     },

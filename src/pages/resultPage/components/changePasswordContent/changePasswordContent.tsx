@@ -10,6 +10,7 @@ import { setIsLoading, setNewPassword } from '@redux/reducers/appReducer';
 import { CHANGE_PASSWORD_CONTENT, RouterPath, VALIDATION_RULES } from '@constants/constants';
 import Title from 'antd/lib/typography/Title';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import { routerSelector } from '@utils/index';
 
 export const ChangePasswordContent = () => {
     const [changePassword, { isLoading }] = useChangePasswordMutation();
@@ -18,7 +19,7 @@ export const ChangePasswordContent = () => {
     const [isFirstValidation, setIsFirstValidation] = useState<boolean>(true);
     const [isDisabled, setIsDisabled] = useState<boolean>(false);
     const newPassword = useSelector((state: RootState) => state.app.newPassword);
-    const router = useSelector((state: RootState) => state.router);
+    const router = useSelector(routerSelector);
 
     useEffect(() => {
         if (isLoading) {
@@ -57,16 +58,16 @@ export const ChangePasswordContent = () => {
         }
     }, [newPassword, onFinish, router, router.previousLocations]);
 
-    function fieldIsEmpty(field: FieldError) {
+    const fieldIsEmpty = (field: FieldError) => {
         const fieldValue = form.getFieldValue(field.name.join('.'));
         return fieldValue === undefined || [].concat(fieldValue).join().trim() === '';
-    }
+    };
 
-    function fieldHasError(field: FieldError) {
+    const fieldHasError = (field: FieldError) => {
         return field.errors.length > 0;
-    }
+    };
 
-    function isValid() {
+    const isValid = () => {
         if (isFirstValidation) {
             setIsFirstValidation(false);
             setIsDisabled(true);
@@ -75,7 +76,7 @@ export const ChangePasswordContent = () => {
             .getFieldsError()
             .filter((field) => fieldIsEmpty(field) || fieldHasError(field));
         setIsDisabled(fields.length > 0);
-    }
+    };
 
     return (
         <Form

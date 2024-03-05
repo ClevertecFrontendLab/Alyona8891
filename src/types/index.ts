@@ -1,37 +1,41 @@
-export interface IUserData {
+export type UserData = {
     email: string;
     password: string;
-}
+};
 
-export interface ISignInData extends IUserData {
+export type SignInData = {
+    email: string;
+    password: string;
     isRemembered?: boolean;
-}
+};
 
-export interface ISignUpData extends IUserData {
+export type SignUpData = {
+    email: string;
+    password: string;
     confirmPassword: string;
-}
+};
 
-export interface IFeedback {
+export type Feedback = {
     id: string;
     fullName: null | string;
     imageSrc: null | string;
     message: null | string;
     rating: number;
     createdAt: string;
-}
+};
 
-export interface IBreadcrumbItemData {
+export type BreadcrumbItemData = {
     key: number;
     path: string;
     breadcrumbName: string;
-}
+};
 
-export interface IPostFeedback {
+export type PostFeedback = {
     message: string;
     rating: number;
-}
+};
 
-export interface IError {
-    status: number | undefined;
+export type ErrorType = {
+    status?: number;
     data: unknown;
-}
+};

@@ -1,6 +1,6 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
 import axiosInstance from './interceptor';
-import { IUserData } from '../../types';
+import { UserData } from '../../types';
 
 type QueryOptions = {
     url: string;
@@ -8,7 +8,7 @@ type QueryOptions = {
     data?: AxiosRequestConfig['data'];
     params?: AxiosRequestConfig['params'];
     headers?: AxiosRequestConfig['headers'];
-    body?: IUserData;
+    body?: UserData;
 };
 
 export const axiosBaseQuery =
@@ -28,9 +28,9 @@ export const axiosBaseQuery =
             const err = axiosError as AxiosError;
             return {
                 error: {
-                  status: err.response?.status,
-                  data: err.response?.data,
+                    status: err.response?.status,
+                    data: err.response?.data,
                 },
-              }
+            };
         }
     };

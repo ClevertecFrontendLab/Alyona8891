@@ -4,29 +4,11 @@ import cn from 'classnames';
 import styles from './feedbackCard.module.scss';
 import { UserOutlined } from '@ant-design/icons';
 import { CustomRate } from '@pages/ui/customRate';
-import { IFeedback } from '../../../../../../types';
+import { Feedback } from '../../../../../../types';
+import { generateUniqueKey, getDate } from '@utils/index';
 const { Text } = Typography;
 
-function addLeadingZero(number: number) {
-    return number < 10 ? '0' + number : number;
-}
-
-const getDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = addLeadingZero(date.getMonth() + 1);
-    const day = addLeadingZero(date.getDate());
-
-    return `${day}.${month}.${year}`;
-};
-
-function generateUniqueKey() {
-    const timestamp = new Date().getTime();
-    const random = Math.random().toString(36).substring(7);
-    return `${timestamp}-${random}`;
-}
-
-export const FeedbackCard = (props: { feedbackData: IFeedback }) => {
+export const FeedbackCard = (props: { feedbackData: Feedback }) => {
     const { feedbackData } = props;
     const { imageSrc, fullName, rating, createdAt, message } = feedbackData;
     const breakpoint = useBreakpoint();
@@ -53,7 +35,7 @@ export const FeedbackCard = (props: { feedbackData: IFeedback }) => {
                     <Avatar
                         size={'large'}
                         src={imageSrc ? imageSrc : undefined}
-                        icon={!imageSrc ? <UserOutlined /> : undefined}
+                        icon={imageSrc ? undefined : <UserOutlined />}
                     />
                     <Space direction='vertical' size={0} align={breakpoint.xs ? 'start' : 'center'}>
                         {fullNameArr?.map((name) => (
