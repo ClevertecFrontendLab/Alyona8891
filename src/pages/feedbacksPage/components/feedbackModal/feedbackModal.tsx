@@ -73,6 +73,7 @@ export const FeedbackModal = () => {
             footer={[
                 <Form.Item key={1}>
                     <Button
+                        data-test-id='new-review-submit-button'
                         className={styles[cn('button')]}
                         type='primary'
                         htmlType='submit'
@@ -89,7 +90,7 @@ export const FeedbackModal = () => {
             }}
         >
             <CustomRate size={16} value={rating} setValue={setRating} />
-            <Form form={form} onFinish={handlePublish} initialValues={{feedback: message}}>
+            <Form form={form} onFinish={handlePublish} initialValues={{ feedback: message }}>
                 <Form.Item name='feedback'>
                     <TextArea
                         onChange={(e) => {

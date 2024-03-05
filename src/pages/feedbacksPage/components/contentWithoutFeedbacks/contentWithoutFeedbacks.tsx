@@ -29,6 +29,7 @@ export const ContentWithoutFeedbacks = () => {
                 </Space>
             </Card>
             <Button
+                data-test-id='write-review'
                 className={styles[cn('button')]}
                 onClick={handleWriteFeedback}
                 type='primary'

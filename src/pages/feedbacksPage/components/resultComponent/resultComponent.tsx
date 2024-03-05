@@ -75,6 +75,7 @@ export const ResultComponent = () => {
                 subTitle={RESULT_CARDS_DATA.feedbacks.errors.subtitle.part1}
                 extra={[
                     <Button
+                        data-test-id='write-review-not-saved-modal'
                         className={styles[cn('button')]}
                         key='1'
                         size='large'

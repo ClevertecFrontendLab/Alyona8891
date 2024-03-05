@@ -8,7 +8,12 @@ import { useCallback } from 'react';
 import { useGetFeedbacksMutation } from '@redux/utils/api';
 import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
 import { ErrorCodes, RequestResult, RouterPath } from '@constants/constants';
-import { setFeedbacks, setIsLoading, setIsErrorModal, setRequestResult } from '@redux/reducers/appReducer';
+import {
+    setFeedbacks,
+    setIsLoading,
+    setIsErrorModal,
+    setRequestResult,
+} from '@redux/reducers/appReducer';
 
 export interface IFooterCardsData {
     key: number;
@@ -94,6 +99,7 @@ export const FooterComponent: React.FC = () => {
                         direction={breakpoint.md || breakpoint.xs ? 'vertical' : 'horizontal'}
                     >
                         <Button
+                            data-test-id='see-reviews'
                             key={i}
                             size='small'
                             style={{

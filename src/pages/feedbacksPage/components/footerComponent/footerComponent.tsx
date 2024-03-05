@@ -32,6 +32,7 @@ export const FooterComponent: React.FC = () => {
                 direction={breakpoint.xs ? 'vertical' : 'horizontal'}
             >
                 <Button
+                    data-test-id='write-review'
                     className={styles[cn('button')]}
                     onClick={handleWriteFeedback}
                     type='primary'
@@ -40,6 +41,7 @@ export const FooterComponent: React.FC = () => {
                     {CONTENT_WITH_FEEDBACKS.buttons.button1}
                 </Button>
                 <Button
+                    data-test-id='all-reviews-button'
                     className={styles[cn('button')]}
                     onClick={handleShowAllFeedbacks}
                     type='link'
