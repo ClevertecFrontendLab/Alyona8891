@@ -1,22 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ISignUpData } from '../../types';
+import { Feedback, PostFeedback, SignUpData } from '../../types';
+import { RequestResult } from '@constants/constants';
 
-interface IAppSliceState {
+type AppSliceState = {
     authPageContent: 'signIn' | 'signUp';
     isLoading: boolean;
-    userData: ISignUpData | null | Record<'email', string>;
+    userData: SignUpData | null | Record<'email', string>;
     userLoginData: null | string;
     newPassword: null | string;
     activeToken: null | string;
-}
+    isErrorModal: boolean;
+    isFeedbackModal: boolean;
+    feedbacks: Feedback[] | [];
+    requestResult: null | RequestResult;
+    userFeedback: null | PostFeedback;
+    isAllFeedbacksVisible: boolean;
+};
 
-const initialState: IAppSliceState = {
+const initialState: AppSliceState = {
     authPageContent: 'signIn',
     isLoading: false,
     userData: null,
     userLoginData: null,
     newPassword: null,
     activeToken: null,
+    isErrorModal: false,
+    isFeedbackModal: false,
+    feedbacks: [],
+    requestResult: null,
+    userFeedback: null,
+    isAllFeedbacksVisible: false,
 };
 
 export const appSlice = createSlice({
@@ -41,6 +54,25 @@ export const appSlice = createSlice({
         setNewPassword: (state, action) => {
             state.newPassword = action.payload;
         },
+        setIsErrorModal: (state, action) => {
+            state.isErrorModal = action.payload;
+        },
+        setIsFeedbackModal: (state, action) => {
+            state.isFeedbackModal = action.payload;
+        },
+        setFeedbacks: (state, action) => {
+            state.feedbacks = [...action.payload];
+        },
+        setRequestResult: (state, action) => {
+            state.requestResult = action.payload;
+        },
+        setUserFeedback: (state, action) => {
+            state.userFeedback = action.payload;
+        },
+        setIsAllFeedbacksVisible: (state) => {
+            const currentState = state.isAllFeedbacksVisible;
+            state.isAllFeedbacksVisible = !currentState;
+        },
     },
 });
 
@@ -51,5 +83,11 @@ export const {
     setUserLoginData,
     setActiveToken,
     setNewPassword,
+    setIsErrorModal,
+    setIsFeedbackModal,
+    setFeedbacks,
+    setRequestResult,
+    setUserFeedback,
+    setIsAllFeedbacksVisible,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

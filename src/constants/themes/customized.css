@@ -1511,7 +1511,6 @@ html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: #262626;
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
@@ -1520,11 +1519,11 @@ html {
   position: relative;
   display: inline-block;
   overflow: hidden;
-  color: #fff;
+  color: #262626;
   white-space: nowrap;
   text-align: center;
   vertical-align: middle;
-  background: #ccc;
+  background: #f5f5f5;
   width: 32px;
   height: 32px;
   line-height: 32px;
@@ -2910,12 +2909,12 @@ li:last-child > .ant-breadcrumb-separator {
 .ant-btn-text:hover,
 .ant-btn-text:focus {
   color: #262626;
-  background: rgba(0, 0, 0, 0.018);
+  background: transparent;
   border-color: transparent;
 }
 .ant-btn-text:active {
   color: #262626;
-  background: rgba(0, 0, 0, 0.028);
+  background: rgba(0, 0, 0, 0.01);
   border-color: transparent;
 }
 .ant-btn-text[disabled],
@@ -3347,7 +3346,7 @@ li:last-child > .ant-breadcrumb-separator {
 .ant-btn-dangerous.ant-btn-text:focus {
   color: #ff7875;
   border-color: transparent;
-  background: rgba(0, 0, 0, 0.018);
+  background: transparent;
 }
 .ant-btn-dangerous.ant-btn-text:hover > a:only-child,
 .ant-btn-dangerous.ant-btn-text:focus > a:only-child {
@@ -3366,7 +3365,7 @@ li:last-child > .ant-breadcrumb-separator {
 .ant-btn-dangerous.ant-btn-text:active {
   color: #d9363e;
   border-color: transparent;
-  background: rgba(0, 0, 0, 0.028);
+  background: rgba(0, 0, 0, 0.01);
 }
 .ant-btn-dangerous.ant-btn-text:active > a:only-child {
   color: currentcolor;
@@ -17915,7 +17914,7 @@ textarea.ant-mentions {
   background-color: inherit;
 }
 .ant-page-header.has-breadcrumb {
-  padding-top: 12px;
+  padding-top: 0.875rem;
 }
 .ant-page-header.has-footer {
   padding-bottom: 0;
@@ -19446,7 +19445,7 @@ span.ant-radio + * {
   display: inline-block;
   margin: 0;
   padding: 0;
-  color: #fadb14;
+  color: #FAAD14;
   font-size: 20px;
   line-height: unset;
   list-style: none;
@@ -19477,12 +19476,12 @@ span.ant-radio + * {
   outline: 0;
 }
 .ant-rate-star > div:focus-visible {
-  outline: 1px dashed #fadb14;
+  outline: 1px dashed #FAAD14;
   transform: scale(1.1);
 }
 .ant-rate-star-first,
 .ant-rate-star-second {
-  color: #f0f0f0;
+  color: #FAAD14;
   transition: all 0.3s;
   user-select: none;
 }

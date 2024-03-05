@@ -1,0 +1,25 @@
+.wrapper {
+    :global {
+        .ant-modal-body {
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .ant-result {
+            padding: 0 2rem;
+
+            @media (max-width: 600px) {
+                padding: 0;
+            }
+        }
+        .ant-result-subtitle {
+            @media (max-width: 600px) {
+                max-width: 200px;
+                margin: auto;
+                line-height: 1.44;
+            }
+        }
+        .ant-btn-lg {
+            font-size: 0.875rem;
+        }
+    }
+}

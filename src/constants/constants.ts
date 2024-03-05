@@ -1,5 +1,6 @@
 export enum RouterPath {
     MAIN = '/main',
+    FEEDBACKS = '/feedbacks',
     AUTH = '/auth',
     SIGN_IN = '/auth',
     SIGN_IN_RESULT = '/auth/result',
@@ -15,6 +16,20 @@ export enum RouterPath {
     SIGN_UP_RESULT_SUCCESS = '/auth/registration/result/success',
     SIGN_UP_RESULT_ERROR_409 = '/auth/registration/result/error-user-exist',
     SIGN_UP_RESULT_ERRORS = '/auth/registration/result/error',
+}
+
+export enum ErrorCodes {
+    INTERNAL_SERVER_ERROR = 500,
+    NOT_FOUND = 404,
+    BAD_REQUEST = 400,
+    FORBIDDEN = 403,
+    CONFLICT = 409,
+}
+
+export enum RequestResult {
+    SUCCESS = 'success',
+    ERROR_403 = 'error403',
+    ERROR_FEEDBACK = 'errorFeedback',
 }
 
 export const TEXT = {
@@ -139,4 +154,52 @@ export const RESULT_CARDS_DATA = {
             button: 'Войти',
         },
     },
+    feedbacks: {
+        error403: {
+            title: 'Что-то пошло не так',
+            subtitle: {
+                part1: 'Произошла ошибка, попробуйте ещё раз.',
+            },
+            button: 'Назад',
+        },
+        errors: {
+            title: 'Данные не сохранились',
+            subtitle: {
+                part1: 'Что-то пошло не так. Попробуйте ещё раз.',
+            },
+            buttons: {
+                button1: 'Написать отзыв',
+                button2: 'Закрыть',
+            },
+        },
+        success: {
+            title: 'Отзыв успешно опубликован',
+            button: 'Отлично',
+        },
+    },
 };
+
+export const FEEDBACK_MODAL = {
+    title: 'Ваш отзыв',
+    button: 'Опубликовать',
+    placeholder: 'Autosize height based on content lines',
+};
+
+export const CONTENT_WITHOUT_FEEDBACKS = {
+    title: 'Оставьте свой отзыв первым',
+    text: [
+        {
+            key: 1,
+            part: 'Вы можете быть первым, кто оставит отзыв об этом фитнесс приложении.',
+        },
+        { key: 2, part: 'Поделитесь своим мнением и опытом с другими пользователями,' },
+        { key: 3, part: 'и помогите им сделать правильный выбор.' },
+    ],
+    button: 'Написать отзыв',
+};
+
+export const CONTENT_WITH_FEEDBACKS = {
+    buttons: { button1: 'Написать отзыв', button2: 'Развернуть все отзывы', button3: 'Свернуть все отзывы' },
+};
+
+export const TOKEN_STORAGE_PROPERTY = 'alyona8891_token';

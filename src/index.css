@@ -16,6 +16,7 @@
     --color-elements: #061178;
     --color-title: #262626;
     --color-info: #8c8c8c;
+    --color-grey-6: #BFBFBF;
     --color-error: #FF4D4F;
     --color-primary: #2f54eb;
     --color-exit-icon: #000;
@@ -65,6 +66,10 @@ html {
     margin-left: -6px;
 }
 
+.ant-page-header.has-breadcrumb {
+    padding-top: 0;
+}
+
 @media (max-width: 576px) {
     .ant-menu-inline .ant-menu-item {
         margin-left: -15px;
@@ -80,7 +85,7 @@ html {
 
 @media (max-width: 995px) {
     .ant-page-header-content {
-        padding-top: 12;
+        padding-top: 12px;
     }
 }
 

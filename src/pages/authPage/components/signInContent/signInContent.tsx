@@ -5,13 +5,20 @@ import styles from './signInContent.module.scss';
 import { Button, Checkbox, Form, Input, Space, Typography } from 'antd';
 import { EyeInvisibleOutlined, EyeOutlined, GooglePlusOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import { RouterPath, TEXT, VALIDATION_RULES } from '@constants/index';
+import {
+    ErrorCodes,
+    RouterPath,
+    TEXT,
+    TOKEN_STORAGE_PROPERTY,
+    VALIDATION_RULES,
+} from '@constants/index';
 import { RootState, history } from '@redux/configure-store';
 import { useCheckEmailMutation, useSignInUserMutation } from '@redux/utils/api';
-import { ISignInData } from '../../../../types';
+import { SignInData } from '../../../../types';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { setIsLoading, setUserLoginData } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
+import { routerSelector } from '@utils/index';
 
 export const SignInContent: React.FC = () => {
     const breakpoint = useBreakpoint();
@@ -19,10 +26,10 @@ export const SignInContent: React.FC = () => {
     const [signInUser, { isLoading }] = useSignInUserMutation();
     const [checkEmail, { isLoading: isLoadingChecking }] = useCheckEmailMutation();
     const dispatch: AppDispatch = useAppDispatch();
-    const [isEmailValidated, setisEmailValidated] = useState<boolean>(false);
+    const [isEmailValidated, setIsEmailValidated] = useState<boolean>(false);
     const [isRemembered, setIsRemembered] = useState(false);
     const userLoginData = useSelector((state: RootState) => state.app.userLoginData);
-    const router = useSelector((state: RootState) => state.router);
+    const router = useSelector(routerSelector);
 
     useEffect(() => {
         if (isLoading || isLoadingChecking) {
@@ -33,16 +40,16 @@ export const SignInContent: React.FC = () => {
     }, [dispatch, isLoading, isLoadingChecking]);
 
     const onFinish = useCallback(
-        (values: ISignInData) => {
+        (values: SignInData) => {
             const { email, password } = values;
 
             signInUser({ email, password })
                 .unwrap()
                 .then((res) => {
                     if (isRemembered) {
-                        localStorage.setItem('alyona8891_token', res.accessToken);
+                        localStorage.setItem(TOKEN_STORAGE_PROPERTY, res.accessToken);
                     } else {
-                        sessionStorage.setItem('alyona8891_token', res.accessToken);
+                        sessionStorage.setItem(TOKEN_STORAGE_PROPERTY, res.accessToken);
                     }
                     history.push(RouterPath.MAIN);
                 })
@@ -70,7 +77,10 @@ export const SignInContent: React.FC = () => {
                         history.push(RouterPath.SIGN_IN_CONFIRM_EMAIL);
                     })
                     .catch((error) => {
-                        if (error.status === 404 && error.data.message === 'Email не найден') {
+                        if (
+                            error.status === ErrorCodes.NOT_FOUND &&
+                            error.data.message === 'Email не найден'
+                        ) {
                             history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERROR_404);
                         } else {
                             history.push(RouterPath.SIGN_IN_RESULT_CHECK_ERRORS);
@@ -81,6 +91,10 @@ export const SignInContent: React.FC = () => {
         [checkEmail, dispatch, form, isEmailValidated],
     );
 
+    const handleAuthGoogle = async () => {
+        window.location.href = 'https://marathon-api.clevertec.ru/auth/google';
+    };
+
     useEffect(() => {
         if (
             userLoginData &&
@@ -89,14 +103,14 @@ export const SignInContent: React.FC = () => {
             router.previousLocations[1].location?.pathname ===
                 RouterPath.SIGN_IN_RESULT_CHECK_ERRORS
         ) {
-            setisEmailValidated(true);
+            setIsEmailValidated(true);
             handleChangePassword(userLoginData);
         }
     }, [handleChangePassword, router, router.previousLocations, userLoginData]);
 
-    function fieldEmailHasError() {
-        setisEmailValidated(!(form.getFieldError('email').length > 0));
-    }
+    const fieldEmailHasError = () => {
+        setIsEmailValidated(!(form.getFieldError('email').length > 0));
+    };
 
     return (
         <Form
@@ -194,6 +208,7 @@ export const SignInContent: React.FC = () => {
                     </Button>
                     <Button
                         className={styles[cn('button')]}
+                        onClick={handleAuthGoogle}
                         size='large'
                         icon={breakpoint.xs ? '' : <GooglePlusOutlined />}
                     >

@@ -1,1 +1,0 @@
-export { ContentComponent } from './contentComponent';

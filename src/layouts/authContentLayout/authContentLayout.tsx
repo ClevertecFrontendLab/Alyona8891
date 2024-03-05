@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import cn from 'classnames';
 import { Outlet } from 'react-router-dom';
 
@@ -10,12 +10,13 @@ import { RouterPath, TEXT } from '@constants/constants';
 import { setAuthPageContent } from '@redux/reducers/appReducer';
 import { history } from '@redux/configure-store';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { routerSelector } from '@utils/index';
 
-export const AuthContentLayout: React.FC = () => {
+export const AuthContentLayout: FC = () => {
     const activeKey = useSelector((state: RootState) => state.app.authPageContent);
     const dispatch: AppDispatch = useAppDispatch();
     const breakpoint = useBreakpoint();
-    const router = useSelector((state: RootState) => state.router);
+    const router = useSelector(routerSelector);
 
     const onChange = () => {
         if (activeKey === 'signIn') {
@@ -30,11 +31,18 @@ export const AuthContentLayout: React.FC = () => {
     useEffect(() => {
         if (router.location?.pathname === RouterPath.SIGN_UP) {
             dispatch(setAuthPageContent('signUp'));
+        } else if (router.location?.pathname === RouterPath.SIGN_IN) {
+            dispatch(setAuthPageContent('signIn'));
         }
     }, [dispatch, router.location?.pathname]);
 
     return (
-        <section className={styles[cn(activeKey === 'signUp' ? 'container_sign_up' : 'container')]}>
+        <section
+            className={cn([styles.container], {
+                [styles.container_sign_up]: activeKey === 'signUp',
+                [styles.container_sign_in]: activeKey === 'signIn',
+            })}
+        >
             <div className={styles[cn('logo_block')]}>
                 <img
                     className={styles[cn('logo')]}

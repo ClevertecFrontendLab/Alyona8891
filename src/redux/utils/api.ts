@@ -1,20 +1,21 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from './service';
-import { IUserData } from '../../types';
+import { PostFeedback, UserData } from '../../types';
 
 export const apiService = createApi({
     reducerPath: 'apiService',
     baseQuery: axiosBaseQuery(),
+    tagTypes: ['feedbacks'],
     endpoints: (builder) => ({
         signUpUser: builder.mutation({
-            query: (formData: IUserData) => ({
+            query: (formData: UserData) => ({
                 url: '/auth/registration',
                 method: 'post',
                 data: formData,
             }),
         }),
         signInUser: builder.mutation({
-            query: (formData: IUserData) => ({
+            query: (formData: UserData) => ({
                 url: '/auth/login',
                 method: 'post',
                 data: formData,
@@ -28,19 +29,33 @@ export const apiService = createApi({
             }),
         }),
         confirmEmail: builder.mutation({
-            query: (data: { email: string, code: string}) => ({
+            query: (data: { email: string; code: string }) => ({
                 url: '/auth/confirm-email',
                 method: 'post',
                 data,
             }),
         }),
         changePassword: builder.mutation({
-            query: (data: {password: string,
-            confirmPassword: string}) => ({
+            query: (data: { password: string; confirmPassword: string }) => ({
                 url: '/auth/change-password',
                 method: 'post',
                 data,
             }),
+        }),
+        getFeedbacks: builder.query({
+            query: () => ({
+                url: '/feedback',
+                method: 'get',
+            }),
+            providesTags: ['feedbacks'],
+        }),
+        postFeedback: builder.mutation({
+            query: (data: PostFeedback) => ({
+                url: '/feedback',
+                method: 'post',
+                data,
+            }),
+            invalidatesTags: ['feedbacks'],
         }),
     }),
 });
@@ -51,4 +66,6 @@ export const {
     useCheckEmailMutation,
     useConfirmEmailMutation,
     useChangePasswordMutation,
+    useGetFeedbacksQuery,
+    usePostFeedbackMutation,
 } = apiService;

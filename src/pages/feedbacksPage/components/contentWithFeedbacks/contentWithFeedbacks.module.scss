@@ -1,0 +1,31 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: initial;
+    height: 100%;
+    background-color: inherit;
+    flex: 1 1 auto;
+    padding: 1.5rem;
+
+    @media (max-width: 500px) {
+        padding: 1rem;
+        gap: 45px;
+    }
+}
+
+.container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 580px;
+
+    @media (max-width: 500px) {
+        height: 680px;
+    }
+    
+    &::-webkit-scrollbar {
+        display: none;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
