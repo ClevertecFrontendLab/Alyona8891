@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import cn from 'classnames';
 
 import styles from './mainLayout.module.scss';
@@ -23,6 +23,9 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
     const [getFeedbacks, { isLoading: isLoadingFeedbacks }] = useGetFeedbacksMutation();
 
     useEffect(() => {
+        window.addEventListener('beforeunload', function () {
+            sessionStorage.clear();
+        });
         if (router.location?.pathname === RouterPath.FEEDBACKS) {
             const token =
                 localStorage.getItem('alyona8891_token') ||
@@ -45,6 +48,14 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                             dispatch(setIsErrorModal(true));
                         }
                     });
+            }
+        }
+        if (router.location?.pathname === RouterPath.MAIN) {
+            const token =
+                localStorage.getItem('alyona8891_token') ||
+                sessionStorage.getItem('alyona8891_token');
+            if (!token) {
+                redirectToLogin();
             }
         }
     }, [dispatch, getFeedbacks, router.location?.pathname]);
