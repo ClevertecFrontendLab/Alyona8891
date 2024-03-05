@@ -17,7 +17,7 @@ export const ActionsCardComponent: React.FC<{
     const headStyle: React.CSSProperties = {
         padding: "0 24px",
         fontSize: '16px',
-        textAlign: breakpoint.xs ? 'center' : 'start',
+        textAlign: breakpoint.xs ? 'center' : 'center',
         wordWrap: 'unset'
     }
 
@@ -27,7 +27,7 @@ export const ActionsCardComponent: React.FC<{
             headStyle={headStyle}
             size='small'
             className={styles[cn('card')]}
-            bodyStyle={{textAlign: 'center'}}
+            bodyStyle={{textAlign: 'center', paddingBottom: '1.1rem', paddingTop: '1.2rem'}}
         >
             <Button icon={icon} size='small' style={{ color: 'var(--color-primary)' }} type='text'>
                 {text}

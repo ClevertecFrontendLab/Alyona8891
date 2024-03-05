@@ -25,7 +25,7 @@ export const HeaderComponent: React.FC = () => {
             style={{
                 backgroundColor: 'var(--background-color-header)',
                 color: 'var(--color-title)',
-                padding: '0.9rem 1.8rem 1.1rem 1.5rem',
+                padding: '0.9rem 1.8rem 0rem 1.5rem',
             }}
         >
             <Row>

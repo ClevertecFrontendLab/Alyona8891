@@ -1,8 +1,11 @@
 .sider {
-    position: relative;
+    position: absolute;
+    height: 100vh;
     padding-top: 44px;
+    top: 0;
+    left: 0;
     @media (max-width: 576px) {
-        position: fixed;
+        position: sticky;
         z-index: 2;
     }
 
@@ -21,6 +24,32 @@
             top: 25px;
             height: 48px;
             width: 32px;
+        }
+    }
+
+    :global {
+        .ant-menu-inline .ant-menu-item:not(:last-child) {
+            margin-bottom: 18px;
+            @media (max-width: 576px) {
+                margin-bottom: 8px;
+            }
+        }
+
+        .ant-menu-vertical .ant-menu-item:not(:last-child) {
+            margin-bottom: 18px;
+            @media (max-width: 576px) {
+                margin-bottom: 8px;
+            }
+        }
+
+        .ant-menu-title-content {
+            letter-spacing: 0;
+        }
+
+        .ant-menu-inline .ant-menu-item {
+            @media (max-width: 576px) {
+                padding-right: 0;
+            }
         }
     }
 }
@@ -45,7 +74,7 @@
 
 .exit_button {
     bottom: 0;
-    left: 0;
+    left: 6px;
 }
 
 .exit_icon {

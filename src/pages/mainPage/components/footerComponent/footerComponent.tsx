@@ -28,15 +28,16 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
             text: 'Скачать на телефон',
             style: { color: 'var(--color-primary)', marginBottom: '0', lineHeight: '1.9rem' },
         },
-        info: { text: 'Доступно в PRO-тарифе', style: { color: 'var(--color-info)' } },
+        info: {
+            text: 'Доступно в PRO-тарифе',
+            style: { color: 'var(--color-info)', letterSpacing: '0', fontSize: '15px' },
+        },
         buttons: [
             { key: 100, icon: <AndroidFilled />, text: 'Android OS' },
             { key: 101, icon: <AppleFilled />, text: 'Apple iOS' },
         ],
     },
 ];
-
-
 
 export const FooterComponent: React.FC = () => {
     const breakpoint = useBreakpoint();
@@ -55,7 +56,7 @@ export const FooterComponent: React.FC = () => {
         <Footer
             style={{
                 backgroundColor: 'inherit',
-                padding: breakpoint.xs ? '0 1rem 0' : '0 1.5rem 2.7rem',
+                padding: breakpoint.xs ? '0 1rem 0' : '0 1.5rem 3rem',
             }}
         >
             {FOOTER_LINKS.map((link, i) => {

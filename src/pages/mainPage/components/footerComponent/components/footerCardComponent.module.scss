@@ -3,6 +3,11 @@
     @media (max-width: 580px) {
         width: 328px;
         margin-left: 5px;
+    }
 
+    :global {
+        .ant-card-head-title{
+            padding-top: 8px;
+        }
     }
 }

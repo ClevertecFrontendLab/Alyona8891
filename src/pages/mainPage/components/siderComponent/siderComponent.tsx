@@ -50,7 +50,6 @@ export const SiderComponent: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const breakpoint = useBreakpoint();
 
-
     const handleSiderButton = () => {
         setCollapsed(!collapsed);
     };
@@ -59,8 +58,7 @@ export const SiderComponent: React.FC = () => {
         sessionStorage.clear();
         localStorage.clear();
         history.push(RouterPath.SIGN_IN);
-    }
-
+    };
 
     return (
         <Sider
@@ -137,7 +135,7 @@ export const SiderComponent: React.FC = () => {
                 onClick={handleExitButton}
                 type='text'
             >
-                {collapsed || !breakpoint.xs  && (
+                {!breakpoint.xs && (
                     <img
                         alt='exit_icon'
                         className={styles[cn('exit_icon')]}
