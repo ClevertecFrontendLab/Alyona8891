@@ -84,6 +84,10 @@ export const SignInContent: React.FC = () => {
         [checkEmail, dispatch, form, isEmailValidated],
     );
 
+    const handleAuthGoogle = async () => {
+        window.location.href = 'https://marathon-api.clevertec.ru/auth/google'
+    }
+
     useEffect(() => {
         if (
             userLoginData &&
@@ -197,6 +201,7 @@ export const SignInContent: React.FC = () => {
                     </Button>
                     <Button
                         className={styles[cn('button')]}
+                        onClick={handleAuthGoogle}
                         size='large'
                         icon={breakpoint.xs ? '' : <GooglePlusOutlined />}
                     >
