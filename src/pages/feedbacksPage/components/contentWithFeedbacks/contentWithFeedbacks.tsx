@@ -4,18 +4,13 @@ import styles from './contentWithFeedbacks.module.scss';
 import { Content } from 'antd/lib/layout/layout';
 import { FeedbackCard } from './components/feedbackCard';
 import { useSelector } from 'react-redux';
-import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
-import { useEffect } from 'react';
-import { useGetFeedbacksMutation } from '@redux/utils/api';
-import { setFeedbacks } from '@redux/reducers/appReducer';
-import { ErrorCodes } from '@constants/constants';
+import { RootState } from '@redux/configure-store';
 import { Space } from 'antd';
+import { IFeedback } from '../../../../types';
 
-export const ContentWithFeedbacks = () => {
-    const data = useSelector((state: RootState) => state.app.feedbacks);
-    const dispatch: AppDispatch = useAppDispatch();
-    const [getFeedbacks, { isLoading: isLoadingFeedbacks }] = useGetFeedbacksMutation();
-    
+export const ContentWithFeedbacks = (props: { data: IFeedback[] }) => {
+    const { data } = props;
+
     const isAllFeedbacksVisible = useSelector(
         (state: RootState) => state.app.isAllFeedbacksVisible,
     );
@@ -24,7 +19,7 @@ export const ContentWithFeedbacks = () => {
         <Content className={styles[cn('wrapper')]}>
             {isAllFeedbacksVisible ? (
                 <Space size={20} direction='vertical' className={styles[cn('container')]}>
-                    {data.map((feedback) => (
+                    {[...data].reverse().map((feedback) => (
                         <FeedbackCard key={feedback.id} feedbackData={feedback} />
                     ))}
                 </Space>

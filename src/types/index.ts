@@ -30,3 +30,8 @@ export interface IPostFeedback {
     message: string;
     rating: number;
 }
+
+export interface IError {
+    status: number | undefined;
+    data: unknown;
+}

@@ -3,24 +3,17 @@ import cn from 'classnames';
 
 import styles from './mainLayout.module.scss';
 import { Layout } from 'antd';
-import { LoaderComponent as Loader } from '@pages/ui/loader';
 import { SiderComponent } from '@pages/mainPage/components/siderComponent';
 import { useSelector } from 'react-redux';
-import { AppDispatch, RootState, useAppDispatch, history } from '@redux/configure-store';
-import { ModalComponent } from '@pages/ui/modalComponent';
-import { ErrorCodes, RequestResult, RouterPath } from '@constants/constants';
-import { FeedbackModal } from '@pages/feedbacksPage/components/feedbackModal';
-import { redirectToLogin } from '@pages/mainPage/components/footerComponent/footerComponent';
-import { setFeedbacks, setIsErrorModal, setRequestResult } from '@redux/reducers/appReducer';
-import { useGetFeedbacksMutation } from '@redux/utils/api';
+import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
+import { RouterPath } from '@constants/constants';
+import { redirectToLogin } from '@utils/index';
 
 export const MainLayout = (props: { children: React.ReactNode }) => {
     const { children } = props;
-    const isErrorModal = useSelector((state: RootState) => state.app.isErrorModal);
-    const isFeedbackModal = useSelector((state: RootState) => state.app.isFeedbackModal);
+
     const router = useSelector((state: RootState) => state.router);
     const dispatch: AppDispatch = useAppDispatch();
-    const [getFeedbacks, { isLoading: isLoadingFeedbacks }] = useGetFeedbacksMutation();
 
     useEffect(() => {
         window.addEventListener('beforeunload', function () {
@@ -32,22 +25,6 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                 sessionStorage.getItem('alyona8891_token');
             if (!token) {
                 redirectToLogin();
-            } else {
-                getFeedbacks(token)
-                    .unwrap()
-                    .then((res) => {
-                        dispatch(setFeedbacks([...res]));
-                        history.push(RouterPath.FEEDBACKS);
-                    })
-                    .catch((error) => {
-                        if (error.status === ErrorCodes.FORBIDDEN) {
-                            redirectToLogin();
-                        } else {
-                            history.push(RouterPath.FEEDBACKS);
-                            dispatch(setRequestResult(RequestResult.ERROR_403));
-                            dispatch(setIsErrorModal(true));
-                        }
-                    });
             }
         }
         if (router.location?.pathname === RouterPath.MAIN) {
@@ -58,7 +35,7 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                 redirectToLogin();
             }
         }
-    }, [dispatch, getFeedbacks, router.location?.pathname]);
+    }, [dispatch, router.location?.pathname]);
 
     return (
         <>
@@ -76,9 +53,6 @@ export const MainLayout = (props: { children: React.ReactNode }) => {
                     </Layout>
                 </Layout>
             </div>
-            {isLoadingFeedbacks && <Loader />}
-            {isErrorModal && <ModalComponent />}
-            {isFeedbackModal && <FeedbackModal />}
         </>
     );
 };

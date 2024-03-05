@@ -2,18 +2,11 @@ import { AndroidFilled, AppleFilled } from '@ant-design/icons';
 import { Button, Space } from 'antd';
 import { Footer } from 'antd/lib/layout/layout';
 import { FooterCardComponent } from './components';
-
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import { useCallback } from 'react';
-import { useGetFeedbacksMutation } from '@redux/utils/api';
-import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
-import { ErrorCodes, RequestResult, RouterPath } from '@constants/constants';
-import {
-    setFeedbacks,
-    setIsLoading,
-    setIsErrorModal,
-    setRequestResult,
-} from '@redux/reducers/appReducer';
+import { history } from '@redux/configure-store';
+import { RouterPath } from '@constants/constants';
+import { redirectToLogin } from '@utils/index';
 
 export interface IFooterCardsData {
     key: number;
@@ -43,16 +36,10 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
     },
 ];
 
-export const redirectToLogin = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-    history.push(RouterPath.AUTH);
-};
+
 
 export const FooterComponent: React.FC = () => {
     const breakpoint = useBreakpoint();
-    const dispatch: AppDispatch = useAppDispatch();
-    const [getFeedbacks, { isLoading }] = useGetFeedbacksMutation();
 
     const handleLookFeedbacks = useCallback(() => {
         const token =
@@ -60,24 +47,9 @@ export const FooterComponent: React.FC = () => {
         if (!token) {
             redirectToLogin();
         } else {
-            dispatch(setIsLoading(isLoading));
-            getFeedbacks(token)
-                .unwrap()
-                .then((res) => {
-                    dispatch(setFeedbacks([...res]));
-                    history.push(RouterPath.FEEDBACKS);
-                })
-                .catch((error) => {
-                    if (error.status === ErrorCodes.FORBIDDEN) {
-                        redirectToLogin();
-                    } else {
-                        history.push(RouterPath.FEEDBACKS);
-                        dispatch(setRequestResult(RequestResult.ERROR_403));
-                        dispatch(setIsErrorModal(true));
-                    }
-                });
+            history.push(RouterPath.FEEDBACKS);
         }
-    }, [dispatch, getFeedbacks, isLoading]);
+    }, []);
 
     return (
         <Footer

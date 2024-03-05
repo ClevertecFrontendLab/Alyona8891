@@ -5,6 +5,7 @@ import { IPostFeedback, IUserData } from '../../types';
 export const apiService = createApi({
     reducerPath: 'apiService',
     baseQuery: axiosBaseQuery(),
+    tagTypes: ['feedbacks'],
     endpoints: (builder) => ({
         signUpUser: builder.mutation({
             query: (formData: IUserData) => ({
@@ -41,18 +42,20 @@ export const apiService = createApi({
                 data,
             }),
         }),
-        getFeedbacks: builder.mutation({
+        getFeedbacks: builder.query({
             query: () => ({
                 url: '/feedback',
                 method: 'get',
             }),
+            providesTags: ['feedbacks'],
         }),
         postFeedback: builder.mutation({
             query: (data: IPostFeedback) => ({
                 url: '/feedback',
                 method: 'post',
-                data
+                data,
             }),
+            invalidatesTags: ['feedbacks'],
         }),
     }),
 });
@@ -63,6 +66,6 @@ export const {
     useCheckEmailMutation,
     useConfirmEmailMutation,
     useChangePasswordMutation,
-    useGetFeedbacksMutation,
+    useGetFeedbacksQuery,
     usePostFeedbackMutation,
 } = apiService;

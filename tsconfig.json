@@ -27,7 +27,7 @@
             "@types/*": ["./src/types/*"],
             "@utils/*": ["./src/utils/*"],
             "@ui/*": ["./src/UI/*"],
-            "@layouts/*": ["./src/layouts/*"],
+            "@layouts/*": ["./src/layouts/*"]
         },
         "plugins": [
             {

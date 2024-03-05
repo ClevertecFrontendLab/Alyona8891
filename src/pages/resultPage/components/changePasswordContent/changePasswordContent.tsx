@@ -46,7 +46,6 @@ export const ChangePasswordContent = () => {
     );
 
     useEffect(() => {
-        console.log(newPassword);
         if (
             newPassword &&
             router.previousLocations &&
