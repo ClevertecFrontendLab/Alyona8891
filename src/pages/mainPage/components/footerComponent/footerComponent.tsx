@@ -38,7 +38,7 @@ const FOOTER_CARDS_DATA: IFooterCardsData[] = [
     },
 ];
 
-const redirectToLogin = () => {
+export const redirectToLogin = () => {
     localStorage.clear();
     sessionStorage.clear();
     history.push(RouterPath.AUTH);

@@ -14,6 +14,7 @@ interface IAppSliceState {
     feedbacks: IFeedback[] | [];
     requestResult: null | RequestResult;
     userFeedback: null | IPostFeedback;
+    isAllFeedbacksVisible: boolean;
 }
 
 const initialState: IAppSliceState = {
@@ -25,26 +26,10 @@ const initialState: IAppSliceState = {
     activeToken: null,
     isErrorModal: false,
     isFeedbackModal: false,
-    feedbacks: [
-        {
-            id: 'sc',
-            fullName: 'Елена Ковалева',
-            imageSrc: null,
-            message: 'Классное приложение!',
-            rating: 4,
-            createdAt: '2024-01-17T22:01:19.360Z',
-        },
-        {
-            id: 'scd',
-            fullName: 'dvdvd dvdv',
-            imageSrc: null,
-            message: 'djodj',
-            rating: 3,
-            createdAt: '2024-05-05T22:01:19.360Z',
-        },
-    ],
+    feedbacks: [],
     requestResult: null,
     userFeedback: null,
+    isAllFeedbacksVisible: false,
 };
 
 export const appSlice = createSlice({
@@ -84,6 +69,10 @@ export const appSlice = createSlice({
         setUserFeedback: (state, action) => {
             state.userFeedback = action.payload;
         },
+        setIsAllFeedbacksVisible: (state) => {
+            const currentState = state.isAllFeedbacksVisible
+            state.isAllFeedbacksVisible = !currentState;
+        },
     },
 });
 
@@ -99,5 +88,6 @@ export const {
     setFeedbacks,
     setRequestResult,
     setUserFeedback,
+    setIsAllFeedbacksVisible,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

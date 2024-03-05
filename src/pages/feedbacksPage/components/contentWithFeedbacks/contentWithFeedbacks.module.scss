@@ -14,3 +14,18 @@
     }
 }
 
+.container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 580px;
+
+    @media (max-width: 500px) {
+        height: 680px;
+    }
+    
+    &::-webkit-scrollbar {
+        display: none;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}

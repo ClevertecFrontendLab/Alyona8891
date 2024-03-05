@@ -43,7 +43,7 @@ export const apiService = createApi({
         }),
         getFeedbacks: builder.mutation({
             query: () => ({
-                url: '/feedbackвпууу',
+                url: '/feedback',
                 method: 'get',
             }),
         }),

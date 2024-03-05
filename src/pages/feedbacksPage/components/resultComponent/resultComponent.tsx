@@ -18,6 +18,7 @@ export const ResultComponent = () => {
     };
 
     const handleCloseButton = () => {
+        history.push(RouterPath.FEEDBACKS);
         dispatch(setIsErrorModal(false));
     };
 
