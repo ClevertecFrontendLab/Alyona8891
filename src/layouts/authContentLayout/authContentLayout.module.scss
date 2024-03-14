@@ -52,7 +52,7 @@
     padding: 4rem 5.3rem 0;
 
     @media (max-width: 991px) {
-        margin: 12.5rem auto 0px;
+        margin: 12.5rem auto 0;
         gap: 2.53rem;
     }
 
@@ -60,7 +60,7 @@
         gap: 2.4rem;
         width: 95%;
         padding: 4rem 1rem;
-        margin: 5.625rem auto 0px;
+        margin: 5.625rem auto 0;
     }
 
     @media (max-width: 400px) {
@@ -72,7 +72,7 @@
 }
 
 .container_sign_up {
-    margin: 169px auto 0px;
+    margin: 169px auto 0;
     padding: 3.9rem 5.3rem 0;
 
     @media (min-width: 1450px) {
@@ -85,7 +85,7 @@
 
     @media (max-width: 991px) {
         padding: 4rem 5.3rem 0;
-        margin: 228px auto 0px;
+        margin: 228px auto 0;
         gap: 2.53rem;
     }
 
@@ -97,13 +97,13 @@
         gap: 2.4rem;
         width: 95%;
         padding: 4rem 1rem;
-        margin: 5.625rem auto 0px;
+        margin: 5.625rem auto 0;
     }
 
     @media (max-width: 400px) {
-        margin: 114px auto 0px;
+        margin: 114px auto 0;
         width: 20.5rem;
-        padding: 2rem 1rem 0rem;
+        padding: 2rem 1rem 0;
         gap: 2.3rem;
         height: fit-content;
     }
