@@ -5,6 +5,7 @@ import { ActionsCardComponent } from './components/actionsCardComponent/actionsC
 import { CalendarTwoTone, HeartFilled, IdcardOutlined } from '@ant-design/icons';
 
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { RouterPath } from '@constants/constants';
 
 const PARAGRAGHS_DATA: {
     id: number;
@@ -44,11 +45,17 @@ const PARAGRAGHS_DATA: {
 ];
 
 const ACTIONS_CARDS_DATA: {
-    id: number;
-    title: string;
-    button: { text: string; icon: React.ReactNode };
+    id: number,
+    title: string,
+    button: { text: string; icon: React.ReactNode },
+    path: RouterPath,
 }[] = [
-    { id: 1, title: 'Расписать тренировки', button: { text: 'Тренировки', icon: <HeartFilled /> } },
+    {
+        id: 1,
+        title: 'Расписать тренировки',
+        button: { text: 'Тренировки', icon: <HeartFilled /> },
+        path: RouterPath.CALENDAR,
+    },
     {
         id: 2,
         title: 'Назначить календарь',
@@ -56,6 +63,7 @@ const ACTIONS_CARDS_DATA: {
             text: 'Календарь',
             icon: <CalendarTwoTone twoToneColor={'var(--color-primary)'} />,
         },
+        path: RouterPath.CALENDAR,
     },
     {
         id: 3,
@@ -64,6 +72,7 @@ const ACTIONS_CARDS_DATA: {
             text: 'Профиль',
             icon: <IdcardOutlined />,
         },
+        path: RouterPath.CALENDAR,
     },
 ];
 
@@ -97,7 +106,7 @@ export const ContentComponent: React.FC = () => {
                 style={{ display: 'flex' }}
             >
                 {ACTIONS_CARDS_DATA.map((card) => (
-                    <ActionsCardComponent key={card.id} title={card.title} button={card.button} />
+                    <ActionsCardComponent key={card.id} title={card.title} button={card.button} path={card.path} />
                 ))}
             </Space>
         </Content>

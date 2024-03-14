@@ -21,24 +21,28 @@ const MENU_ITEMS = [
         icon: CalendarTwoTone,
         isTwoTonesIcon: true,
         label: 'Календарь',
+        path: RouterPath.CALENDAR,
     },
     {
         key: '2',
         icon: HeartFilled,
         isTwoTonesIcon: false,
         label: 'Тренировки',
+        path: RouterPath.CALENDAR,
     },
     {
         key: '3',
         icon: TrophyFilled,
         isTwoTonesIcon: false,
         label: 'Достижения',
+        path: RouterPath.CALENDAR,
     },
     {
         key: '4',
         icon: IdcardOutlined,
         isTwoTonesIcon: false,
         label: 'Профиль',
+        path: RouterPath.CALENDAR,
     },
 ];
 
@@ -104,6 +108,9 @@ export const SiderComponent: React.FC = () => {
                             ''
                         ),
                         label: item.label,
+                        onClick: () => {
+                            history.push(item.path)
+                        }
                     };
                 })}
             />

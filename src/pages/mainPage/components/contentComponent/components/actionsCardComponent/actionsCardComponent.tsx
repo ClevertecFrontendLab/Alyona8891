@@ -1,25 +1,27 @@
 import { Button, Card } from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 import React from 'react';
+import { history } from '@redux/configure-store';
 
 import cn from 'classnames';
 import styles from './actionCardComponent.module.scss';
 
 export const ActionsCardComponent: React.FC<{
-    title: string;
-    button: { text: string; icon: React.ReactNode };
+    title: string,
+    button: { text: string; icon: React.ReactNode },
+    path: string,
 }> = (props) => {
-    const { title, button } = props;
+    const { title, button, path } = props;
     const { text, icon } = button;
 
     const breakpoint = useBreakpoint();
 
     const headStyle: React.CSSProperties = {
-        padding: "0 24px",
+        padding: '0 24px',
         fontSize: '16px',
         textAlign: breakpoint.xs ? 'center' : 'center',
-        wordWrap: 'unset'
-    }
+        wordWrap: 'unset',
+    };
 
     return (
         <Card
@@ -27,9 +29,11 @@ export const ActionsCardComponent: React.FC<{
             headStyle={headStyle}
             size='small'
             className={styles[cn('card')]}
-            bodyStyle={{textAlign: 'center', paddingBottom: '1.1rem', paddingTop: '1.2rem'}}
+            bodyStyle={{ textAlign: 'center', paddingBottom: '1.1rem', paddingTop: '1.2rem' }}
         >
-            <Button icon={icon} size='small' style={{ color: 'var(--color-primary)' }} type='text'>
+            <Button icon={icon} size='small' style={{ color: 'var(--color-primary)' }} type='text' onClick={() => {
+                history.push(path)
+            }}>
                 {text}
             </Button>
         </Card>

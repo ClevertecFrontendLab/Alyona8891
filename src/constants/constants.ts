@@ -2,6 +2,7 @@ export enum RouterPath {
     MAIN = '/main',
     FEEDBACKS = '/feedbacks',
     AUTH = '/auth',
+    CALENDAR = '/calendar',
     SIGN_IN = '/auth',
     SIGN_IN_RESULT = '/auth/result',
     SIGN_IN_RESULT_ERROR = '/auth/result/error-login',

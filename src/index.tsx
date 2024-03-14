@@ -21,6 +21,7 @@ import { ConfirmPasswordContent } from '@pages/resultPage/components/confirmPass
 import { ChangePasswordContent } from '@pages/resultPage/components/changePasswordContent';
 import { RedirectToSignIn } from './pages/ui/redirectTosignIn/redirectTosignIn';
 import { FeedbacksPage } from '@pages/feedbacksPage';
+import { CalendarPage } from '@pages/calendarPage';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
@@ -31,6 +32,7 @@ root.render(
             <Router history={history}>
                 <Routes>
                     <Route index={true} path={RouterPath.MAIN} element={<MainPage />} />
+                    <Route index={true} path={RouterPath.CALENDAR} element={<CalendarPage />} />
                     <Route path={RouterPath.FEEDBACKS} element={<FeedbacksPage />} />
                     <Route path={RouterPath.SIGN_IN} element={<ResultPage />}>
                         <Route

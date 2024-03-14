@@ -24,18 +24,23 @@ export type Feedback = {
     createdAt: string;
 };
 
-export type BreadcrumbItemData = {
-    key: number;
-    path: string;
-    breadcrumbName: string;
+export type TBreadcrumbItemData = {
+    key: string,
+    path: string,
+    breadcrumbName: string,
 };
 
+export type THeaderComponentProps = {
+    routes: TBreadcrumbItemData[],
+    title?: string[],
+}
+
 export type PostFeedback = {
-    message: string;
-    rating: number;
+    message: string,
+    rating: number,
 };
 
 export type ErrorType = {
-    status?: number;
-    data: unknown;
+    status?: number,
+    data: unknown,
 };
