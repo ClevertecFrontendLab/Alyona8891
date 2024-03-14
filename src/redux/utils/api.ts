@@ -57,6 +57,12 @@ export const apiService = createApi({
             }),
             invalidatesTags: ['feedbacks'],
         }),
+        getTraining: builder.query({
+            query: () => ({
+                url: '/training',
+                method: 'get',
+            }),
+        }),
     }),
 });
 
@@ -68,4 +74,5 @@ export const {
     useChangePasswordMutation,
     useGetFeedbacksQuery,
     usePostFeedbackMutation,
+    useGetTrainingQuery,
 } = apiService;
