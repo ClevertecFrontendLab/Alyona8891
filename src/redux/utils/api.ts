@@ -63,6 +63,12 @@ export const apiService = createApi({
                 method: 'get',
             }),
         }),
+        getTrainingList: builder.query({
+            query: () => ({
+                url: '/catalogs/training-listdgee',
+                method: 'get',
+            }),
+        }),
     }),
 });
 
@@ -75,4 +81,5 @@ export const {
     useGetFeedbacksQuery,
     usePostFeedbackMutation,
     useGetTrainingQuery,
+    useGetTrainingListQuery,
 } = apiService;

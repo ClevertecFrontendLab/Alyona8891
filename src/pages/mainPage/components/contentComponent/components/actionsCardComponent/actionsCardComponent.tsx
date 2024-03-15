@@ -44,7 +44,6 @@ export const ActionsCardComponent: React.FC<{
                             dispatch(setRequestResult(RequestResult.ERROR_403));
                             dispatch(setIsErrorModal(true));
                         } else if (data) {
-                            console.log(data);
                             history.push(path);
                         }
                     }

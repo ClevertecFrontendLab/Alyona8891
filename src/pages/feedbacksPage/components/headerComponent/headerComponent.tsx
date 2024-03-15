@@ -8,12 +8,12 @@ import { FC } from 'react';
 
 const routes = [
     {
-        key: 1,
+        key: '1',
         path: RouterPath.MAIN,
         breadcrumbName: 'Главная',
     },
     {
-        key: 2,
+        key: '2',
         path: RouterPath.FEEDBACKS,
         breadcrumbName: 'Отзывы пользователей',
     },

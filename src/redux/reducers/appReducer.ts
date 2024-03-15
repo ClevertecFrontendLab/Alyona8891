@@ -15,6 +15,7 @@ type AppSliceState = {
     requestResult: null | RequestResult;
     userFeedback: null | PostFeedback;
     isAllFeedbacksVisible: boolean;
+    trainingList: string[],
 };
 
 const initialState: AppSliceState = {
@@ -30,6 +31,7 @@ const initialState: AppSliceState = {
     requestResult: null,
     userFeedback: null,
     isAllFeedbacksVisible: false,
+    trainingList: [],
 };
 
 export const appSlice = createSlice({
@@ -73,6 +75,9 @@ export const appSlice = createSlice({
             const currentState = state.isAllFeedbacksVisible;
             state.isAllFeedbacksVisible = !currentState;
         },
+        setTrainingList: (state, action) => {
+            state.trainingList = action.payload;
+        },
     },
 });
 
@@ -89,5 +94,6 @@ export const {
     setRequestResult,
     setUserFeedback,
     setIsAllFeedbacksVisible,
+    setTrainingList,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
