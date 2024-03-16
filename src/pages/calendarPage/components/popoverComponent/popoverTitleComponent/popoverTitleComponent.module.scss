@@ -1,0 +1,23 @@
+.title {
+    width: 240px;
+    padding-top: 0.8rem;
+
+    :global {
+        .ant-btn-link {
+            color: var(--color-title);
+        }
+    }
+
+    & .list_container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 64px;
+    }
+
+    & .close_button {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.5rem;
+    }
+}

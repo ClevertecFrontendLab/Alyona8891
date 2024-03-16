@@ -1,23 +1,36 @@
 import { FC, useState } from 'react';
-import { Badge, BadgeProps, Button, Popover, Space, Typography } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
 
-const { Text } = Typography;
+import { Button, Popover, Space } from 'antd';
+import { PopoverTitleComponent } from './popoverTitleComponent';
+import { EPopoverStatus, POPOVER } from '@constants/constants';
+import { PopoverContentComponent } from './popoverContentComponent';
 
 type TPopoverComponentProps = {
     listData: {
-        type: string,
-        content: string,
+        type: string;
+        content: string;
     }[];
-    currentDate: string,
-    children: React.ReactNode,
+    currentDate: string;
+    children: React.ReactNode;
 };
 
-export const PopoverComponent: FC<TPopoverComponentProps> = ({ listData, currentDate, children }) => {
+export const PopoverComponent: FC<TPopoverComponentProps> = ({
+    listData,
+    currentDate,
+    children,
+}) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [popoverStatus, setPopoverStatus] = useState<EPopoverStatus>(
+      listData.length > 0 ? EPopoverStatus.ADD : EPopoverStatus.CREATE,
+  );
+    
 
     const handleOpenChange = (newOpen: boolean) => {
-      setIsOpen(newOpen);
+        setIsOpen(newOpen);
+    };
+
+    const handleCloseButton = () => {
+        setIsOpen(false);
     };
 
     return (
@@ -26,58 +39,15 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({ listData, current
             open={isOpen}
             onOpenChange={handleOpenChange}
             title={() => (
-                <Space
-                    direction='vertical'
-                    style={{
-                        width: '240px',
-                        paddingTop: '0.7rem',
-                    }}
-                    size={0.5}
-                >
-                    <Text strong>{`Тренировки на ${currentDate}`}</Text>
-                    <Text type='secondary'>Нет активных тренировок</Text>
-                    <Space
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: '64px',
-                        }}
-                    >
-                        {listData.length > 0 ? (
-                            listData.map((item) => (
-                                <li key={item.content}>
-                                    <Badge
-                                        status={item.type as BadgeProps['status']}
-                                        text={item.content}
-                                    />
-                                </li>
-                            ))
-                        ) : (
-                            <img src='src/assets/images/empty_image.svg' />
-                        )}
-                    </Space>
-                    <Button
-                        type='link'
-                        icon={<CloseOutlined />}
-                        onClick={() => {
-                            setIsOpen(false);
-                        }}
-                        style={{ position: 'absolute', top: '0.6rem', right: '0.5rem' }}
-                    />
-                </Space>
+                <PopoverTitleComponent
+                    listData={listData}
+                    currentDate={currentDate}
+                    handleCloseButton={handleCloseButton}
+                    popoverStatus={popoverStatus}
+                />
             )}
             content={() => (
-                <Space
-                    direction='vertical'
-                    style={{
-                        width: '240px',
-                    }}
-                >
-                    <Button style={{ width: '100%' }} type='primary'>
-                        Создать тренировку
-                    </Button>
-                </Space>
+                <PopoverContentComponent popoverStatus={popoverStatus} />
             )}
             align={{ offset: [-7, 172] }}
             trigger='click'
