@@ -65,8 +65,27 @@ export const apiService = createApi({
         }),
         getTrainingList: builder.query({
             query: () => ({
-                url: '/catalogs/training-listdgee',
+                url: '/catalogs/training-list',
                 method: 'get',
+            }),
+        }),
+        addTraining: builder.mutation({
+            query: (data: {
+                name: string;
+                date: string;
+                exercises: [
+                    {
+                        name: string;
+                        replays: number;
+                        weight: number;
+                        approaches: number;
+                        isImplementation: boolean;
+                    },
+                ];
+            }) => ({
+                url: '/training',
+                method: 'post',
+                data,
             }),
         }),
     }),

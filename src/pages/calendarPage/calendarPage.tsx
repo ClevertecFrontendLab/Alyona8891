@@ -1,11 +1,9 @@
 import { FC, useEffect, useMemo, useRef } from 'react';
 
-import { Calendar, Modal } from 'antd';
+import { Modal } from 'antd';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
-import locale from 'antd/es/date-picker/locale/ru_RU';
-import { Content, Footer } from 'antd/lib/layout/layout';
 
-import moment from 'moment';
+import { Content, Footer } from 'antd/lib/layout/layout';
 import { RouterPath, TOKEN_STORAGE_PROPERTY } from '@constants/constants';
 import { MainLayout } from '@layouts/mainLayout';
 import { HeaderComponent } from '@pages/ui/headerComponent';
@@ -15,37 +13,7 @@ import { LoaderComponent as Loader } from '@pages/ui/loader';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { setTrainingList } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
-
-moment.updateLocale('ru', {
-    week: {
-        dow: 1,
-        doy: 0,
-    },
-});
-
-const calendarLocale = {
-    lang: {
-        ...locale.lang,
-        shortWeekDays: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-        shortMonths: [
-            'Янв',
-            'Фев',
-            'Мар',
-            'Апр',
-            'Май',
-            'Июн',
-            'Июл',
-            'Авг',
-            'Сен',
-            'Окт',
-            'Ноя',
-            'Дек',
-        ],
-    },
-    timePickerLocale: {
-        ...locale.timePickerLocale,
-    },
-};
+import { CalendarComponent } from './components/calendarComponent';
 
 const routes = [
     {
@@ -70,7 +38,6 @@ export const CalendarPage: FC = () => {
     const breakpoint = useBreakpoint();
     const { data, error, isFetching } = useGetTrainingListQuery('');
     const dispatch: AppDispatch = useAppDispatch();
-    const trainingList = useSelector((state: RootState) => state.app.trainingList);
     const fix = useRef(true);
 
     const [modal, contextHolder] = Modal.useModal();
@@ -134,7 +101,7 @@ export const CalendarPage: FC = () => {
                         flex: '1 1 auto',
                     }}
                 >
-                    <Calendar locale={calendarLocale} defaultValue={moment()} />
+                    <CalendarComponent />
                 </Content>
                 <Footer
                     style={{
