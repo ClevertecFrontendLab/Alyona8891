@@ -5,6 +5,7 @@ import { Badge, BadgeProps, Button, Select, Space, Typography } from 'antd';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons';
 import { FC, useMemo } from 'react';
+import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
@@ -39,6 +40,8 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         }
     }, [listData, popoverStatus]);
 
+    const trainingList = useDefineTrainingList(['Ноги', 'Руки']);
+
     const getTitle = useMemo(() => {
         switch (popoverStatus) {
             case EPopoverStatus.ADD_TRAINING:
@@ -54,25 +57,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                             <Select
                                 style={{ width: '222px' }}
                                 defaultValue={POPOVER.addTraining.title}
-                                options={[
-                                    {
-                                        value: 'jack',
-                                        label: 'Jack',
-                                    },
-                                    {
-                                        value: 'lucy',
-                                        label: 'Lucy',
-                                    },
-                                    {
-                                        value: 'disabled',
-                                        disabled: true,
-                                        label: 'Disabled',
-                                    },
-                                    {
-                                        value: 'Yiminghe',
-                                        label: 'yiminghe',
-                                    },
-                                ]}
+                                options={trainingList}
                             />
                         </Space>
                         <Space style={{ height: '91px' }}>
@@ -94,7 +79,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     </>
                 );
         }
-    }, [currentDate, handleBackButton, handleCloseButton, popoverStatus]);
+    }, [currentDate, handleBackButton, handleCloseButton, popoverStatus, trainingList]);
 
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>

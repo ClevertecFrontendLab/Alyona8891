@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Feedback, PostFeedback, SignUpData } from '../../types';
+import { Feedback, PostFeedback, SignUpData, TTraining} from '../../types';
 import { RequestResult } from '@constants/constants';
 
 type AppSliceState = {
@@ -15,7 +15,7 @@ type AppSliceState = {
     requestResult: null | RequestResult;
     userFeedback: null | PostFeedback;
     isAllFeedbacksVisible: boolean;
-    trainingList: string[],
+    trainingList: TTraining[],
 };
 
 const initialState: AppSliceState = {

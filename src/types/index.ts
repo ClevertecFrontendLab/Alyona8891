@@ -44,3 +44,8 @@ export type ErrorType = {
     status?: number,
     data: unknown,
 };
+
+export type TTraining = {
+    name: string,
+    key: string,
+};
