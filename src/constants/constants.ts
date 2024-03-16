@@ -34,8 +34,9 @@ export enum RequestResult {
 }
 
 export enum EPopoverStatus {
-    CREATE = 'create',
-    ADD = 'add',
+    WITHOUT_TRAINING = 'withoutTraining',
+    WITH_TRAINING = 'withTraining',
+    ADD_TRAINING = 'addTraining',
 }
 
 export const TEXT = {
@@ -223,5 +224,10 @@ export const POPOVER = {
     withTrainings: {
         title: 'Тренировки на ',
         button: 'Добавить тренировку',
+    },
+    addTraining: {
+        title: 'Выбор типа тренировки',
+        button1: 'Добавить упражнения',
+        button2: 'Сохранить',
     },
 };

@@ -10,9 +10,8 @@ import { HeaderComponent } from '@pages/ui/headerComponent';
 import { useGetTrainingListQuery } from '@redux/utils/api';
 import { redirectToLogin } from '@utils/index';
 import { LoaderComponent as Loader } from '@pages/ui/loader';
-import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
+import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { setTrainingList } from '@redux/reducers/appReducer';
-import { useSelector } from 'react-redux';
 import { CalendarComponent } from './components/calendarComponent';
 
 const routes = [

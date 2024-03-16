@@ -6,6 +6,18 @@
         .ant-btn-link {
             color: var(--color-title);
         }
+
+        .ant-btn-icon-only {
+            width: initial;
+        }
+
+        .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+            border: none;
+        }
+
+        .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+            border: none;
+        }
     }
 
     & .list_container {

@@ -1,34 +1,35 @@
 import cn from 'classnames';
 import styles from './popoverTitleComponent.module.scss';
 
-import { Badge, BadgeProps, Button, Space, Typography } from 'antd';
+import { Badge, BadgeProps, Button, Select, Space, Typography } from 'antd';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
-import { CloseOutlined } from '@ant-design/icons';
-import { FC, useMemo} from 'react';
+import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons';
+import { FC, useMemo } from 'react';
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
     listData: {
-        type: string,
-        content: string,
+        type: string;
+        content: string;
     }[];
-    currentDate: string,
-    handleCloseButton: () => void,
-    popoverStatus: EPopoverStatus,
+    currentDate: string;
+    handleCloseButton: () => void;
+    handleBackButton: () => void;
+    popoverStatus: EPopoverStatus;
 };
 
 export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     listData,
     currentDate,
     handleCloseButton,
+    handleBackButton,
     popoverStatus,
 }) => {
-    
-    const getPopupTitleContent = useMemo(() => {
+    const getContent = useMemo(() => {
         switch (popoverStatus) {
-            case EPopoverStatus.CREATE:
+            case EPopoverStatus.WITHOUT_TRAINING:
                 return <img src='src/assets/images/empty_image.svg' />;
-            case EPopoverStatus.ADD:
+            case EPopoverStatus.WITH_TRAINING:
                 return listData.map((item) => (
                     <li key={item.content}>
                         <Badge status={item.type as BadgeProps['status']} text={item.content} />
@@ -38,17 +39,67 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         }
     }, [listData, popoverStatus]);
 
+    const getTitle = useMemo(() => {
+        switch (popoverStatus) {
+            case EPopoverStatus.ADD_TRAINING:
+                return (
+                    <>
+                        <Space direction='horizontal' size={0} style={{ display: 'flex' }}>
+                            <Button
+                                type='link'
+                                className={styles[cn('back_button')]}
+                                icon={<ArrowLeftOutlined />}
+                                onClick={handleBackButton}
+                            />
+                            <Select
+                                style={{ width: '222px' }}
+                                defaultValue={POPOVER.addTraining.title}
+                                options={[
+                                    {
+                                        value: 'jack',
+                                        label: 'Jack',
+                                    },
+                                    {
+                                        value: 'lucy',
+                                        label: 'Lucy',
+                                    },
+                                    {
+                                        value: 'disabled',
+                                        disabled: true,
+                                        label: 'Disabled',
+                                    },
+                                    {
+                                        value: 'Yiminghe',
+                                        label: 'yiminghe',
+                                    },
+                                ]}
+                            />
+                        </Space>
+                        <Space style={{ height: '91px' }}>
+                            <ul></ul>
+                        </Space>
+                    </>
+                );
+            default:
+                return (
+                    <>
+                        <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate}`}</Text>
+                        <Text type='secondary'>{POPOVER.withoutTrainings.text}</Text>
+                        <Button
+                            type='link'
+                            className={styles[cn('close_button')]}
+                            icon={<CloseOutlined />}
+                            onClick={handleCloseButton}
+                        />
+                    </>
+                );
+        }
+    }, [currentDate, handleBackButton, handleCloseButton, popoverStatus]);
+
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>
-            <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate}`}</Text>
-            <Text type='secondary'>{POPOVER.withoutTrainings.text}</Text>
-            <Space className={styles[cn('list_container')]}>{getPopupTitleContent}</Space>
-            <Button
-                type='link'
-                className={styles[cn('close_button')]}
-                icon={<CloseOutlined />}
-                onClick={handleCloseButton}
-            />
+            {getTitle}
+            <Space className={styles[cn('list_container')]}>{getContent}</Space>
         </Space>
     );
 };

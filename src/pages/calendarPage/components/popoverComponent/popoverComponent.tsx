@@ -1,8 +1,8 @@
 import { FC, useState } from 'react';
 
-import { Button, Popover, Space } from 'antd';
+import { Popover } from 'antd';
 import { PopoverTitleComponent } from './popoverTitleComponent';
-import { EPopoverStatus, POPOVER } from '@constants/constants';
+import { EPopoverStatus } from '@constants/constants';
 import { PopoverContentComponent } from './popoverContentComponent';
 
 type TPopoverComponentProps = {
@@ -21,16 +21,31 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [popoverStatus, setPopoverStatus] = useState<EPopoverStatus>(
-      listData.length > 0 ? EPopoverStatus.ADD : EPopoverStatus.CREATE,
-  );
-    
+        listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
+    );
+
+    const handleChangeStatus = (status: EPopoverStatus) => {
+        setPopoverStatus(status);
+    };
 
     const handleOpenChange = (newOpen: boolean) => {
         setIsOpen(newOpen);
+        setPopoverStatus(
+            listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
+        );
     };
 
     const handleCloseButton = () => {
+        setPopoverStatus(
+            listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
+        );
         setIsOpen(false);
+    };
+
+    const handleBackButton = () => {
+        setPopoverStatus(
+            listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
+        );
     };
 
     return (
@@ -43,11 +58,15 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
                     listData={listData}
                     currentDate={currentDate}
                     handleCloseButton={handleCloseButton}
+                    handleBackButton={handleBackButton}
                     popoverStatus={popoverStatus}
                 />
             )}
             content={() => (
-                <PopoverContentComponent popoverStatus={popoverStatus} />
+                <PopoverContentComponent
+                    popoverStatus={popoverStatus}
+                    handleChangeStatus={handleChangeStatus}
+                />
             )}
             align={{ offset: [-7, 172] }}
             trigger='click'
