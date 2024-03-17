@@ -22,6 +22,13 @@
     --color-exit-icon: #000;
     --color-addon-border: #D9D9D9;
 
+    --cyan: #13C2C2;
+    --red: #FF4D4F;
+    --yellow: #FADB14;
+    --green: #52C41A;
+    --orange: #FA8C16;
+    --magenta: #EB2F96;
+
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;

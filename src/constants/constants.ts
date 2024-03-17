@@ -39,6 +39,14 @@ export enum EPopoverStatus {
     ADD_TRAINING = 'addTraining',
 }
 
+export enum ETrainings {
+    ARMS = 'Руки',
+    LEGS = 'Ноги',
+    POWER = 'Силовая',
+    BREAST = 'Грудь',
+    BACK = 'Спина',
+}
+
 export const TEXT = {
     tabs: {
         signIn: 'Вход',

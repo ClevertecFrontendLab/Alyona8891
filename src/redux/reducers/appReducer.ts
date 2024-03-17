@@ -18,6 +18,7 @@ type AppSliceState = {
     isAllFeedbacksVisible: boolean;
     trainingList: TTraining[],
     isPanelOpened: boolean,
+    editedTraining: string,
     formsData: TSidePanelFormsData[],
 };
 
@@ -45,6 +46,7 @@ const initialState: AppSliceState = {
     trainingList: [],
     isPanelOpened: false,
     formsData: [initialFormData],
+    editedTraining: '',
 };
 
 export const appSlice = createSlice({
@@ -98,6 +100,9 @@ export const appSlice = createSlice({
             const formsData = state.formsData;
             state.formsData = [...formsData].concat([{ ...initialFormData, id: generateUniqueKey() }]);
         },
+        setEditedTraining: (state, action) => {
+            state.editedTraining = action.payload;
+        },
         setFormsData: (state, action) => {
             state.formsData = action.payload;
         },
@@ -120,6 +125,7 @@ export const {
     setTrainingList,
     setIsPanelOpened,
     addForm,
+    setEditedTraining,
     setFormsData,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

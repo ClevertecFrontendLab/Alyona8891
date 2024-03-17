@@ -6,6 +6,8 @@ import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons';
 import { FC, useMemo } from 'react';
 import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
+import { AppDispatch, useAppDispatch } from '@redux/configure-store';
+import { setEditedTraining } from '@redux/reducers/appReducer';
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
@@ -26,6 +28,8 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     handleBackButton,
     popoverStatus,
 }) => {
+    const dispatch: AppDispatch = useAppDispatch();
+    
     const getContent = useMemo(() => {
         switch (popoverStatus) {
             case EPopoverStatus.WITHOUT_TRAINING:
@@ -41,6 +45,10 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     }, [listData, popoverStatus]);
 
     const trainingList = useDefineTrainingList(['Ноги', 'Руки']);
+
+    const handleTrainingsSelect = (value: string) => {
+        dispatch(setEditedTraining(value));
+    }
 
     const getTitle = useMemo(() => {
         switch (popoverStatus) {
@@ -58,6 +66,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                                 style={{ width: '222px' }}
                                 defaultValue={POPOVER.addTraining.title}
                                 options={trainingList}
+                                onChange={handleTrainingsSelect}
                             />
                         </Space>
                         <Space style={{ height: '91px' }}>
