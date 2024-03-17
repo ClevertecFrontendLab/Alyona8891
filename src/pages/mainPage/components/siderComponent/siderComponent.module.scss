@@ -4,6 +4,8 @@
     padding-top: 44px;
     top: 0;
     left: 0;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+
     @media (max-width: 576px) {
         position: sticky;
         z-index: 2;
@@ -20,6 +22,7 @@
         width: 20px;
         display: flex;
         justify-content: center;
+        
         @media (max-width: 576px) {
             top: 25px;
             height: 48px;

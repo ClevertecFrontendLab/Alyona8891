@@ -6,8 +6,10 @@ export const useDefineTrainingList = (arr) => {
 
     if (arr.length < trainingList.length) {
         return trainingList.reduce((acc, training) => {
-            if (!arr.find((e) => e === training.name)) {
-                acc.push({ value: training.key, label: training.name });
+            const { name, key } = training;
+
+            if (!arr.find((e) => e === name)) {
+                acc.push({ value: key, label: name });
             }
             return acc;
         }, []);

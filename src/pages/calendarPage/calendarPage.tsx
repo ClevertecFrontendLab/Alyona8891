@@ -13,6 +13,7 @@ import { LoaderComponent as Loader } from '@pages/ui/loader';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { setTrainingList } from '@redux/reducers/appReducer';
 import { CalendarComponent } from './components/calendarComponent';
+import { SidePanelComponent } from '@pages/calendarPage/components/sidePanelConponent';
 
 const routes = [
     {
@@ -108,6 +109,7 @@ export const CalendarPage: FC = () => {
                     }}
                 />
             </MainLayout>
+            <SidePanelComponent />
             {isFetching && <Loader />}
             {contextHolder}
         </>

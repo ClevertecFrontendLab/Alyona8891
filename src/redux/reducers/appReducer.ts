@@ -16,6 +16,7 @@ type AppSliceState = {
     userFeedback: null | PostFeedback;
     isAllFeedbacksVisible: boolean;
     trainingList: TTraining[],
+    isPanelOpened: boolean,
 };
 
 const initialState: AppSliceState = {
@@ -32,6 +33,7 @@ const initialState: AppSliceState = {
     userFeedback: null,
     isAllFeedbacksVisible: false,
     trainingList: [],
+    isPanelOpened: false,
 };
 
 export const appSlice = createSlice({
@@ -78,6 +80,9 @@ export const appSlice = createSlice({
         setTrainingList: (state, action) => {
             state.trainingList = action.payload;
         },
+        setIsPanelOpened: (state, action) => {
+            state.isPanelOpened = action.payload;
+        },
     },
 });
 
@@ -95,5 +100,6 @@ export const {
     setUserFeedback,
     setIsAllFeedbacksVisible,
     setTrainingList,
+    setIsPanelOpened,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

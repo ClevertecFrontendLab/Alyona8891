@@ -231,3 +231,25 @@ export const POPOVER = {
         button2: 'Сохранить',
     },
 };
+
+export const DRAWER = {
+    createExercise: {
+        title: '+ Добавление упражнений',
+        inputNamePlaceholder: 'Упражнение',
+        numberInputs: {
+            time: {
+                label: 'Подходы',
+                placeholder: '1'
+            },
+            weight: {
+                label: 'Вес, кг',
+                placeholder: '1'
+            },
+            quantity: {
+                label: 'Количество',
+                placeholder: '3'
+            },
+        },
+        button: 'Добавить ещё',
+    }
+}

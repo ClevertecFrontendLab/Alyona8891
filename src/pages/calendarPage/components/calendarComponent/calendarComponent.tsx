@@ -5,9 +5,9 @@ import locale from 'antd/es/date-picker/locale/ru_RU';
 
 import moment from 'moment';
 import type { Moment } from 'moment';
-import { useSelector } from 'react-redux';
-import { RootState } from '@redux/configure-store';
+import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { PopoverComponent } from '../popoverComponent';
+import { setIsPanelOpened } from '@redux/reducers/appReducer';
 
 moment.updateLocale('ru', {
     week: {
@@ -72,8 +72,6 @@ const getListData = (value: Moment) => {
 };
 
 export const CalendarComponent: FC = () => {
-    const trainingList = useSelector((state: RootState) => state.app.trainingList);
-
     const dateCellRender = (value: Moment) => {
         const currentDate = value.format('DD.MM.YYYY');
         const listData = getListData(value);
@@ -81,18 +79,16 @@ export const CalendarComponent: FC = () => {
         return (
             <PopoverComponent listData={listData} currentDate={currentDate}>
                 <ul style={{ height: 'calc(100% - 24px)' }}>
-                    {listData.length > 0 ? (
-                        listData.map((item) => (
-                            <li key={item.content}>
-                                <Badge
-                                    status={item.type as BadgeProps['status']}
-                                    text={item.content}
-                                />
-                            </li>
-                        ))
-                    ) : (
-                        null
-                    )}
+                    {listData.length > 0
+                        ? listData.map((item) => (
+                              <li key={item.content}>
+                                  <Badge
+                                      status={item.type as BadgeProps['status']}
+                                      text={item.content}
+                                  />
+                              </li>
+                          ))
+                        : null}
                 </ul>
             </PopoverComponent>
         );
