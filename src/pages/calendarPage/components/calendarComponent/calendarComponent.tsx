@@ -5,9 +5,7 @@ import locale from 'antd/es/date-picker/locale/ru_RU';
 
 import moment from 'moment';
 import type { Moment } from 'moment';
-import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { PopoverComponent } from '../popoverComponent';
-import { setIsPanelOpened } from '@redux/reducers/appReducer';
 
 moment.updateLocale('ru', {
     week: {

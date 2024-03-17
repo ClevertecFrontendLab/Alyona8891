@@ -4,6 +4,8 @@ import { Popover } from 'antd';
 import { PopoverTitleComponent } from './popoverTitleComponent';
 import { EPopoverStatus } from '@constants/constants';
 import { PopoverContentComponent } from './popoverContentComponent';
+import { useSelector } from 'react-redux';
+import { RootState } from '@redux/configure-store';
 
 type TPopoverComponentProps = {
     listData: {
@@ -24,11 +26,17 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
         listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
     );
 
+    const isPanelOpened = useSelector((state: RootState) => state.app.isPanelOpened);
+
     const handleChangeStatus = (status: EPopoverStatus) => {
         setPopoverStatus(status);
     };
 
     const handleOpenChange = (newOpen: boolean) => {
+        if (isPanelOpened) {
+            newOpen = true;
+            return;
+        }
         setIsOpen(newOpen);
         setPopoverStatus(
             listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
