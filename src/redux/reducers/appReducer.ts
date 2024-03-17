@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Feedback, PostFeedback, SignUpData, TTraining} from '../../types';
+import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining} from '../../types';
 import { RequestResult } from '@constants/constants';
+import { generateUniqueKey } from '@utils/index';
 
 type AppSliceState = {
     authPageContent: 'signIn' | 'signUp';
@@ -17,7 +18,16 @@ type AppSliceState = {
     isAllFeedbacksVisible: boolean;
     trainingList: TTraining[],
     isPanelOpened: boolean,
+    formsData: TSidePanelFormsData[],
 };
+
+const initialFormData = {
+    id: 'initial',
+    name: null,
+    time: null,
+    quantity: null,
+    weight: null,
+}
 
 const initialState: AppSliceState = {
     authPageContent: 'signIn',
@@ -34,6 +44,7 @@ const initialState: AppSliceState = {
     isAllFeedbacksVisible: false,
     trainingList: [],
     isPanelOpened: false,
+    formsData: [initialFormData],
 };
 
 export const appSlice = createSlice({
@@ -83,6 +94,13 @@ export const appSlice = createSlice({
         setIsPanelOpened: (state, action) => {
             state.isPanelOpened = action.payload;
         },
+        addForm: (state) => {
+            const formsData = state.formsData;
+            state.formsData = [...formsData].concat([{ ...initialFormData, id: generateUniqueKey() }]);
+        },
+        setFormsData: (state, action) => {
+            state.formsData = action.payload;
+        },
     },
 });
 
@@ -101,5 +119,7 @@ export const {
     setIsAllFeedbacksVisible,
     setTrainingList,
     setIsPanelOpened,
+    addForm,
+    setFormsData,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

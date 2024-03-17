@@ -239,15 +239,15 @@ export const DRAWER = {
         numberInputs: {
             time: {
                 label: 'Подходы',
-                placeholder: '1'
+                placeholder: 1
             },
             weight: {
                 label: 'Вес, кг',
-                placeholder: '1'
+                placeholder: 0
             },
             quantity: {
                 label: 'Количество',
-                placeholder: '3'
+                placeholder: 3
             },
         },
         button: 'Добавить ещё',

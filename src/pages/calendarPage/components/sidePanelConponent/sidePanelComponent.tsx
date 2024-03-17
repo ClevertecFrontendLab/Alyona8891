@@ -3,10 +3,11 @@ import styles from './sidePanelComponent.module.scss';
 
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
-import { Drawer } from 'antd';
+import { Badge, Drawer, Space, Typography } from 'antd';
 import { setIsPanelOpened } from '@redux/reducers/appReducer';
 import { DRAWER } from '@constants/constants';
 import { SidePanelContent } from './sidePanelContent';
+const { Text } = Typography;
 
 export const SidePanelComponent = () => {
     const open = useSelector((state: RootState) => state.app.isPanelOpened);
@@ -14,7 +15,8 @@ export const SidePanelComponent = () => {
 
     return (
         <Drawer
-        zIndex={1000000}
+            destroyOnClose
+            zIndex={10000}
             className={styles[cn('panel')]}
             drawerStyle={{ backgroundColor: 'var(--backgroud-color-element)' }}
             maskStyle={{ backgroundColor: 'initial' }}
@@ -22,7 +24,14 @@ export const SidePanelComponent = () => {
             onClose={() => {
                 dispatch(setIsPanelOpened(false));
             }}
-            onClick={(e) => {e.stopPropagation()}}
+            extra={
+                <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <Badge style={{color:  'var(--color-info)' }} color={'red'} text={'reg'} />
+                    <Text style={{ fontSize: 14, fontWeight: 500, color:  'var(--color-info)' }}>
+                        08.01.2024
+                    </Text>
+                </Space>
+            }
             placement='right'
             title={DRAWER.createExercise.title}
         >

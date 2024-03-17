@@ -1,94 +1,44 @@
-import { Col, Form, Input, Row, Select } from 'antd';
+import { DRAWER } from '@constants/constants';
+import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { SidePanelForm } from '../sidePanelForm';
+import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
+import { addForm } from '@redux/reducers/appReducer';
+import { useSelector } from 'react-redux';
 
 export const SidePanelContent = () => {
+    const dispatch: AppDispatch = useAppDispatch();
+
+    const formsData = useSelector((state: RootState) => state.app.formsData);
+
+    const handleAddExercise = () => {
+        dispatch(addForm())
+    };
+
     return (
-        <Form layout='vertical'>
-            <Row gutter={16}>
-                <Col span={12}>
-                    <Form.Item
-                        name='name'
-                        label='Name'
-                        rules={[{ required: true, message: 'Please enter user name' }]}
-                    >
-                        <Input placeholder='Please enter user name' />
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item
-                        name='url'
-                        label='Url'
-                        rules={[{ required: true, message: 'Please enter url' }]}
-                    >
-                        <Input
-                            style={{ width: '100%' }}
-                            addonBefore='http://'
-                            addonAfter='.com'
-                            placeholder='Please enter url'
-                        />
-                    </Form.Item>
-                </Col>
-            </Row>
-            <Row gutter={16}>
-                <Col span={12}>
-                    <Form.Item
-                        name='owner'
-                        label='Owner'
-                        rules={[{ required: true, message: 'Please select an owner' }]}
-                    >
-                        <Select placeholder='Please select an owner'>
-                            
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item
-                        name='type'
-                        label='Type'
-                        rules={[{ required: true, message: 'Please choose the type' }]}
-                    >
-                        <Select placeholder='Please choose the type'>
-                            
-                        </Select>
-                    </Form.Item>
-                </Col>
-            </Row>
-            <Row gutter={16}>
-                <Col span={12}>
-                    <Form.Item
-                        name='approver'
-                        label='Approver'
-                        rules={[{ required: true, message: 'Please choose the approver' }]}
-                    >
-                        <Select placeholder='Please choose the approver'>
-                            
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={12}>
-                    <Form.Item
-                        name='dateTime'
-                        label='DateTime'
-                        rules={[{ required: true, message: 'Please choose the dateTime' }]}
-                    >
-                    </Form.Item>
-                </Col>
-            </Row>
-            <Row gutter={16}>
-                <Col span={24}>
-                    <Form.Item
-                        name='description'
-                        label='Description'
-                        rules={[
-                            {
-                                required: true,
-                                message: 'please enter url description',
-                            },
-                        ]}
-                    >
-                        <Input.TextArea rows={4} placeholder='please enter url description' />
-                    </Form.Item>
-                </Col>
-            </Row>
-        </Form>
+        <>
+            {formsData?.map((formData) => {
+                return (
+                    <SidePanelForm
+                        key={formData.id}
+                        id={formData.id as string}
+                        formData={formData}
+                    />
+                );
+            })}
+            <Button
+                style={{
+                    width: '100%',
+                    textAlign: 'left',
+                    backgroundColor: 'var(--background-color-label)',
+                    borderRadius: '0 0 6px 6px',
+                }}
+                type='link'
+                icon={<PlusOutlined />}
+                onClick={handleAddExercise}
+            >
+                {DRAWER.createExercise.button}
+            </Button>
+        </>
     );
 };

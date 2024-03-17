@@ -49,3 +49,11 @@ export type TTraining = {
     name: string,
     key: string,
 };
+
+export type TSidePanelFormsData = {
+    id?: string;
+    name: string | null;
+    time: number | null;
+    quantity: number | null;
+    weight: number | null;
+};
