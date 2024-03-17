@@ -4,10 +4,10 @@ import styles from './popoverTitleComponent.module.scss';
 import { Badge, BadgeProps, Button, Select, Space, Typography } from 'antd';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons';
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
-import { setEditedTraining } from '@redux/reducers/appReducer';
+import { setEditedDate, setEditedTraining } from '@redux/reducers/appReducer';
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
@@ -29,7 +29,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     popoverStatus,
 }) => {
     const dispatch: AppDispatch = useAppDispatch();
-    
+
     const getContent = useMemo(() => {
         switch (popoverStatus) {
             case EPopoverStatus.WITHOUT_TRAINING:
@@ -46,9 +46,13 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
 
     const trainingList = useDefineTrainingList(['Ноги', 'Руки']);
 
-    const handleTrainingsSelect = (value: string) => {
-        dispatch(setEditedTraining(value));
-    }
+    const handleTrainingsSelect = useCallback(
+        (value: string) => {
+            dispatch(setEditedTraining(value));
+            dispatch(setEditedDate(currentDate));
+        },
+        [currentDate, dispatch],
+    );
 
     const getTitle = useMemo(() => {
         switch (popoverStatus) {
@@ -88,7 +92,14 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     </>
                 );
         }
-    }, [currentDate, handleBackButton, handleCloseButton, popoverStatus, trainingList]);
+    }, [
+        currentDate,
+        handleBackButton,
+        handleCloseButton,
+        handleTrainingsSelect,
+        popoverStatus,
+        trainingList,
+    ]);
 
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>

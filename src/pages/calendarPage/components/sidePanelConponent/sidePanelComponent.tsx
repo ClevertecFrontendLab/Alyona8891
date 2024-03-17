@@ -13,6 +13,7 @@ const { Text } = Typography;
 export const SidePanelComponent = () => {
     const open = useSelector((state: RootState) => state.app.isPanelOpened);
     const training = useSelector((state: RootState) => state.app.editedTraining);
+    const currentDate = useSelector((state: RootState) => state.app.editedDate);
     const dispatch: AppDispatch = useAppDispatch();
 
     return (
@@ -28,9 +29,13 @@ export const SidePanelComponent = () => {
             }}
             extra={
                 <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Badge style={{ color: 'var(--color-info)' }} color={defineBadgeColor(training)} text={training} />
+                    <Badge
+                        style={{ color: 'var(--color-info)' }}
+                        color={defineBadgeColor(training)}
+                        text={training}
+                    />
                     <Text style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-info)' }}>
-                        08.01.2024
+                        {currentDate}
                     </Text>
                 </Space>
             }

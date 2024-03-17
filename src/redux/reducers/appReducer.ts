@@ -19,6 +19,7 @@ type AppSliceState = {
     trainingList: TTraining[],
     isPanelOpened: boolean,
     editedTraining: string,
+    editedDate: string,
     formsData: TSidePanelFormsData[],
 };
 
@@ -45,8 +46,9 @@ const initialState: AppSliceState = {
     isAllFeedbacksVisible: false,
     trainingList: [],
     isPanelOpened: false,
-    formsData: [initialFormData],
     editedTraining: '',
+    editedDate: '',
+    formsData: [initialFormData],
 };
 
 export const appSlice = createSlice({
@@ -106,6 +108,9 @@ export const appSlice = createSlice({
         setFormsData: (state, action) => {
             state.formsData = action.payload;
         },
+        setEditedDate: (state, action) => {
+            state.editedDate = action.payload;
+        },
     },
 });
 
@@ -127,5 +132,6 @@ export const {
     addForm,
     setEditedTraining,
     setFormsData,
+    setEditedDate,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
