@@ -18,13 +18,19 @@
         .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
             border: none;
         }
+
     }
 
     & .list_container {
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
         height: 64px;
+
+        :global {
+            .ant-space-item {
+                display: flex;
+            }
+        }
     }
 
     & .close_button {

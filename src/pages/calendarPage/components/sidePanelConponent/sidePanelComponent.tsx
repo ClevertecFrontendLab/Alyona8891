@@ -18,7 +18,26 @@ export const SidePanelComponent = () => {
     const dispatch: AppDispatch = useAppDispatch();
 
     const handleClosePanel = () => {
-        dispatch(setSavedFormsData(formsData));
+        const savedFormsData = formsData
+            .filter((formData) => {
+                if (formData.name) {
+                    return formData;
+                }
+            })
+            .map((formData) => {
+                let result;
+                if (!formData.quantity) {
+                    result = { ...formData, quantity: 1 };
+                }
+                if (!formData.time) {
+                    result = { ...formData, time: 1 };
+                }
+                if (!formData.weight) {
+                    result = { ...formData, weight: 0 };
+                }
+                return result;
+            });
+        dispatch(setSavedFormsData(savedFormsData));
         dispatch(setIsPanelOpened(false));
     };
 

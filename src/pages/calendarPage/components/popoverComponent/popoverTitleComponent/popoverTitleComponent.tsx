@@ -3,7 +3,7 @@ import styles from './popoverTitleComponent.module.scss';
 
 import { Badge, BadgeProps, Button, Select, Space, Typography } from 'antd';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
-import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { FC, useCallback, useMemo } from 'react';
 import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
@@ -43,17 +43,31 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     </li>
                 ));
             case EPopoverStatus.ADD_TRAINING:
-                return savedFormsData ? (
-                    <ul>
-                        {savedFormsData.map((item) => {
-                            return (
-                                <li key={item.id}>
-                                    {item.name}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                ) : null;
+                return savedFormsData
+                    ? savedFormsData.map((item) => {
+                          return (
+                              <Space
+                                  key={item.id}
+                                  style={{
+                                      display: 'flex',
+                                      justifyContent: 'space-between',
+                                      width: '100%',
+                                  }}
+                              >
+                                  <Text
+                                      style={{
+                                          fontSize: 14,
+                                          fontWeight: 500,
+                                          color: 'var(--color-info)',
+                                      }}
+                                  >
+                                      {item.name}
+                                  </Text>
+                                  <Button type='link' icon={<EditOutlined />} />
+                              </Space>
+                          );
+                      })
+                    : null;
             default:
         }
     }, [savedFormsData, listData, popoverStatus]);
