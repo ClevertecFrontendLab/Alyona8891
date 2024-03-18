@@ -6,8 +6,9 @@ import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined } from '@ant-design/icons';
 import { FC, useCallback, useMemo } from 'react';
 import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
-import { AppDispatch, useAppDispatch } from '@redux/configure-store';
+import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { setEditedDate, setEditedTraining } from '@redux/reducers/appReducer';
+import { useSelector } from 'react-redux';
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
@@ -28,6 +29,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     handleBackButton,
     popoverStatus,
 }) => {
+    const savedFormsData = useSelector((state: RootState) => state.app.savedFormsData);
     const dispatch: AppDispatch = useAppDispatch();
 
     const getContent = useMemo(() => {
@@ -40,9 +42,21 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                         <Badge status={item.type as BadgeProps['status']} text={item.content} />
                     </li>
                 ));
+            case EPopoverStatus.ADD_TRAINING:
+                return savedFormsData ? (
+                    <ul>
+                        {savedFormsData.map((item) => {
+                            return (
+                                <li key={item.id}>
+                                    {item.name}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                ) : null;
             default:
         }
-    }, [listData, popoverStatus]);
+    }, [savedFormsData, listData, popoverStatus]);
 
     const trainingList = useDefineTrainingList(['Ноги', 'Руки']);
 

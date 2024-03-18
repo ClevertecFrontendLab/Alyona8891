@@ -4,7 +4,7 @@ import styles from './sidePanelComponent.module.scss';
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { Badge, Drawer, Space, Typography } from 'antd';
-import { setIsPanelOpened } from '@redux/reducers/appReducer';
+import { setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
 import { DRAWER } from '@constants/constants';
 import { SidePanelContent } from './sidePanelContent';
 import { defineBadgeColor } from '@utils/index';
@@ -14,7 +14,13 @@ export const SidePanelComponent = () => {
     const open = useSelector((state: RootState) => state.app.isPanelOpened);
     const training = useSelector((state: RootState) => state.app.editedTraining);
     const currentDate = useSelector((state: RootState) => state.app.editedDate);
+    const formsData = useSelector((state: RootState) => state.app.formsData);
     const dispatch: AppDispatch = useAppDispatch();
+
+    const handleClosePanel = () => {
+        dispatch(setSavedFormsData(formsData));
+        dispatch(setIsPanelOpened(false));
+    };
 
     return (
         <Drawer
@@ -24,9 +30,7 @@ export const SidePanelComponent = () => {
             drawerStyle={{ backgroundColor: 'var(--backgroud-color-element)' }}
             maskStyle={{ backgroundColor: 'initial' }}
             open={open}
-            onClose={() => {
-                dispatch(setIsPanelOpened(false));
-            }}
+            onClose={handleClosePanel}
             extra={
                 <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Badge

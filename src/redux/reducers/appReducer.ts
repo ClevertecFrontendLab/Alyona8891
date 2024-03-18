@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining} from '../../types';
+import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining } from '../../types';
 import { RequestResult } from '@constants/constants';
 import { generateUniqueKey } from '@utils/index';
 
@@ -16,11 +16,12 @@ type AppSliceState = {
     requestResult: null | RequestResult;
     userFeedback: null | PostFeedback;
     isAllFeedbacksVisible: boolean;
-    trainingList: TTraining[],
-    isPanelOpened: boolean,
-    editedTraining: string,
-    editedDate: string,
-    formsData: TSidePanelFormsData[],
+    trainingList: TTraining[];
+    isPanelOpened: boolean;
+    editedTraining: string;
+    editedDate: string;
+    formsData: TSidePanelFormsData[];
+    savedFormsData: TSidePanelFormsData[];
 };
 
 const initialFormData = {
@@ -29,7 +30,7 @@ const initialFormData = {
     time: null,
     quantity: null,
     weight: null,
-}
+};
 
 const initialState: AppSliceState = {
     authPageContent: 'signIn',
@@ -49,6 +50,7 @@ const initialState: AppSliceState = {
     editedTraining: '',
     editedDate: '',
     formsData: [initialFormData],
+    savedFormsData: [],
 };
 
 export const appSlice = createSlice({
@@ -100,13 +102,18 @@ export const appSlice = createSlice({
         },
         addForm: (state) => {
             const formsData = state.formsData;
-            state.formsData = [...formsData].concat([{ ...initialFormData, id: generateUniqueKey() }]);
+            state.formsData = [...formsData].concat([
+                { ...initialFormData, id: generateUniqueKey() },
+            ]);
         },
         setEditedTraining: (state, action) => {
             state.editedTraining = action.payload;
         },
         setFormsData: (state, action) => {
             state.formsData = action.payload;
+        },
+        setSavedFormsData: (state, action) => {
+            state.savedFormsData = action.payload;
         },
         setEditedDate: (state, action) => {
             state.editedDate = action.payload;
@@ -132,6 +139,7 @@ export const {
     addForm,
     setEditedTraining,
     setFormsData,
+    setSavedFormsData,
     setEditedDate,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;
