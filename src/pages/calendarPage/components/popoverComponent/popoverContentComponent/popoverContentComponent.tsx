@@ -1,11 +1,13 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { EPopoverStatus, POPOVER } from '@constants/constants';
+import { EErrorAction, EPopoverStatus, POPOVER } from '@constants/constants';
 import { Button, Space } from 'antd';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { setIsPanelOpened } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 import { useAddTrainingMutation } from '@redux/utils/api';
+import { useCalendarModalConfig } from '@hooks/useCalendarModalConfig';
+import modal from 'antd/lib/modal';
 
 type TPopoverContentComponentProps = {
     popoverStatus: EPopoverStatus;
@@ -22,6 +24,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
 
     const [addTraining, { isLoading }] = useAddTrainingMutation();
     const dispatch: AppDispatch = useAppDispatch();
+    const config = useCalendarModalConfig(modal, EErrorAction.SAVE);
 
     const handleAddTraining = useCallback(() => {
         handleChangeStatus(EPopoverStatus.ADD_TRAINING);
@@ -32,7 +35,6 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
     }, [dispatch]);
 
     const handleSaveTraining = useCallback(() => {
-        console.log('savedData', savedFormsData);
         const exercises = savedFormsData.map((formData) => {
             return {
                 name: formData.name as string,
@@ -49,12 +51,12 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
         })
             .unwrap()
             .then(() => {
-                handleChangeStatus(EPopoverStatus.WITH_TRAINING)
+                handleChangeStatus(EPopoverStatus.WITH_TRAINING);
             })
-            .catch((e) => {
-                console.log('err', e);
+            .catch(() => {
+                modal.error(config);
             });
-    }, [addTraining, editedDate, editedTraining, handleChangeStatus, savedFormsData]);
+    }, [addTraining, config, editedDate, editedTraining, handleChangeStatus, savedFormsData]);
 
     const getButtonComponent = useMemo(() => {
         switch (popoverStatus) {

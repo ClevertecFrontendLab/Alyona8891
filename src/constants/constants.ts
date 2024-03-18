@@ -33,6 +33,11 @@ export enum RequestResult {
     ERROR_FEEDBACK = 'errorFeedback',
 }
 
+export enum EErrorAction {
+    OPEN = 'open',
+    SAVE = 'save',
+}
+
 export enum EPopoverStatus {
     WITHOUT_TRAINING = 'withoutTraining',
     WITH_TRAINING = 'withTraining',
@@ -247,17 +252,30 @@ export const DRAWER = {
         numberInputs: {
             time: {
                 label: 'Подходы',
-                placeholder: '1'
+                placeholder: '1',
             },
             weight: {
                 label: 'Вес, кг',
-                placeholder: '0'
+                placeholder: '0',
             },
             quantity: {
                 label: 'Количество',
-                placeholder: '3'
+                placeholder: '3',
             },
         },
         button: 'Добавить ещё',
-    }
-}
+    },
+};
+
+export const ERROR_MODAl = {
+    open: {
+        title: 'При открытии данных произошла ошибка',
+        content: 'Попробуйте ещё раз.',
+        button: 'Обновить',
+    },
+    save: {
+        title: 'При сохранении данных произошла ошибка',
+        content: 'Придётся попробовать ещё раз',
+        button: 'Закрыть',
+    },
+};
