@@ -70,7 +70,7 @@ export const apiService = createApi({
             }),
         }),
         addTraining: builder.mutation({
-            query: (data: TAddTrainingRequest[]) => ({
+            query: (data: TAddTrainingRequest) => ({
                 url: '/training',
                 method: 'post',
                 data,

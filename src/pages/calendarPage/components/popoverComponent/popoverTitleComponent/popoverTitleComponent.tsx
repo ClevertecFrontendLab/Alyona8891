@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import styles from './popoverTitleComponent.module.scss';
 
-import { Badge, BadgeProps, Button, Select, Space, Typography } from 'antd';
+import { Badge, Button, Select, Space, Typography } from 'antd';
 import type { Moment } from 'moment';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
@@ -53,9 +53,17 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                 );
             case EPopoverStatus.WITH_TRAINING:
                 return dailyTrainingList.map((item) => (
-                    <li key={item.id}>
+                    <Space
+                        key={item.id}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: '100%',
+                        }}
+                    >
                         <Badge color={defineBadgeColor(item.name)} text={item.name} />
-                    </li>
+                        <Button type='link' icon={<EditOutlined />} />
+                    </Space>
                 ));
             case EPopoverStatus.ADD_TRAINING:
                 return savedFormsData.length > 0 ? (
@@ -89,7 +97,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         }
     }, [popoverStatus, dailyTrainingList, savedFormsData]);
 
-    const trainingList = useDefineTrainingList(['Ноги', 'Руки']);
+    const trainingList = useDefineTrainingList(dailyTrainingList);
 
     const handleTrainingsSelect = useCallback(
         (value: string) => {
@@ -118,6 +126,20 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                                 onChange={handleTrainingsSelect}
                             />
                         </Space>
+                    </>
+                );
+            case EPopoverStatus.WITH_TRAINING:
+                return (
+                    <>
+                        <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate.format(
+                            'DD.MM.YYYY',
+                        )}`}</Text>
+                        <Button
+                            type='link'
+                            className={styles[cn('close_button')]}
+                            icon={<CloseOutlined />}
+                            onClick={handleCloseButton}
+                        />
                     </>
                 );
             default:

@@ -70,16 +70,14 @@ export type TUserTraining = {
         jointTraining: boolean;
         participants: string[];
     };
-    exercises: [
-        {
-            _id: string;
-            name: string;
-            replays: number;
-            weight: number;
-            approaches: number;
-            isImplementation: boolean;
-        },
-    ];
+    exercises: {
+        _id: string;
+        name: string;
+        replays: number;
+        weight: number;
+        approaches: number;
+        isImplementation: boolean;
+    }[];
 };
 
 export type TAddTrainingRequest = {
@@ -98,5 +96,5 @@ export type TAddTrainingRequest = {
         weight: number;
         approaches: number;
         isImplementation: boolean;
-    };
+    }[];
 };

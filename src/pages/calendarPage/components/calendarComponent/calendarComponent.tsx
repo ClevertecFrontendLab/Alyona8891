@@ -1,5 +1,8 @@
 import { FC } from 'react';
 
+import cn from 'classnames';
+import styles from './calendarComponent.module.scss';
+
 import { Badge, Calendar } from 'antd';
 import locale from 'antd/es/date-picker/locale/ru_RU';
 
@@ -55,7 +58,7 @@ export const CalendarComponent: FC = () => {
 
         return (
             <PopoverComponent listData={listData} currentDate={value}>
-                <ul style={{ height: 'calc(100% - 24px)' }}>
+                <ul className={styles[cn('list')]}>
                     {dailyTrainingList.length > 0
                         ? dailyTrainingList.map((item) => (
                               <Badge
@@ -70,16 +73,11 @@ export const CalendarComponent: FC = () => {
         );
     };
 
-    const onSelect = (date: Moment) => {
-        console.log(date.toISOString());
-    };
-
     return (
         <Calendar
             locale={calendarLocale}
             defaultValue={moment()}
             dateCellRender={dateCellRender}
-            onSelect={onSelect}
         />
     );
 };
