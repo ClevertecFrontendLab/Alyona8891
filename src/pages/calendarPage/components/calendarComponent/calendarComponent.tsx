@@ -1,12 +1,14 @@
 import { FC } from 'react';
 
-import { Badge, BadgeProps, Calendar } from 'antd';
+import { Badge, Calendar } from 'antd';
 import locale from 'antd/es/date-picker/locale/ru_RU';
 
 import moment from 'moment';
 import type { Moment } from 'moment';
 import { PopoverComponent } from '../popoverComponent';
 import { useGetTrainingQuery } from '@redux/utils/api';
+import { TUserTraining } from '../../../../types';
+import { defineBadgeColor } from '@utils/index';
 
 moment.updateLocale('ru', {
     week: {
@@ -39,56 +41,28 @@ const calendarLocale = {
     },
 };
 
-const getListData = (value: Moment) => {
-    let listData;
-    switch (value.date()) {
-        case 8:
-            listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-            ];
-            break;
-        case 10:
-            listData = [
-                { type: 'warning', content: 'This is warning event.' },
-                { type: 'success', content: 'This is usual event.' },
-                { type: 'error', content: 'This is error event.' },
-            ];
-            break;
-        case 15:
-            listData = [
-                { type: 'warning', content: 'This is warning event' },
-                { type: 'success', content: 'This is very long usual event。。....' },
-                { type: 'error', content: 'This is error event 1.' },
-                { type: 'error', content: 'This is error event 2.' },
-                { type: 'error', content: 'This is error event 3.' },
-                { type: 'error', content: 'This is error event 4.' },
-            ];
-            break;
-        default:
-    }
-    return listData || [];
-};
-
 export const CalendarComponent: FC = () => {
-    const { data, error } = useGetTrainingQuery('');
-
-    console.log(data);
+    const { data = [] } = useGetTrainingQuery('');
 
     const dateCellRender = (value: Moment) => {
-        const listData = getListData(value);
+        const listData = data?.filter(
+            (el) => el.date === moment.utc(value).startOf('day').toISOString(),
+        ) as TUserTraining[];
+
+        const dailyTrainingList = listData.map((el) => {
+            return { name: el.name, id: el._id };
+        });
 
         return (
             <PopoverComponent listData={listData} currentDate={value}>
                 <ul style={{ height: 'calc(100% - 24px)' }}>
-                    {listData.length > 0
-                        ? listData.map((item) => (
-                              <li key={item.content}>
-                                  <Badge
-                                      status={item.type as BadgeProps['status']}
-                                      text={item.content}
-                                  />
-                              </li>
+                    {dailyTrainingList.length > 0
+                        ? dailyTrainingList.map((item) => (
+                              <Badge
+                                  key={item.id}
+                                  color={defineBadgeColor(item.name)}
+                                  text={item.name}
+                              />
                           ))
                         : null}
                 </ul>

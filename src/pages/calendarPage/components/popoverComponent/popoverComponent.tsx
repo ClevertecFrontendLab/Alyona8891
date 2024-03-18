@@ -7,12 +7,10 @@ import { EPopoverStatus } from '@constants/constants';
 import { PopoverContentComponent } from './popoverContentComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/configure-store';
+import { TUserTraining } from '../../../../types';
 
 type TPopoverComponentProps = {
-    listData: {
-        type: string;
-        content: string;
-    }[];
+    listData: TUserTraining[];
     currentDate: Moment;
     children: React.ReactNode;
 };

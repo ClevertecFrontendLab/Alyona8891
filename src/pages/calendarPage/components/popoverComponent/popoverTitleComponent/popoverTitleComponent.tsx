@@ -10,13 +10,12 @@ import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { setEditedDate, setEditedTraining } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
+import { TUserTraining } from '../../../../../types';
+import { defineBadgeColor } from '@utils/index';
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
-    listData: {
-        type: string;
-        content: string;
-    }[];
+    listData: TUserTraining[];
     currentDate: Moment;
     handleCloseButton: () => void;
     handleBackButton: () => void;
@@ -32,25 +31,30 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
 }) => {
     const savedFormsData = useSelector((state: RootState) => state.app.savedFormsData);
     const dispatch: AppDispatch = useAppDispatch();
+    const dailyTrainingList = listData.map((el) => {
+        return { name: el.name, id: el._id };
+    });
 
     const getContent = useMemo(() => {
         switch (popoverStatus) {
             case EPopoverStatus.WITHOUT_TRAINING:
                 return (
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '100%',
-                        height: '81px',
-                    }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '81px',
+                        }}
+                    >
                         <img src='src/assets/images/empty_image.svg' />
                     </div>
                 );
             case EPopoverStatus.WITH_TRAINING:
-                return listData.map((item) => (
-                    <li key={item.content}>
-                        <Badge status={item.type as BadgeProps['status']} text={item.content} />
+                return dailyTrainingList.map((item) => (
+                    <li key={item.id}>
+                        <Badge color={defineBadgeColor(item.name)} text={item.name} />
                     </li>
                 ));
             case EPopoverStatus.ADD_TRAINING:
@@ -83,7 +87,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                 );
             default:
         }
-    }, [savedFormsData, listData, popoverStatus]);
+    }, [popoverStatus, dailyTrainingList, savedFormsData]);
 
     const trainingList = useDefineTrainingList(['Ноги', 'Руки']);
 
@@ -119,7 +123,9 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
             default:
                 return (
                     <>
-                        <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate.format('DD.MM.YYYY')}`}</Text>
+                        <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate.format(
+                            'DD.MM.YYYY',
+                        )}`}</Text>
                         <Text type='secondary'>{POPOVER.withoutTrainings.text}</Text>
                         <Button
                             type='link'
