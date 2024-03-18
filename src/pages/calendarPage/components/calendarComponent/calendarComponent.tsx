@@ -6,6 +6,7 @@ import locale from 'antd/es/date-picker/locale/ru_RU';
 import moment from 'moment';
 import type { Moment } from 'moment';
 import { PopoverComponent } from '../popoverComponent';
+import { useGetTrainingQuery } from '@redux/utils/api';
 
 moment.updateLocale('ru', {
     week: {
@@ -70,12 +71,15 @@ const getListData = (value: Moment) => {
 };
 
 export const CalendarComponent: FC = () => {
+    const { data, error } = useGetTrainingQuery('');
+
+    console.log(data);
+
     const dateCellRender = (value: Moment) => {
-        const currentDate = value.format('DD.MM.YYYY');
         const listData = getListData(value);
 
         return (
-            <PopoverComponent listData={listData} currentDate={currentDate}>
+            <PopoverComponent listData={listData} currentDate={value}>
                 <ul style={{ height: 'calc(100% - 24px)' }}>
                     {listData.length > 0
                         ? listData.map((item) => (

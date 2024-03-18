@@ -73,15 +73,20 @@ export const apiService = createApi({
             query: (data: {
                 name: string;
                 date: string;
-                exercises: [
-                    {
-                        name: string;
-                        replays: number;
-                        weight: number;
-                        approaches: number;
-                        isImplementation: boolean;
-                    },
-                ];
+                isImplementation?: boolean;
+                parameters?: {
+                    repeat: false;
+                    period: number;
+                    jointTraining: false;
+                    participants: string[];
+                };
+                exercises: {
+                    name: string;
+                    replays: number;
+                    weight: number;
+                    approaches: number;
+                    isImplementation: boolean;
+                }[];
             }) => ({
                 url: '/training',
                 method: 'post',
@@ -101,4 +106,5 @@ export const {
     usePostFeedbackMutation,
     useGetTrainingQuery,
     useGetTrainingListQuery,
+    useAddTrainingMutation,
 } = apiService;

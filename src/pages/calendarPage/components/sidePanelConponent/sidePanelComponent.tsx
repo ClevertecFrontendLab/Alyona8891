@@ -30,10 +30,10 @@ export const SidePanelComponent = () => {
                     result = { ...formData, quantity: 1 };
                 }
                 if (!formData.time) {
-                    result = { ...formData, time: 1 };
+                    result = { ...result, time: 1 };
                 }
                 if (!formData.weight) {
-                    result = { ...formData, weight: 0 };
+                    result = { ...result, weight: 0 };
                 }
                 return result;
             });
@@ -58,7 +58,7 @@ export const SidePanelComponent = () => {
                         text={training}
                     />
                     <Text style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-info)' }}>
-                        {currentDate}
+                        {currentDate?.format('DD.MM.YYYY')}
                     </Text>
                 </Space>
             }

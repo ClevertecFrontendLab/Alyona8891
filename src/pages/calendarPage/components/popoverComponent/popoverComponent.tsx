@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 
+import type { Moment } from 'moment';
 import { Popover } from 'antd';
 import { PopoverTitleComponent } from './popoverTitleComponent';
 import { EPopoverStatus } from '@constants/constants';
@@ -12,7 +13,7 @@ type TPopoverComponentProps = {
         type: string;
         content: string;
     }[];
-    currentDate: string;
+    currentDate: Moment;
     children: React.ReactNode;
 };
 

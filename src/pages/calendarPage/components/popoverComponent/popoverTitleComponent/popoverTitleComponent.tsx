@@ -2,6 +2,7 @@ import cn from 'classnames';
 import styles from './popoverTitleComponent.module.scss';
 
 import { Badge, BadgeProps, Button, Select, Space, Typography } from 'antd';
+import type { Moment } from 'moment';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { FC, useCallback, useMemo } from 'react';
@@ -16,7 +17,7 @@ type TPopoverTitleComponentProps = {
         type: string;
         content: string;
     }[];
-    currentDate: string;
+    currentDate: Moment;
     handleCloseButton: () => void;
     handleBackButton: () => void;
     popoverStatus: EPopoverStatus;
@@ -118,7 +119,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
             default:
                 return (
                     <>
-                        <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate}`}</Text>
+                        <Text strong>{`${POPOVER.withoutTrainings.title} ${currentDate.format('DD.MM.YYYY')}`}</Text>
                         <Text type='secondary'>{POPOVER.withoutTrainings.text}</Text>
                         <Button
                             type='link'

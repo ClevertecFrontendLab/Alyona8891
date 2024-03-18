@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining } from '../../types';
 import { RequestResult } from '@constants/constants';
 import { generateUniqueKey } from '@utils/index';
+import type { Moment } from 'moment';
 
 type AppSliceState = {
     authPageContent: 'signIn' | 'signUp';
@@ -19,7 +20,7 @@ type AppSliceState = {
     trainingList: TTraining[];
     isPanelOpened: boolean;
     editedTraining: string;
-    editedDate: string;
+    editedDate: Moment | null;
     formsData: TSidePanelFormsData[];
     savedFormsData: TSidePanelFormsData[];
 };
@@ -48,7 +49,7 @@ const initialState: AppSliceState = {
     trainingList: [],
     isPanelOpened: false,
     editedTraining: '',
-    editedDate: '',
+    editedDate: null,
     formsData: [initialFormData],
     savedFormsData: [],
 };
