@@ -35,7 +35,17 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     const getContent = useMemo(() => {
         switch (popoverStatus) {
             case EPopoverStatus.WITHOUT_TRAINING:
-                return <img src='src/assets/images/empty_image.svg' />;
+                return (
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100%',
+                        height: '81px',
+                    }}>
+                        <img src='src/assets/images/empty_image.svg' />
+                    </div>
+                );
             case EPopoverStatus.WITH_TRAINING:
                 return listData.map((item) => (
                     <li key={item.content}>
@@ -43,31 +53,33 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     </li>
                 ));
             case EPopoverStatus.ADD_TRAINING:
-                return savedFormsData
-                    ? savedFormsData.map((item) => {
-                          return (
-                              <Space
-                                  key={item.id}
-                                  style={{
-                                      display: 'flex',
-                                      justifyContent: 'space-between',
-                                      width: '100%',
-                                  }}
-                              >
-                                  <Text
-                                      style={{
-                                          fontSize: 14,
-                                          fontWeight: 500,
-                                          color: 'var(--color-info)',
-                                      }}
-                                  >
-                                      {item.name}
-                                  </Text>
-                                  <Button type='link' icon={<EditOutlined />} />
-                              </Space>
-                          );
-                      })
-                    : null;
+                return savedFormsData.length > 0 ? (
+                    savedFormsData.map((item) => {
+                        return (
+                            <Space
+                                key={item.id}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    width: '100%',
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontWeight: 500,
+                                        color: 'var(--color-info)',
+                                    }}
+                                >
+                                    {item.name}
+                                </Text>
+                                <Button type='link' icon={<EditOutlined />} />
+                            </Space>
+                        );
+                    })
+                ) : (
+                    <div style={{ height: '81px' }}></div>
+                );
             default:
         }
     }, [savedFormsData, listData, popoverStatus]);
@@ -101,9 +113,6 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                                 onChange={handleTrainingsSelect}
                             />
                         </Space>
-                        <Space style={{ height: '91px' }}>
-                            <ul></ul>
-                        </Space>
                     </>
                 );
             default:
@@ -132,7 +141,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>
             {getTitle}
-            <Space className={styles[cn('list_container')]}>{getContent}</Space>
+            <div className={styles[cn('container')]}>{getContent}</div>
         </Space>
     );
 };
