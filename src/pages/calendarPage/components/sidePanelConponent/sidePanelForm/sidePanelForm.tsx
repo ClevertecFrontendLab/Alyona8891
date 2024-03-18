@@ -44,7 +44,6 @@ export const SidePanelForm: FC<{
                 time,
             }}
             onValuesChange={(_, values) => {
-                console.log(values);
                 changeFormsData(id, values);
             }}
         >
@@ -54,12 +53,13 @@ export const SidePanelForm: FC<{
             <Space size={16}>
                 <Form.Item
                     style={{ marginBottom: '24px' }}
-                    name='quantity'
-                    label={DRAWER.createExercise.numberInputs.quantity.label}
+                    name='time'
+                    label={DRAWER.createExercise.numberInputs.time.label}
                 >
                     <InputNumber
-                        placeholder={DRAWER.createExercise.numberInputs.quantity.placeholder.toString()}
+                        placeholder={DRAWER.createExercise.numberInputs.time.placeholder}
                         addonBefore='+'
+                        min={1}
                     />
                 </Form.Item>
                 <Space size={2}>
@@ -69,18 +69,20 @@ export const SidePanelForm: FC<{
                         label={DRAWER.createExercise.numberInputs.weight.label}
                     >
                         <InputNumber
-                            placeholder={DRAWER.createExercise.numberInputs.weight.placeholder.toString()}
+                            placeholder={DRAWER.createExercise.numberInputs.weight.placeholder}
+                            min={0}
                         />
                     </Form.Item>
                     <span className={styles[cn('icon')]}>Х</span>
 
                     <Form.Item
                         style={{ marginBottom: '24px' }}
-                        name='time'
-                        label={DRAWER.createExercise.numberInputs.time.label}
+                        name='quantity'
+                        label={DRAWER.createExercise.numberInputs.quantity.label}
                     >
                         <InputNumber
-                            placeholder={DRAWER.createExercise.numberInputs.time.placeholder.toString()}
+                            placeholder={DRAWER.createExercise.numberInputs.quantity.placeholder}
+                            min={1}
                         />
                     </Form.Item>
                 </Space>
