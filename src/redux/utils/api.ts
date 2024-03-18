@@ -5,7 +5,7 @@ import { PostFeedback, TAddTrainingRequest, TUserTraining, UserData } from '../.
 export const apiService = createApi({
     reducerPath: 'apiService',
     baseQuery: axiosBaseQuery(),
-    tagTypes: ['feedbacks'],
+    tagTypes: ['feedbacks', 'training'],
     endpoints: (builder) => ({
         signUpUser: builder.mutation({
             query: (formData: UserData) => ({
@@ -62,6 +62,7 @@ export const apiService = createApi({
                 url: '/training',
                 method: 'get',
             }),
+            providesTags: ['training'],
         }),
         getTrainingList: builder.query({
             query: () => ({
@@ -75,6 +76,7 @@ export const apiService = createApi({
                 method: 'post',
                 data,
             }),
+            invalidatesTags: ['training'],
         }),
     }),
 });
