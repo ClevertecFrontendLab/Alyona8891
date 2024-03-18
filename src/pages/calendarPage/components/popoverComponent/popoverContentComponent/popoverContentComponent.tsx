@@ -48,13 +48,13 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
             exercises: exercises,
         })
             .unwrap()
-            .then((res) => {
-                console.log('res', res);
+            .then(() => {
+                handleChangeStatus(EPopoverStatus.WITH_TRAINING)
             })
             .catch((e) => {
                 console.log('err', e);
             });
-    }, [addTraining, editedDate, editedTraining, savedFormsData]);
+    }, [addTraining, editedDate, editedTraining, handleChangeStatus, savedFormsData]);
 
     const getButtonComponent = useMemo(() => {
         switch (popoverStatus) {
@@ -85,6 +85,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                             type='link'
                             disabled={!(savedFormsData.length > 0)}
                             onClick={handleSaveTraining}
+                            loading={isLoading}
                         >
                             {POPOVER.addTraining.button2}
                         </Button>
@@ -97,6 +98,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
         handleAddExercise,
         handleAddTraining,
         handleSaveTraining,
+        isLoading,
         popoverStatus,
         savedFormsData.length,
     ]);
