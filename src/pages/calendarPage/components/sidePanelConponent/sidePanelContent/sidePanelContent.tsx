@@ -38,7 +38,7 @@ export const SidePanelContent = () => {
                 icon={<PlusOutlined />}
                 onClick={handleAddExercise}
             >
-                {DRAWER.createExercise.button}
+                {DRAWER.button.add}
             </Button>
         </>
     );

@@ -74,6 +74,7 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
                     handleCloseButton={handleCloseButton}
                     handleBackButton={handleBackButton}
                     popoverStatus={popoverStatus}
+                    handleChangeStatus={handleChangeStatus}
                 />
             )}
             content={() => (

@@ -4,7 +4,7 @@ import styles from './popoverTitleComponent.module.scss';
 import { Badge, Button, Select, Space, Typography } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { EPopoverStatus, POPOVER, initialFormData } from '@constants/constants';
+import { EPanelStatus, EPopoverStatus, POPOVER, initialFormData } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { FC, useCallback, useMemo } from 'react';
 import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
@@ -14,6 +14,7 @@ import {
     setEditedTraining,
     setFormsData,
     setIsPanelOpened,
+    setPanelStatus,
     setSavedFormsData,
 } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
@@ -28,6 +29,7 @@ type TPopoverTitleComponentProps = {
     handleCloseButton: () => void;
     handleBackButton: () => void;
     popoverStatus: EPopoverStatus;
+    handleChangeStatus: (status: EPopoverStatus) => void;
 };
 
 export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
@@ -36,14 +38,14 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     handleCloseButton,
     handleBackButton,
     popoverStatus,
+    handleChangeStatus,
 }) => {
     const savedFormsData = useSelector((state: RootState) => state.app.savedFormsData);
-    const dispatch: AppDispatch = useAppDispatch();
-    const dailyTrainingList = listData.map((el) => {
-        return { name: el.name, id: el._id as string };
-    });
+    const editedTraining = useSelector((state: RootState) => state.app.editedTraining);
 
-    const trainingList = useDefineTrainingList(dailyTrainingList);
+    const dispatch: AppDispatch = useAppDispatch();
+
+    const trainingList = useDefineTrainingList(listData);
 
     const handleTrainingsSelect = useCallback(
         (value: string) => {
@@ -60,11 +62,22 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         [currentDate, dispatch],
     );
 
+    const handleEditTraining = useCallback(
+        (itemData: TUserTraining) => {
+            dispatch(setEditedTraining(itemData.name));
+            dispatch(setFormsData(itemData.exercises));
+            dispatch(setSavedFormsData(itemData.exercises));
+            dispatch(setPanelStatus(EPanelStatus.EDIT));
+            handleChangeStatus(EPopoverStatus.EDIT_TRAINING);
+        },
+        [dispatch, handleChangeStatus],
+    );
+
     const handleChangeExercise = useCallback(() => {
         dispatch(setIsPanelOpened(true));
     }, [dispatch]);
 
-    const getTitle = useMemo(() => {
+    const title = useMemo(() => {
         switch (popoverStatus) {
             case EPopoverStatus.ADD_TRAINING:
                 return (
@@ -79,6 +92,25 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                             <Select
                                 style={{ width: '222px' }}
                                 defaultValue={POPOVER.addTraining.title}
+                                options={trainingList}
+                                onChange={handleTrainingsSelect}
+                            />
+                        </Space>
+                    </>
+                );
+            case EPopoverStatus.EDIT_TRAINING:
+                return (
+                    <>
+                        <Space direction='horizontal' size={0} style={{ display: 'flex' }}>
+                            <Button
+                                type='link'
+                                className={styles[cn('back_button')]}
+                                icon={<ArrowLeftOutlined />}
+                                onClick={handleBackButton}
+                            />
+                            <Select
+                                style={{ width: '222px' }}
+                                defaultValue={editedTraining}
                                 options={trainingList}
                                 onChange={handleTrainingsSelect}
                             />
@@ -117,6 +149,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         }
     }, [
         currentDate,
+        editedTraining,
         handleBackButton,
         handleCloseButton,
         handleTrainingsSelect,
@@ -141,7 +174,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     </div>
                 );
             case EPopoverStatus.WITH_TRAINING:
-                return dailyTrainingList.map((item) => (
+                return listData.map((item) => (
                     <Space
                         key={generateUniqueKey()}
                         style={{
@@ -151,10 +184,16 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                         }}
                     >
                         <Badge color={defineBadgeColor(item.name)} text={item.name} />
-                        <Button type='link' icon={<EditOutlined />} />
+                        <Button
+                            onClick={() => {
+                                handleEditTraining(item);
+                            }}
+                            type='link'
+                            icon={<EditOutlined />}
+                        />
                     </Space>
                 ));
-            case EPopoverStatus.ADD_TRAINING:
+            default:
                 return savedFormsData.length > 0 ? (
                     savedFormsData.map((item) => {
                         return (
@@ -186,13 +225,12 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                 ) : (
                     <div style={{ height: '81px' }}></div>
                 );
-            default:
         }
-    }, [popoverStatus, dailyTrainingList, savedFormsData, handleChangeExercise]);
+    }, [popoverStatus, listData, savedFormsData, handleEditTraining, handleChangeExercise]);
 
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>
-            {getTitle}
+            {title}
             <div className={styles[cn('container')]}>{getContent}</div>
         </Space>
     );

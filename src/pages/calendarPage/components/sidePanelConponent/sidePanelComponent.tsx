@@ -5,26 +5,30 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { Badge, Drawer, Space, Typography } from 'antd';
 import { setFormsData, setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
-import { DRAWER, initialFormData } from '@constants/constants';
+import { DRAWER, EPanelStatus, initialFormData } from '@constants/constants';
 import { SidePanelContent } from './sidePanelContent';
 import { defineBadgeColor } from '@utils/index';
-const { Text } = Typography;
+import { useMemo } from 'react';
+import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+
+const { Text, Title } = Typography;
 
 export const SidePanelComponent = () => {
     const open = useSelector((state: RootState) => state.app.isPanelOpened);
     const training = useSelector((state: RootState) => state.app.editedTraining);
     const currentDate = useSelector((state: RootState) => state.app.editedDate);
     const formsData = useSelector((state: RootState) => state.app.formsData);
+    const panelStatus = useSelector((state: RootState) => state.app.panelStatus);
+
     const dispatch: AppDispatch = useAppDispatch();
 
     const handleClosePanel = () => {
-
         const savedFormsData = formsData
             .filter((formData) => {
                 return formData.name;
             })
             .map((formData) => {
-                const {name, quantity, time, weight} = formData;
+                const { name, quantity, time, weight } = formData;
                 const result = {
                     name,
                     quantity: quantity ? quantity : 1,
@@ -37,6 +41,37 @@ export const SidePanelComponent = () => {
         dispatch(setFormsData(savedFormsData.length > 0 ? savedFormsData : [initialFormData]));
         dispatch(setIsPanelOpened(false));
     };
+
+    const titleContent = useMemo(() => {
+        switch (panelStatus) {
+            case EPanelStatus.CREATE:
+                return (
+                    <>
+                        <PlusOutlined />
+                        <Title level={4}>{DRAWER.title.create}</Title>
+                    </>
+                );
+            case EPanelStatus.EDIT:
+                return (
+                    <>
+                        <EditOutlined height={'12.5px'} width={'12.5px'} />
+                        <Title level={4}>{DRAWER.title.edit}</Title>
+                    </>
+                );
+        }
+    }, [panelStatus]);
+
+    const title = useMemo(() => {
+        return (
+            <Space
+                align='center'
+                direction='horizontal'
+                style={{ display: 'flex', alignItems: 'center', gap: '10.75px' }}
+            >
+                {titleContent}
+            </Space>
+        );
+    }, [titleContent]);
 
     return (
         <Drawer
@@ -60,7 +95,7 @@ export const SidePanelComponent = () => {
                 </Space>
             }
             placement='right'
-            title={DRAWER.createExercise.title}
+            title={title}
         >
             <SidePanelContent />
         </Drawer>

@@ -38,10 +38,16 @@ export enum EErrorAction {
     SAVE = 'save',
 }
 
+export enum EPanelStatus {
+    CREATE = 'create',
+    EDIT = 'edit',
+}
+
 export enum EPopoverStatus {
     WITHOUT_TRAINING = 'withoutTraining',
     WITH_TRAINING = 'withTraining',
     ADD_TRAINING = 'addTraining',
+    EDIT_TRAINING = 'editTraining',
 }
 
 export enum ETrainings {
@@ -246,24 +252,25 @@ export const POPOVER = {
 };
 
 export const DRAWER = {
-    createExercise: {
-        title: '+ Добавление упражнений',
-        inputNamePlaceholder: 'Упражнение',
-        numberInputs: {
-            time: {
-                label: 'Подходы',
-                placeholder: '1',
-            },
-            weight: {
-                label: 'Вес, кг',
-                placeholder: '0',
-            },
-            quantity: {
-                label: 'Количество',
-                placeholder: '3',
-            },
+    title: { edit: 'Редактирование', create: 'Добавление упражнений' },
+    inputNamePlaceholder: 'Упражнение',
+    numberInputs: {
+        time: {
+            label: 'Подходы',
+            placeholder: '1',
         },
-        button: 'Добавить ещё',
+        weight: {
+            label: 'Вес, кг',
+            placeholder: '0',
+        },
+        quantity: {
+            label: 'Количество',
+            placeholder: '3',
+        },
+    },
+    button: {
+        add: 'Добавить ещё',
+        delete: 'Удалить',
     },
 };
 

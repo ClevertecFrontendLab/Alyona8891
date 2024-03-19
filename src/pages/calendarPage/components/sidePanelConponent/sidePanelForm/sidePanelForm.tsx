@@ -48,16 +48,16 @@ export const SidePanelForm: FC<{
             }}
         >
             <Form.Item  name='name' style={{ marginBottom: '8px' }}>
-                <Input autoFocus placeholder={DRAWER.createExercise.inputNamePlaceholder} />
+                <Input autoFocus placeholder={DRAWER.inputNamePlaceholder} />
             </Form.Item>
             <Space size={16}>
                 <Form.Item
                     style={{ marginBottom: '24px' }}
                     name='time'
-                    label={DRAWER.createExercise.numberInputs.time.label}
+                    label={DRAWER.numberInputs.time.label}
                 >
                     <InputNumber
-                        placeholder={DRAWER.createExercise.numberInputs.time.placeholder}
+                        placeholder={DRAWER.numberInputs.time.placeholder}
                         addonBefore='+'
                         min={1}
                     />
@@ -66,10 +66,10 @@ export const SidePanelForm: FC<{
                     <Form.Item
                         style={{ marginBottom: '24px' }}
                         name='weight'
-                        label={DRAWER.createExercise.numberInputs.weight.label}
+                        label={DRAWER.numberInputs.weight.label}
                     >
                         <InputNumber
-                            placeholder={DRAWER.createExercise.numberInputs.weight.placeholder}
+                            placeholder={DRAWER.numberInputs.weight.placeholder}
                             min={0}
                         />
                     </Form.Item>
@@ -78,10 +78,10 @@ export const SidePanelForm: FC<{
                     <Form.Item
                         style={{ marginBottom: '24px' }}
                         name='quantity'
-                        label={DRAWER.createExercise.numberInputs.quantity.label}
+                        label={DRAWER.numberInputs.quantity.label}
                     >
                         <InputNumber
-                            placeholder={DRAWER.createExercise.numberInputs.quantity.placeholder}
+                            placeholder={DRAWER.numberInputs.quantity.placeholder}
                             min={1}
                         />
                     </Form.Item>

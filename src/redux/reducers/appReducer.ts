@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining } from '../../types';
-import { RequestResult, initialFormData } from '@constants/constants';
+import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining, TUserTraining } from '../../types';
+import { EPanelStatus, RequestResult, initialFormData } from '@constants/constants';
 import { generateUniqueKey } from '@utils/index';
 
 type AppSliceState = {
@@ -25,6 +25,8 @@ type AppSliceState = {
     } | null;
     formsData: TSidePanelFormsData[];
     savedFormsData: TSidePanelFormsData[];
+    editedTrainingData: TUserTraining | null;
+    panelStatus: EPanelStatus | null;
 };
 
 const initialState: AppSliceState = {
@@ -46,6 +48,8 @@ const initialState: AppSliceState = {
     editedDate: null,
     formsData: [initialFormData],
     savedFormsData: [],
+    editedTrainingData: null,
+    panelStatus: null,
 };
 
 export const appSlice = createSlice({
@@ -113,6 +117,9 @@ export const appSlice = createSlice({
         setEditedDate: (state, action) => {
             state.editedDate = action.payload;
         },
+        setPanelStatus: (state, action) => {
+            state.panelStatus = action.payload;
+        },
     },
 });
 
@@ -136,5 +143,6 @@ export const {
     setFormsData,
     setSavedFormsData,
     setEditedDate,
+    setPanelStatus,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

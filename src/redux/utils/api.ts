@@ -100,4 +100,5 @@ export const {
     useGetTrainingQuery,
     useGetTrainingListQuery,
     useAddTrainingMutation,
+    useEditTrainingMutation,
 } = apiService;

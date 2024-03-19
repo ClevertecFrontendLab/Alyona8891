@@ -1,9 +1,21 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { EErrorAction, EPopoverStatus, POPOVER, initialFormData } from '@constants/constants';
+import {
+    EErrorAction,
+    EPanelStatus,
+    EPopoverStatus,
+    POPOVER,
+    initialFormData,
+} from '@constants/constants';
 import { Button, Space } from 'antd';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
-import { setEditedTraining, setFormsData, setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
+import {
+    setEditedTraining,
+    setFormsData,
+    setIsPanelOpened,
+    setPanelStatus,
+    setSavedFormsData,
+} from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 import { useAddTrainingMutation } from '@redux/utils/api';
 import { useCalendarModalConfig } from '@hooks/useCalendarModalConfig';
@@ -27,8 +39,9 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
     const config = useCalendarModalConfig(modal, EErrorAction.SAVE);
 
     const handleAddTraining = useCallback(() => {
+        dispatch(setPanelStatus(EPanelStatus.CREATE));
         handleChangeStatus(EPopoverStatus.ADD_TRAINING);
-    }, [handleChangeStatus]);
+    }, [dispatch, handleChangeStatus]);
 
     const handleAddExercise = useCallback(() => {
         dispatch(setIsPanelOpened(true));
@@ -83,7 +96,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                         {POPOVER.withTrainings.button}
                     </Button>
                 );
-            case EPopoverStatus.ADD_TRAINING:
+            default:
                 return (
                     <>
                         <Button
@@ -104,7 +117,6 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                         </Button>
                     </>
                 );
-            default:
         }
     }, [
         editedTraining,

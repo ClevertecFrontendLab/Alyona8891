@@ -1,12 +1,8 @@
 import { RootState } from '@redux/configure-store';
+import { TUserTraining } from '../types';
 import { useSelector } from 'react-redux';
 
-export const useDefineTrainingList = (
-    arr: {
-        name: string;
-        id: string;
-    }[],
-) => {
+export const useDefineTrainingList = (arr: TUserTraining[]) => {
     const trainingList = useSelector((state: RootState) => state.app.trainingList);
 
     if (arr.length < trainingList.length) {
