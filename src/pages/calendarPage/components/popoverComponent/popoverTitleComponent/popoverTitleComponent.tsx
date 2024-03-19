@@ -40,7 +40,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
     const savedFormsData = useSelector((state: RootState) => state.app.savedFormsData);
     const dispatch: AppDispatch = useAppDispatch();
     const dailyTrainingList = listData.map((el) => {
-        return { name: el.name, id: el._id };
+        return { name: el.name, id: el._id as string };
     });
 
     const trainingList = useDefineTrainingList(dailyTrainingList);

@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from './service';
-import { PostFeedback, TAddTrainingRequest, TUserTraining, UserData } from '../../types';
+import { PostFeedback, TUserTraining, UserData } from '../../types';
 
 export const apiService = createApi({
     reducerPath: 'apiService',
@@ -71,10 +71,18 @@ export const apiService = createApi({
             }),
         }),
         addTraining: builder.mutation({
-            query: (data: TAddTrainingRequest) => ({
+            query: (data: TUserTraining) => ({
                 url: '/training',
                 method: 'post',
                 data,
+            }),
+            invalidatesTags: ['training'],
+        }),
+        editTraining: builder.mutation({
+            query: (data: TUserTraining) => ({
+                url: `/training/${data._id}`,
+                method: 'put',
+                data: { name: data.name, date: data.date, exercises: data.exercises },
             }),
             invalidatesTags: ['training'],
         }),
