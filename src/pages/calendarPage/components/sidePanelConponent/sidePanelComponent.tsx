@@ -66,7 +66,7 @@ export const SidePanelComponent = () => {
             <Space
                 align='center'
                 direction='horizontal'
-                size={22}
+                size={10}
                 style={{ display: 'flex', alignItems: 'center'}}
             >
                 {titleContent}

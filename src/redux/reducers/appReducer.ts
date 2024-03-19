@@ -104,7 +104,7 @@ export const appSlice = createSlice({
         addForm: (state) => {
             const formsData = state.formsData;
             state.formsData = [...formsData].concat([
-                { ...initialFormData, id: generateUniqueKey() },
+                { ...initialFormData, _id: generateUniqueKey() },
             ]);
         },
         setEditedTraining: (state, action) => {

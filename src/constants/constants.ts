@@ -288,7 +288,7 @@ export const ERROR_MODAl = {
 };
 
 export const initialFormData = {
-    id: 'initial',
+    _id: 'initial',
     name: null,
     time: null,
     quantity: null,

@@ -51,8 +51,7 @@ export type TTraining = {
 };
 
 export type TSidePanelFormsData = {
-    _id?: string;
-    id?: string;
+    _id: string;
     name: string | null;
     time: number | null;
     quantity: number | null;

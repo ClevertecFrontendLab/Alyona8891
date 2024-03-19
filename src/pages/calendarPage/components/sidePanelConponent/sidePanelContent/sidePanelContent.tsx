@@ -23,7 +23,6 @@ export const SidePanelContent = () => {
                 return (
                     <SidePanelForm
                         key={generateUniqueKey()}
-                        id={formData.id as string}
                         formData={formData}
                     />
                 );

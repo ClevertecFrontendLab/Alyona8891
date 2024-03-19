@@ -13,8 +13,7 @@ import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 export const SidePanelForm: FC<{
     formData: TSidePanelFormsData;
-    id: string;
-}> = ({ formData, id }) => {
+}> = ({ formData }) => {
     const { _id, name, time, quantity, weight } = formData;
 
     const formsData = useSelector((state: RootState) => state.app.formsData);
@@ -38,8 +37,8 @@ export const SidePanelForm: FC<{
     const changeFormsData = useCallback(
         (id: string, values: TSidePanelFormsData) => {
             const newArr = formsData.map((formData) => {
-                if (formData.id === id) {
-                    return { ...values, id: formData.id };
+                if (formData._id === id) {
+                    return { ...values, _id: id };
                 } else {
                     return formData;
                 }
@@ -60,7 +59,7 @@ export const SidePanelForm: FC<{
                 time,
             }}
             onValuesChange={(_, values) => {
-                changeFormsData(id, values);
+                changeFormsData(_id, values);
             }}
         >
             <Form.Item  name='name' style={{ marginBottom: '8px' }}>
