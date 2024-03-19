@@ -3,11 +3,12 @@ import { FC, useState } from 'react';
 import type { Moment } from 'moment';
 import { Popover } from 'antd';
 import { PopoverTitleComponent } from './popoverTitleComponent';
-import { EPopoverStatus } from '@constants/constants';
+import { EPopoverStatus, initialFormData } from '@constants/constants';
 import { PopoverContentComponent } from './popoverContentComponent';
 import { useSelector } from 'react-redux';
-import { RootState } from '@redux/configure-store';
+import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { TUserTraining } from '../../../../types';
+import { setEditedTraining, setFormsData, setSavedFormsData } from '@redux/reducers/appReducer';
 
 type TPopoverComponentProps = {
     listData: TUserTraining[];
@@ -24,6 +25,8 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
     const [popoverStatus, setPopoverStatus] = useState<EPopoverStatus>(
         listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
     );
+
+    const dispatch: AppDispatch = useAppDispatch();
 
     const isPanelOpened = useSelector((state: RootState) => state.app.isPanelOpened);
 
@@ -53,6 +56,9 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
         setPopoverStatus(
             listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
         );
+        dispatch(setEditedTraining(''));
+        dispatch(setFormsData([initialFormData]));
+        dispatch(setSavedFormsData([]));
     };
 
     return (

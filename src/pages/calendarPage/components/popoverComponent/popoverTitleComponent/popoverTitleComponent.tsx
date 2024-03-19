@@ -4,12 +4,18 @@ import styles from './popoverTitleComponent.module.scss';
 import { Badge, Button, Select, Space, Typography } from 'antd';
 import type { Moment } from 'moment';
 import moment from 'moment';
-import { EPopoverStatus, POPOVER } from '@constants/constants';
+import { EPopoverStatus, POPOVER, initialFormData } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { FC, useCallback, useMemo } from 'react';
 import { useDefineTrainingList } from '@hooks/useDefineTrainingList';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
-import { setEditedDate, setEditedTraining } from '@redux/reducers/appReducer';
+import {
+    setEditedDate,
+    setEditedTraining,
+    setFormsData,
+    setIsPanelOpened,
+    setSavedFormsData,
+} from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 import { TUserTraining } from '../../../../../types';
 import { defineBadgeColor, generateUniqueKey } from '@utils/index';
@@ -41,6 +47,8 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
 
     const handleTrainingsSelect = useCallback(
         (value: string) => {
+            dispatch(setFormsData([initialFormData]));
+            dispatch(setSavedFormsData([]));
             dispatch(setEditedTraining(value));
             dispatch(
                 setEditedDate({
@@ -51,6 +59,10 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         },
         [currentDate, dispatch],
     );
+
+    const handleChangeExercise = useCallback(() => {
+        dispatch(setIsPanelOpened(true));
+    }, [dispatch]);
 
     const getTitle = useMemo(() => {
         switch (popoverStatus) {
@@ -163,7 +175,11 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                                 >
                                     {item.name}
                                 </Text>
-                                <Button type='link' icon={<EditOutlined />} />
+                                <Button
+                                    onClick={handleChangeExercise}
+                                    type='link'
+                                    icon={<EditOutlined />}
+                                />
                             </Space>
                         );
                     })
@@ -172,7 +188,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                 );
             default:
         }
-    }, [popoverStatus, dailyTrainingList, savedFormsData]);
+    }, [popoverStatus, dailyTrainingList, savedFormsData, handleChangeExercise]);
 
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>
