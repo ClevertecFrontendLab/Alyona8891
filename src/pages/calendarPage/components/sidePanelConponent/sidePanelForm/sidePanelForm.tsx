@@ -47,8 +47,8 @@ export const SidePanelForm: FC<{
                 changeFormsData(id, values);
             }}
         >
-            <Form.Item name='name' style={{ marginBottom: '8px' }}>
-                <Input placeholder={DRAWER.createExercise.inputNamePlaceholder} />
+            <Form.Item  name='name' style={{ marginBottom: '8px' }}>
+                <Input autoFocus placeholder={DRAWER.createExercise.inputNamePlaceholder} />
             </Form.Item>
             <Space size={16}>
                 <Form.Item
