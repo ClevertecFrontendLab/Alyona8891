@@ -50,8 +50,8 @@ export const SidePanelContent = () => {
 
     return (
         <>
-            {formsData?.map((formData) => {
-                return <SidePanelForm key={generateUniqueKey()} formData={formData} />;
+            {formsData?.map((formData, i) => {
+                return <SidePanelForm i={i} key={generateUniqueKey()} formData={formData} />;
             })}
             <Space
                 style={{

@@ -54,7 +54,7 @@ const ACTIONS_CARDS_DATA: {
         id: 1,
         title: 'Расписать тренировки',
         button: { text: 'Тренировки', icon: <HeartFilled /> },
-        path: RouterPath.CALENDAR,
+        path: RouterPath.FEEDBACKS,
     },
     {
         id: 2,
@@ -72,7 +72,7 @@ const ACTIONS_CARDS_DATA: {
             text: 'Профиль',
             icon: <IdcardOutlined />,
         },
-        path: RouterPath.CALENDAR,
+        path: RouterPath.FEEDBACKS,
     },
 ];
 

@@ -12,6 +12,9 @@ import { PopoverComponent } from '../popoverComponent';
 import { useGetTrainingQuery } from '@redux/utils/api';
 import { TUserTraining } from '../../../../types';
 import { defineBadgeColor } from '@utils/index';
+import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
+import { useSelector } from 'react-redux';
+import { RootState } from '@redux/configure-store';
 
 moment.updateLocale('ru', {
     week: {
@@ -46,6 +49,9 @@ const calendarLocale = {
 
 export const CalendarComponent: FC = () => {
     const { data = [] } = useGetTrainingQuery('');
+    const trainingList = useSelector((state: RootState) => state.app.trainingList);
+
+    const breakpoint = useBreakpoint();
 
     const dateCellRender = (value: Moment) => {
         const listData = data?.filter(
@@ -58,7 +64,10 @@ export const CalendarComponent: FC = () => {
 
         return (
             <PopoverComponent listData={listData} currentDate={value}>
-                <ul onClick={(e) => e.stopPropagation()} className={styles[cn('list')]}>
+                <ul
+                    onClick={breakpoint.xs ? undefined : (e) => e.stopPropagation()}
+                    className={styles[cn('list')]}
+                >
                     {dailyTrainingList.length > 0
                         ? dailyTrainingList.map((item) => (
                               <Badge
@@ -75,9 +84,10 @@ export const CalendarComponent: FC = () => {
 
     return (
         <Calendar
+            fullscreen={breakpoint.xs ? false : true}
             locale={calendarLocale}
             defaultValue={moment()}
-            dateCellRender={dateCellRender}
+            dateCellRender={trainingList.length > 0 ? dateCellRender : undefined}
         />
     );
 };

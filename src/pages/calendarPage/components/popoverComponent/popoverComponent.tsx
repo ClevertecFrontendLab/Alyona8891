@@ -63,6 +63,12 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
 
     return (
         <Popover
+            data-test-id={
+                popoverStatus === EPopoverStatus.WITH_TRAINING ||
+                popoverStatus === EPopoverStatus.WITHOUT_TRAINING
+                    ? 'modal-create-training'
+                    : 'modal-create-exercise'
+            }
             zIndex={4}
             showArrow={false}
             open={isOpen}

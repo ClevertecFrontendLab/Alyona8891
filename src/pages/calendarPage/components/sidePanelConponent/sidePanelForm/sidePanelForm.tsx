@@ -17,7 +17,8 @@ import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 export const SidePanelForm: FC<{
     formData: TSidePanelFormsData;
-}> = ({ formData }) => {
+    i: number;
+}> = ({ formData, i }) => {
     const { _id, name, time, quantity, weight } = formData;
 
     const formsData = useSelector((state: RootState) => state.app.formsData);
@@ -39,25 +40,34 @@ export const SidePanelForm: FC<{
     );
 
     const defineIsChecked = useMemo(
-        () => checkedExercises.includes(_id) ? true : false,
-            
+        () => (checkedExercises.includes(_id) ? true : false),
+
         [_id, checkedExercises],
     );
 
     const inputName = useMemo(() => {
         switch (panelStatus) {
             case EPanelStatus.CREATE:
-                return <Input autoFocus placeholder={DRAWER.inputNamePlaceholder} />;
+                return (
+                    <Input
+                        data-test-id={`modal-drawer-right-input-exercise${i}`}
+                        autoFocus
+                        placeholder={DRAWER.inputNamePlaceholder}
+                    />
+                );
             case EPanelStatus.EDIT:
                 return (
                     <Input
+                        data-test-id={`modal-drawer-right-input-exercise${i}`}
                         autoFocus
-                        addonAfter={<Checkbox defaultChecked={defineIsChecked} onChange={onChange} />}
+                        addonAfter={
+                            <Checkbox data-test-id={`modal-drawer-right-checkbox-exercise${i}`} defaultChecked={defineIsChecked} onChange={onChange} />
+                        }
                         placeholder={DRAWER.inputNamePlaceholder}
                     />
                 );
         }
-    }, [defineIsChecked, onChange, panelStatus]);
+    }, [defineIsChecked, i, onChange, panelStatus]);
 
     const changeFormsData = useCallback(
         (id: string, values: TSidePanelFormsData) => {
@@ -97,6 +107,7 @@ export const SidePanelForm: FC<{
                     label={DRAWER.numberInputs.time.label}
                 >
                     <InputNumber
+                    data-test-id={`modal-drawer-right-input-approach${i}`}
                         placeholder={DRAWER.numberInputs.time.placeholder}
                         addonBefore='+'
                         min={1}
@@ -108,7 +119,7 @@ export const SidePanelForm: FC<{
                         name='weight'
                         label={DRAWER.numberInputs.weight.label}
                     >
-                        <InputNumber placeholder={DRAWER.numberInputs.weight.placeholder} min={0} />
+                        <InputNumber data-test-id={`modal-drawer-right-input-weight${i}`} placeholder={DRAWER.numberInputs.weight.placeholder} min={0} />
                     </Form.Item>
                     <span className={styles[cn('icon')]}>Х</span>
 
@@ -118,6 +129,7 @@ export const SidePanelForm: FC<{
                         label={DRAWER.numberInputs.quantity.label}
                     >
                         <InputNumber
+                        data-test-id={`modal-drawer-right-input-quantity${i}`}
                             placeholder={DRAWER.numberInputs.quantity.placeholder}
                             min={1}
                         />

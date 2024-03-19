@@ -1,3 +1,4 @@
+import { CloseOutlined } from '@ant-design/icons';
 import { EErrorAction, ERROR_MODAl, TOKEN_STORAGE_PROPERTY } from '@constants/constants';
 import { AppDispatch, useAppDispatch } from '@redux/configure-store';
 import { setTrainingList } from '@redux/reducers/appReducer';
@@ -26,9 +27,18 @@ export const useCalendarModalConfig = (
     const config = useMemo(() => {
         const text = getText();
         const { title, content, button } = text;
+
+        const titleElement = <h1 data-test-id='modal-error-user-training-title'>{title}</h1>;
+        const contentElement = <p data-test-id='modal-error-user-training-subtitle'>{content}</p>;
+        const buttonElement = (
+            <button data-test-id='modal-error-user-training-button'>{button}</button>
+        );
+        const closeIcon = <CloseOutlined data-test-id='modal-error-user-training-button-close' />;
+
         return {
-            title,
-            content,
+            title: titleElement,
+            content: contentElement,
+            closeIcon,
             closable: true,
             centered: true,
             maskClosable: true,
@@ -36,7 +46,7 @@ export const useCalendarModalConfig = (
                 backgroundColor: 'var(--background-auth-page-blure)',
                 backdropFilter: 'blur(.3rem)',
             },
-            okText: button,
+            okText: buttonElement,
             onOk: () => {
                 const token =
                     localStorage.getItem(TOKEN_STORAGE_PROPERTY) ||

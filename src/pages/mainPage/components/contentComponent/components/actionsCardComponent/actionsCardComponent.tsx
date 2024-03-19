@@ -64,6 +64,7 @@ export const ActionsCardComponent: React.FC<{
             bodyStyle={{ textAlign: 'center', paddingBottom: '1.1rem', paddingTop: '1.2rem' }}
         >
             <Button
+                data-test-id={path === RouterPath.CALENDAR ? 'menu-button-calendar' : undefined}
                 icon={icon}
                 size='small'
                 style={{ color: 'var(--color-primary)' }}

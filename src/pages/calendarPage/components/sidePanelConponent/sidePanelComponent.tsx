@@ -9,7 +9,7 @@ import { DRAWER, EPanelStatus, initialFormData } from '@constants/constants';
 import { SidePanelContent } from './sidePanelContent';
 import { defineBadgeColor } from '@utils/index';
 import { useMemo } from 'react';
-import { EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { Text, Title } = Typography;
 
@@ -67,7 +67,7 @@ export const SidePanelComponent = () => {
                 align='center'
                 direction='horizontal'
                 size={10}
-                style={{ display: 'flex', alignItems: 'center'}}
+                style={{ display: 'flex', alignItems: 'center' }}
             >
                 {titleContent}
             </Space>
@@ -76,7 +76,9 @@ export const SidePanelComponent = () => {
 
     return (
         <Drawer
+            data-test-id='modal-drawer-right'
             destroyOnClose
+            closeIcon={<CloseOutlined data-test-id='modal-drawer-right-button-close' />}
             zIndex={10000}
             className={styles[cn('panel')]}
             drawerStyle={{ backgroundColor: 'var(--backgroud-color-element)' }}

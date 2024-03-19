@@ -51,7 +51,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         (value: string) => {
             dispatch(setFormsData([initialFormData]));
             dispatch(setSavedFormsData([]));
-            dispatch(setEditedTraining({name: value}));
+            dispatch(setEditedTraining({ name: value }));
             dispatch(
                 setEditedDate({
                     formated: currentDate.format('DD.MM.YYYY'),
@@ -70,7 +70,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     ISO: moment.utc(currentDate).startOf('day').toISOString(),
                 }),
             );
-            dispatch(setEditedTraining({name: itemData.name, _id: itemData._id}));
+            dispatch(setEditedTraining({ name: itemData.name, _id: itemData._id }));
             dispatch(setFormsData(itemData.exercises));
             dispatch(setSavedFormsData(itemData.exercises));
             dispatch(setPanelStatus(EPanelStatus.EDIT));
@@ -90,12 +90,14 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     <>
                         <Space direction='horizontal' size={0} style={{ display: 'flex' }}>
                             <Button
+                                data-test-id='modal-exercise-training-button-close'
                                 type='link'
                                 className={styles[cn('back_button')]}
                                 icon={<ArrowLeftOutlined />}
                                 onClick={handleBackButton}
                             />
                             <Select
+                                data-test-id='modal-create-exercise-select'
                                 style={{ width: '222px' }}
                                 defaultValue={POPOVER.addTraining.title}
                                 options={trainingList}
@@ -109,12 +111,14 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     <>
                         <Space direction='horizontal' size={0} style={{ display: 'flex' }}>
                             <Button
+                                data-test-id='modal-exercise-training-button-close'
                                 type='link'
                                 className={styles[cn('back_button')]}
                                 icon={<ArrowLeftOutlined />}
                                 onClick={handleBackButton}
                             />
                             <Select
+                                data-test-id='modal-create-exercise-select'
                                 style={{ width: '222px' }}
                                 defaultValue={editedTraining?.name}
                                 options={trainingList}
@@ -145,6 +149,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                         )}`}</Text>
                         <Text type='secondary'>{POPOVER.withoutTrainings.text}</Text>
                         <Button
+                            data-test-id='modal-create-training-button-close'
                             type='link'
                             className={styles[cn('close_button')]}
                             icon={<CloseOutlined />}
@@ -180,7 +185,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     </div>
                 );
             case EPopoverStatus.WITH_TRAINING:
-                return listData.map((item) => (
+                return listData.map((item, index) => (
                     <Space
                         key={generateUniqueKey()}
                         style={{
@@ -191,6 +196,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     >
                         <Badge color={defineBadgeColor(item.name)} text={item.name} />
                         <Button
+                            data-test-id={`modal-update-training-edit-button${index}`}
                             onClick={() => {
                                 handleEditTraining(item);
                             }}
