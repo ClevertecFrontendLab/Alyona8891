@@ -59,7 +59,9 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                 isImplementation: false,
             };
         });
-        console.log(editedDate?.ISO);
+        const currentDate = new Date();
+        const compareDate = new Date(editedDate?.ISO as string);
+        const isImplementation = compareDate < currentDate ? true : false;
         switch (panelStatus) {
             case EPanelStatus.CREATE:
                 return addTraining({
@@ -78,12 +80,12 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                         modal.error(config);
                     });
             case EPanelStatus.EDIT:
-                console.log(editedTraining?._id);
                 return editTraining({
                     _id: editedTraining?._id as string,
                     name: editedTraining?.name as string,
                     date: editedDate?.ISO as string,
                     exercises: exercises,
+                    isImplementation,
                 })
                     .unwrap()
                     .then(() => {

@@ -58,7 +58,7 @@ export const CalendarComponent: FC = () => {
 
         return (
             <PopoverComponent listData={listData} currentDate={value}>
-                <ul className={styles[cn('list')]}>
+                <ul onClick={(e) => e.stopPropagation()} className={styles[cn('list')]}>
                     {dailyTrainingList.length > 0
                         ? dailyTrainingList.map((item) => (
                               <Badge
