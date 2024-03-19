@@ -51,7 +51,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         (value: string) => {
             dispatch(setFormsData([initialFormData]));
             dispatch(setSavedFormsData([]));
-            dispatch(setEditedTraining(value));
+            dispatch(setEditedTraining({name: value}));
             dispatch(
                 setEditedDate({
                     formated: currentDate.format('DD.MM.YYYY'),
@@ -64,13 +64,19 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
 
     const handleEditTraining = useCallback(
         (itemData: TUserTraining) => {
-            dispatch(setEditedTraining(itemData.name));
+            dispatch(
+                setEditedDate({
+                    formated: currentDate.format('DD.MM.YYYY'),
+                    ISO: moment.utc(currentDate).startOf('day').toISOString(),
+                }),
+            );
+            dispatch(setEditedTraining({name: itemData.name, _id: itemData._id}));
             dispatch(setFormsData(itemData.exercises));
             dispatch(setSavedFormsData(itemData.exercises));
             dispatch(setPanelStatus(EPanelStatus.EDIT));
             handleChangeStatus(EPopoverStatus.EDIT_TRAINING);
         },
-        [dispatch, handleChangeStatus],
+        [currentDate, dispatch, handleChangeStatus],
     );
 
     const handleChangeExercise = useCallback(() => {
@@ -110,7 +116,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                             />
                             <Select
                                 style={{ width: '222px' }}
-                                defaultValue={editedTraining}
+                                defaultValue={editedTraining?.name}
                                 options={trainingList}
                                 onChange={handleTrainingsSelect}
                             />

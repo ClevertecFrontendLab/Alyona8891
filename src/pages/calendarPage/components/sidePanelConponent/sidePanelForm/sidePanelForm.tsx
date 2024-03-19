@@ -1,15 +1,19 @@
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 
 import cn from 'classnames';
 import styles from './sidePanelForm.module.scss';
 
-import { DRAWER } from '@constants/constants';
+import { DRAWER, EPanelStatus } from '@constants/constants';
 import { Form, Input, InputNumber, Space } from 'antd';
 import { TSidePanelFormsData } from '../../../../../types';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { useSelector } from 'react-redux';
-import { addCheckedExercise, removeCheckedExercise, setFormsData } from '@redux/reducers/appReducer';
-import { CheckboxChangeEvent } from 'antd/lib/checkbox';
+import {
+    addCheckedExercise,
+    removeCheckedExercise,
+    setFormsData,
+} from '@redux/reducers/appReducer';
+import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 export const SidePanelForm: FC<{
     formData: TSidePanelFormsData;
@@ -33,6 +37,21 @@ export const SidePanelForm: FC<{
         },
         [_id, checkedExercises, dispatch],
     );
+
+    const inputName = useMemo(() => {
+        switch (panelStatus) {
+            case EPanelStatus.CREATE:
+                return <Input autoFocus placeholder={DRAWER.inputNamePlaceholder} />;
+            case EPanelStatus.EDIT:
+                return (
+                    <Input
+                        autoFocus
+                        addonAfter={<Checkbox onChange={onChange} />}
+                        placeholder={DRAWER.inputNamePlaceholder}
+                    />
+                );
+        }
+    }, [onChange, panelStatus]);
 
     const changeFormsData = useCallback(
         (id: string, values: TSidePanelFormsData) => {
@@ -62,8 +81,8 @@ export const SidePanelForm: FC<{
                 changeFormsData(_id, values);
             }}
         >
-            <Form.Item  name='name' style={{ marginBottom: '8px' }}>
-                <Input autoFocus placeholder={DRAWER.inputNamePlaceholder} />
+            <Form.Item name='name' style={{ marginBottom: '8px' }}>
+                {inputName}
             </Form.Item>
             <Space size={16}>
                 <Form.Item
@@ -83,10 +102,7 @@ export const SidePanelForm: FC<{
                         name='weight'
                         label={DRAWER.numberInputs.weight.label}
                     >
-                        <InputNumber
-                            placeholder={DRAWER.numberInputs.weight.placeholder}
-                            min={0}
-                        />
+                        <InputNumber placeholder={DRAWER.numberInputs.weight.placeholder} min={0} />
                     </Form.Item>
                     <span className={styles[cn('icon')]}>Х</span>
 

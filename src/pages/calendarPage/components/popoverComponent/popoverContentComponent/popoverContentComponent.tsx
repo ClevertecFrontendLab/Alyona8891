@@ -17,7 +17,7 @@ import {
     setSavedFormsData,
 } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
-import { useAddTrainingMutation } from '@redux/utils/api';
+import { useAddTrainingMutation, useEditTrainingMutation } from '@redux/utils/api';
 import { useCalendarModalConfig } from '@hooks/useCalendarModalConfig';
 import modal from 'antd/lib/modal';
 
@@ -33,8 +33,10 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
     const savedFormsData = useSelector((state: RootState) => state.app.savedFormsData);
     const editedTraining = useSelector((state: RootState) => state.app.editedTraining);
     const editedDate = useSelector((state: RootState) => state.app.editedDate);
+    const panelStatus = useSelector((state: RootState) => state.app.panelStatus);
 
     const [addTraining, { isLoading }] = useAddTrainingMutation();
+    const [editTraining, { isLoading: isEditLoading }] = useEditTrainingMutation();
     const dispatch: AppDispatch = useAppDispatch();
     const config = useCalendarModalConfig(modal, EErrorAction.SAVE);
 
@@ -47,7 +49,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
         dispatch(setIsPanelOpened(true));
     }, [dispatch]);
 
-    const handleSaveTraining = useCallback(() => {
+    const getHandleSaveTraining = useCallback(() => {
         const exercises = savedFormsData.map((formData) => {
             return {
                 name: formData.name as string,
@@ -57,28 +59,53 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                 isImplementation: false,
             };
         });
-        addTraining({
-            name: editedTraining,
-            date: editedDate?.ISO as string,
-            exercises: exercises,
-        })
-            .unwrap()
-            .then(() => {
-                handleChangeStatus(EPopoverStatus.WITH_TRAINING);
-                dispatch(setFormsData([initialFormData]));
-                dispatch(setSavedFormsData([]));
-                dispatch(setEditedTraining(null));
-            })
-            .catch(() => {
-                modal.error(config);
-            });
+        console.log(editedDate?.ISO)
+        switch (panelStatus) {
+            case EPanelStatus.CREATE:
+                return addTraining({
+                    name: editedTraining?.name as string,
+                    date: editedDate?.ISO as string,
+                    exercises: exercises,
+                })
+                    .unwrap()
+                    .then(() => {
+                        handleChangeStatus(EPopoverStatus.WITH_TRAINING);
+                        dispatch(setFormsData([initialFormData]));
+                        dispatch(setSavedFormsData([]));
+                        dispatch(setEditedTraining(null));
+                    })
+                    .catch(() => {
+                        modal.error(config);
+                    });
+            case EPanelStatus.EDIT:
+                console.log(editedTraining?._id)
+                return editTraining({
+                    _id: editedTraining?._id as string,
+                    name: editedTraining?.name as string,
+                    date: editedDate?.ISO as string,
+                    exercises: exercises,
+                })
+                    .unwrap()
+                    .then(() => {
+                        handleChangeStatus(EPopoverStatus.WITH_TRAINING);
+                        dispatch(setFormsData([initialFormData]));
+                        dispatch(setSavedFormsData([]));
+                        dispatch(setEditedTraining(null));
+                    })
+                    .catch(() => {
+                        modal.error(config);
+                    });
+        }
     }, [
         addTraining,
         config,
         dispatch,
+        editTraining,
         editedDate?.ISO,
-        editedTraining,
+        editedTraining?._id,
+        editedTraining?.name,
         handleChangeStatus,
+        panelStatus,
         savedFormsData,
     ]);
 
@@ -110,7 +137,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                             style={{ width: '100%' }}
                             type='link'
                             disabled={!(savedFormsData.length > 0)}
-                            onClick={handleSaveTraining}
+                            onClick={getHandleSaveTraining}
                             loading={isLoading}
                         >
                             {POPOVER.addTraining.button2}
@@ -120,9 +147,9 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
         }
     }, [
         editedTraining,
+        getHandleSaveTraining,
         handleAddExercise,
         handleAddTraining,
-        handleSaveTraining,
         isLoading,
         popoverStatus,
         savedFormsData.length,

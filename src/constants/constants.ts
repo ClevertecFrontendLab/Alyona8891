@@ -270,7 +270,7 @@ export const DRAWER = {
     },
     button: {
         add: 'Добавить ещё',
-        delete: 'Удалить',
+        remove: 'Удалить',
     },
 };
 

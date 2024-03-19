@@ -87,8 +87,8 @@ export const SidePanelComponent = () => {
                 <Space style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Badge
                         style={{ color: 'var(--color-info)' }}
-                        color={defineBadgeColor(training)}
-                        text={training}
+                        color={defineBadgeColor(training?.name as string)}
+                        text={training?.name}
                     />
                     <Text style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-info)' }}>
                         {currentDate?.formated}

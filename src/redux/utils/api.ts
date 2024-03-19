@@ -82,7 +82,7 @@ export const apiService = createApi({
             query: (data: TUserTraining) => ({
                 url: `/training/${data._id}`,
                 method: 'put',
-                data: { name: data.name, date: data.date, exercises: data.exercises },
+                data,
             }),
             invalidatesTags: ['training'],
         }),

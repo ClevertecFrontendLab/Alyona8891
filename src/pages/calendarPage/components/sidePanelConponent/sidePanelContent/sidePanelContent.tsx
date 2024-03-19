@@ -1,45 +1,68 @@
-import { DRAWER } from '@constants/constants';
-import { Button } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { DRAWER, EPanelStatus } from '@constants/constants';
+import { Button, Space } from 'antd';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { SidePanelForm } from '../sidePanelForm';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { addForm } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 import { generateUniqueKey } from '@utils/index';
+import { useMemo } from 'react';
 
 export const SidePanelContent = () => {
     const dispatch: AppDispatch = useAppDispatch();
 
     const formsData = useSelector((state: RootState) => state.app.formsData);
-    console.log(formsData)
+    const panelStatus = useSelector((state: RootState) => state.app.panelStatus);
 
     const handleAddExercise = () => {
-        dispatch(addForm())
+        dispatch(addForm());
     };
+
+    const removeButton = useMemo(() => {
+        switch (panelStatus) {
+            case EPanelStatus.EDIT:
+                return (
+                    <Button
+                        style={{
+                            width: '100%',
+                            textAlign: 'left',
+                            backgroundColor: 'var(--background-color-label)',
+                            borderRadius: '0 0 6px 6px',
+                        }}
+                        type='link'
+                        icon={<MinusOutlined />}
+                    >
+                        {DRAWER.button.remove}
+                    </Button>
+                );
+            default:
+                return (
+                    <div />
+                );
+        }
+    }, [panelStatus]);
 
     return (
         <>
             {formsData?.map((formData) => {
-                return (
-                    <SidePanelForm
-                        key={generateUniqueKey()}
-                        formData={formData}
-                    />
-                );
+                return <SidePanelForm key={generateUniqueKey()} formData={formData} />;
             })}
-            <Button
+            <Space
                 style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
                     width: '100%',
-                    textAlign: 'left',
                     backgroundColor: 'var(--background-color-label)',
                     borderRadius: '0 0 6px 6px',
+                    paddingLeft: '20px',
+                    paddingRight: '20px'
                 }}
-                type='link'
-                icon={<PlusOutlined />}
-                onClick={handleAddExercise}
             >
-                {DRAWER.button.add}
-            </Button>
+                <Button type='link' icon={<PlusOutlined />} onClick={handleAddExercise}>
+                    {DRAWER.button.add}
+                </Button>
+                {removeButton}
+            </Space>
         </>
     );
 };

@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Feedback, PostFeedback, SignUpData, TSidePanelFormsData, TTraining, TUserTraining } from '../../types';
+import {
+    Feedback,
+    PostFeedback,
+    SignUpData,
+    TSidePanelFormsData,
+    TTraining,
+    TUserTraining,
+} from '../../types';
 import { EPanelStatus, RequestResult, initialFormData } from '@constants/constants';
 import { generateUniqueKey } from '@utils/index';
 
@@ -18,14 +25,13 @@ type AppSliceState = {
     isAllFeedbacksVisible: boolean;
     trainingList: TTraining[];
     isPanelOpened: boolean;
-    editedTraining: string;
+    editedTraining: { _id?: string; name: string } | null;
     editedDate: {
         formated: 'string';
         ISO: 'string';
     } | null;
     formsData: TSidePanelFormsData[];
     savedFormsData: TSidePanelFormsData[];
-    editedTrainingData: TUserTraining | null;
     panelStatus: EPanelStatus | null;
     checkedExercises: string[];
 };
@@ -45,11 +51,10 @@ const initialState: AppSliceState = {
     isAllFeedbacksVisible: false,
     trainingList: [],
     isPanelOpened: false,
-    editedTraining: '',
+    editedTraining: null,
     editedDate: null,
     formsData: [initialFormData],
     savedFormsData: [],
-    editedTrainingData: null,
     panelStatus: null,
     checkedExercises: [],
 };

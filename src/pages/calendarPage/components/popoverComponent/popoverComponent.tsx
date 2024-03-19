@@ -56,7 +56,7 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
         setPopoverStatus(
             listData.length > 0 ? EPopoverStatus.WITH_TRAINING : EPopoverStatus.WITHOUT_TRAINING,
         );
-        dispatch(setEditedTraining(''));
+        dispatch(setEditedTraining(null));
         dispatch(setFormsData([initialFormData]));
         dispatch(setSavedFormsData([]));
     };
