@@ -1,9 +1,9 @@
 import { FC, useCallback, useMemo } from 'react';
 
-import { EErrorAction, EPopoverStatus, POPOVER } from '@constants/constants';
+import { EErrorAction, EPopoverStatus, POPOVER, initialFormData } from '@constants/constants';
 import { Button, Space } from 'antd';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
-import { setIsPanelOpened } from '@redux/reducers/appReducer';
+import { setEditedTraining, setFormsData, setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 import { useAddTrainingMutation } from '@redux/utils/api';
 import { useCalendarModalConfig } from '@hooks/useCalendarModalConfig';
@@ -52,11 +52,22 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
             .unwrap()
             .then(() => {
                 handleChangeStatus(EPopoverStatus.WITH_TRAINING);
+                dispatch(setFormsData([initialFormData]));
+                dispatch(setSavedFormsData([]));
+                dispatch(setEditedTraining(null));
             })
             .catch(() => {
                 modal.error(config);
             });
-    }, [addTraining, config, editedDate, editedTraining, handleChangeStatus, savedFormsData]);
+    }, [
+        addTraining,
+        config,
+        dispatch,
+        editedDate?.ISO,
+        editedTraining,
+        handleChangeStatus,
+        savedFormsData,
+    ]);
 
     const getButtonComponent = useMemo(() => {
         switch (popoverStatus) {
