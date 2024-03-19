@@ -11,6 +11,7 @@ export const SidePanelContent = () => {
     const dispatch: AppDispatch = useAppDispatch();
 
     const formsData = useSelector((state: RootState) => state.app.formsData);
+    console.log(formsData)
 
     const handleAddExercise = () => {
         dispatch(addForm())

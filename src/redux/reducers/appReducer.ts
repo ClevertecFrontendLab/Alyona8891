@@ -27,6 +27,7 @@ type AppSliceState = {
     savedFormsData: TSidePanelFormsData[];
     editedTrainingData: TUserTraining | null;
     panelStatus: EPanelStatus | null;
+    checkedExercises: string[];
 };
 
 const initialState: AppSliceState = {
@@ -50,6 +51,7 @@ const initialState: AppSliceState = {
     savedFormsData: [],
     editedTrainingData: null,
     panelStatus: null,
+    checkedExercises: [],
 };
 
 export const appSlice = createSlice({
@@ -120,6 +122,12 @@ export const appSlice = createSlice({
         setPanelStatus: (state, action) => {
             state.panelStatus = action.payload;
         },
+        addCheckedExercise: (state, action) => {
+            state.checkedExercises.push(action.payload);
+        },
+        removeCheckedExercise: (state, action) => {
+            state.checkedExercises = action.payload;
+        },
     },
 });
 
@@ -144,5 +152,7 @@ export const {
     setSavedFormsData,
     setEditedDate,
     setPanelStatus,
+    addCheckedExercise,
+    removeCheckedExercise,
 } = appSlice.actions;
 export const appReducer = appSlice.reducer;

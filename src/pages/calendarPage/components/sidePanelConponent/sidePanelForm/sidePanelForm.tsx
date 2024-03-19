@@ -8,16 +8,32 @@ import { Form, Input, InputNumber, Space } from 'antd';
 import { TSidePanelFormsData } from '../../../../../types';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { useSelector } from 'react-redux';
-import { setFormsData } from '@redux/reducers/appReducer';
+import { addCheckedExercise, removeCheckedExercise, setFormsData } from '@redux/reducers/appReducer';
+import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 
 export const SidePanelForm: FC<{
     formData: TSidePanelFormsData;
     id: string;
 }> = ({ formData, id }) => {
-    const { name, time, quantity, weight } = formData;
+    const { _id, name, time, quantity, weight } = formData;
 
     const formsData = useSelector((state: RootState) => state.app.formsData);
+    const panelStatus = useSelector((state: RootState) => state.app.panelStatus);
+    const checkedExercises = useSelector((state: RootState) => state.app.checkedExercises);
     const dispatch: AppDispatch = useAppDispatch();
+
+    const onChange = useCallback(
+        (e: CheckboxChangeEvent) => {
+            if (e.target.checked) {
+                dispatch(addCheckedExercise(_id));
+            } else {
+                const newCheckedExercises = checkedExercises.filter((element) => element !== _id);
+                dispatch(removeCheckedExercise(newCheckedExercises));
+            }
+            console.log(checkedExercises);
+        },
+        [_id, checkedExercises, dispatch],
+    );
 
     const changeFormsData = useCallback(
         (id: string, values: TSidePanelFormsData) => {
