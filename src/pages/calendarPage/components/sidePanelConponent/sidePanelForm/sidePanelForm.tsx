@@ -38,6 +38,12 @@ export const SidePanelForm: FC<{
         [_id, checkedExercises, dispatch],
     );
 
+    const defineIsChecked = useMemo(
+        () => checkedExercises.includes(_id) ? true : false,
+            
+        [_id, checkedExercises],
+    );
+
     const inputName = useMemo(() => {
         switch (panelStatus) {
             case EPanelStatus.CREATE:
@@ -46,12 +52,12 @@ export const SidePanelForm: FC<{
                 return (
                     <Input
                         autoFocus
-                        addonAfter={<Checkbox onChange={onChange} />}
+                        addonAfter={<Checkbox defaultChecked={defineIsChecked} onChange={onChange} />}
                         placeholder={DRAWER.inputNamePlaceholder}
                     />
                 );
         }
-    }, [onChange, panelStatus]);
+    }, [defineIsChecked, onChange, panelStatus]);
 
     const changeFormsData = useCallback(
         (id: string, values: TSidePanelFormsData) => {

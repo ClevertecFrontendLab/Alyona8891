@@ -1,5 +1,6 @@
 import { RootState, history } from '@redux/configure-store';
 import { ETrainings, RouterPath } from '@constants/constants';
+import { TSidePanelFormsData } from '../types';
 
 export const redirectToLogin = () => {
     localStorage.clear();
@@ -43,4 +44,11 @@ export const defineBadgeColor = (training: string) => {
         default:
             return 'var(--magenta)';
     }
+};
+
+export const removeElementsFromArray = (
+    mainArray: TSidePanelFormsData[],
+    elementsToRemove: string[],
+) => {
+    return mainArray.filter((element) => !elementsToRemove.includes(element._id));
 };

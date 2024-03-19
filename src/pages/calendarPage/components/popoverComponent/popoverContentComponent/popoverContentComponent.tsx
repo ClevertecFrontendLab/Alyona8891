@@ -59,7 +59,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                 isImplementation: false,
             };
         });
-        console.log(editedDate?.ISO)
+        console.log(editedDate?.ISO);
         switch (panelStatus) {
             case EPanelStatus.CREATE:
                 return addTraining({
@@ -78,7 +78,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                         modal.error(config);
                     });
             case EPanelStatus.EDIT:
-                console.log(editedTraining?._id)
+                console.log(editedTraining?._id);
                 return editTraining({
                     _id: editedTraining?._id as string,
                     name: editedTraining?.name as string,
@@ -138,7 +138,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
                             type='link'
                             disabled={!(savedFormsData.length > 0)}
                             onClick={getHandleSaveTraining}
-                            loading={isLoading}
+                            loading={isLoading || isEditLoading}
                         >
                             {POPOVER.addTraining.button2}
                         </Button>
@@ -150,6 +150,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
         getHandleSaveTraining,
         handleAddExercise,
         handleAddTraining,
+        isEditLoading,
         isLoading,
         popoverStatus,
         savedFormsData.length,
