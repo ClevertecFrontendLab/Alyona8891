@@ -12,7 +12,8 @@ import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { setEditedDate, setEditedTraining } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
 import { TUserTraining } from '../../../../../types';
-import { defineBadgeColor } from '@utils/index';
+import { defineBadgeColor, generateUniqueKey } from '@utils/index';
+
 const { Text } = Typography;
 
 type TPopoverTitleComponentProps = {
@@ -130,7 +131,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
             case EPopoverStatus.WITH_TRAINING:
                 return dailyTrainingList.map((item) => (
                     <Space
-                        key={item.id}
+                        key={generateUniqueKey()}
                         style={{
                             display: 'flex',
                             justifyContent: 'space-between',
@@ -146,7 +147,7 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
                     savedFormsData.map((item) => {
                         return (
                             <Space
-                                key={item.id}
+                                key={generateUniqueKey()}
                                 style={{
                                     display: 'flex',
                                     justifyContent: 'space-between',

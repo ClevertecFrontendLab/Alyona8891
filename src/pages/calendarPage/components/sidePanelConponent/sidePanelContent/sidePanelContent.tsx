@@ -5,6 +5,7 @@ import { SidePanelForm } from '../sidePanelForm';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { addForm } from '@redux/reducers/appReducer';
 import { useSelector } from 'react-redux';
+import { generateUniqueKey } from '@utils/index';
 
 export const SidePanelContent = () => {
     const dispatch: AppDispatch = useAppDispatch();
@@ -20,7 +21,7 @@ export const SidePanelContent = () => {
             {formsData?.map((formData) => {
                 return (
                     <SidePanelForm
-                        key={formData.id}
+                        key={generateUniqueKey()}
                         id={formData.id as string}
                         formData={formData}
                     />

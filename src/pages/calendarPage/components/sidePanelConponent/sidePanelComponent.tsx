@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { Badge, Drawer, Space, Typography } from 'antd';
 import { setFormsData, setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
-import { DRAWER } from '@constants/constants';
+import { DRAWER, initialFormData } from '@constants/constants';
 import { SidePanelContent } from './sidePanelContent';
 import { defineBadgeColor } from '@utils/index';
 const { Text } = Typography;
@@ -19,29 +19,22 @@ export const SidePanelComponent = () => {
 
     const handleClosePanel = () => {
 
-        console.log('formsData', formsData)
-
         const savedFormsData = formsData
             .filter((formData) => {
-                if (formData.name) {
-                    return formData;
-                }
+                return formData.name;
             })
             .map((formData) => {
-                let result;
-                if (!formData.quantity) {
-                    result = { ...formData, quantity: 1 };
-                }
-                if (!formData.time) {
-                    result = { ...result, time: 1 };
-                }
-                if (!formData.weight) {
-                    result = { ...result, weight: 0 };
-                }
+                const {name, quantity, time, weight} = formData;
+                const result = {
+                    name,
+                    quantity: quantity ? quantity : 1,
+                    time: time ? time : 1,
+                    weight: weight ? weight : 0,
+                };
                 return result;
             });
         dispatch(setSavedFormsData(savedFormsData));
-        dispatch(setFormsData(savedFormsData));
+        dispatch(setFormsData(savedFormsData.length > 0 ? savedFormsData : [initialFormData]));
         dispatch(setIsPanelOpened(false));
     };
 
