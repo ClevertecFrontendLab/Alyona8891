@@ -3,6 +3,7 @@ import styles from './popoverTitleComponent.module.scss';
 
 import { Badge, Button, Select, Space, Typography } from 'antd';
 import type { Moment } from 'moment';
+import moment from 'moment';
 import { EPopoverStatus, POPOVER } from '@constants/constants';
 import { ArrowLeftOutlined, CloseOutlined, EditOutlined } from '@ant-design/icons';
 import { FC, useCallback, useMemo } from 'react';
@@ -35,74 +36,17 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         return { name: el.name, id: el._id };
     });
 
-    const getContent = useMemo(() => {
-        switch (popoverStatus) {
-            case EPopoverStatus.WITHOUT_TRAINING:
-                return (
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '100%',
-                            height: '81px',
-                        }}
-                    >
-                        <img src='src/assets/images/empty_image.svg' />
-                    </div>
-                );
-            case EPopoverStatus.WITH_TRAINING:
-                return dailyTrainingList.map((item) => (
-                    <Space
-                        key={item.id}
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            width: '100%',
-                        }}
-                    >
-                        <Badge color={defineBadgeColor(item.name)} text={item.name} />
-                        <Button type='link' icon={<EditOutlined />} />
-                    </Space>
-                ));
-            case EPopoverStatus.ADD_TRAINING:
-                return savedFormsData.length > 0 ? (
-                    savedFormsData.map((item) => {
-                        return (
-                            <Space
-                                key={item.id}
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    width: '100%',
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        fontSize: 14,
-                                        fontWeight: 500,
-                                        color: 'var(--color-info)',
-                                    }}
-                                >
-                                    {item.name}
-                                </Text>
-                                <Button type='link' icon={<EditOutlined />} />
-                            </Space>
-                        );
-                    })
-                ) : (
-                    <div style={{ height: '81px' }}></div>
-                );
-            default:
-        }
-    }, [popoverStatus, dailyTrainingList, savedFormsData]);
-
     const trainingList = useDefineTrainingList(dailyTrainingList);
 
     const handleTrainingsSelect = useCallback(
         (value: string) => {
             dispatch(setEditedTraining(value));
-            dispatch(setEditedDate(currentDate));
+            dispatch(
+                setEditedDate({
+                    formated: currentDate.format('DD.MM.YYYY'),
+                    ISO: moment.utc(currentDate).startOf('day').toISOString(),
+                }),
+            );
         },
         [currentDate, dispatch],
     );
@@ -166,6 +110,68 @@ export const PopoverTitleComponent: FC<TPopoverTitleComponentProps> = ({
         popoverStatus,
         trainingList,
     ]);
+
+    const getContent = useMemo(() => {
+        switch (popoverStatus) {
+            case EPopoverStatus.WITHOUT_TRAINING:
+                return (
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            width: '100%',
+                            height: '81px',
+                        }}
+                    >
+                        <img src='src/assets/images/empty_image.svg' />
+                    </div>
+                );
+            case EPopoverStatus.WITH_TRAINING:
+                return dailyTrainingList.map((item) => (
+                    <Space
+                        key={item.id}
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            width: '100%',
+                        }}
+                    >
+                        <Badge color={defineBadgeColor(item.name)} text={item.name} />
+                        <Button type='link' icon={<EditOutlined />} />
+                    </Space>
+                ));
+            case EPopoverStatus.ADD_TRAINING:
+                return savedFormsData.length > 0 ? (
+                    savedFormsData.map((item) => {
+                        return (
+                            <Space
+                                key={item.id}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    width: '100%',
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        fontSize: 14,
+                                        fontWeight: 500,
+                                        color: 'var(--color-info)',
+                                    }}
+                                >
+                                    {item.name}
+                                </Text>
+                                <Button type='link' icon={<EditOutlined />} />
+                            </Space>
+                        );
+                    })
+                ) : (
+                    <div style={{ height: '81px' }}></div>
+                );
+            default:
+        }
+    }, [popoverStatus, dailyTrainingList, savedFormsData]);
 
     return (
         <Space className={styles[cn('title')]} direction='vertical' size={0.5}>

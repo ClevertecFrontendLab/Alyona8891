@@ -4,7 +4,7 @@ import styles from './sidePanelComponent.module.scss';
 import { useSelector } from 'react-redux';
 import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
 import { Badge, Drawer, Space, Typography } from 'antd';
-import { setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
+import { setFormsData, setIsPanelOpened, setSavedFormsData } from '@redux/reducers/appReducer';
 import { DRAWER } from '@constants/constants';
 import { SidePanelContent } from './sidePanelContent';
 import { defineBadgeColor } from '@utils/index';
@@ -18,6 +18,9 @@ export const SidePanelComponent = () => {
     const dispatch: AppDispatch = useAppDispatch();
 
     const handleClosePanel = () => {
+
+        console.log('formsData', formsData)
+
         const savedFormsData = formsData
             .filter((formData) => {
                 if (formData.name) {
@@ -38,6 +41,7 @@ export const SidePanelComponent = () => {
                 return result;
             });
         dispatch(setSavedFormsData(savedFormsData));
+        dispatch(setFormsData(savedFormsData));
         dispatch(setIsPanelOpened(false));
     };
 
@@ -58,7 +62,7 @@ export const SidePanelComponent = () => {
                         text={training}
                     />
                     <Text style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-info)' }}>
-                        {currentDate?.format('DD.MM.YYYY')}
+                        {currentDate?.formated}
                     </Text>
                 </Space>
             }

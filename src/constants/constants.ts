@@ -279,3 +279,11 @@ export const ERROR_MODAl = {
         button: 'Закрыть',
     },
 };
+
+export const initialFormData = {
+    id: 'initial',
+    name: null,
+    time: null,
+    quantity: null,
+    weight: null,
+};

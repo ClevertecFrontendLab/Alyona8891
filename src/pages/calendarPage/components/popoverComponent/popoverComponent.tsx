@@ -57,7 +57,7 @@ export const PopoverComponent: FC<TPopoverComponentProps> = ({
 
     return (
         <Popover
-        zIndex={4}
+            zIndex={4}
             showArrow={false}
             open={isOpen}
             onOpenChange={handleOpenChange}

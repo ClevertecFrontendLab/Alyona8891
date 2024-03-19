@@ -46,7 +46,7 @@ export const PopoverContentComponent: FC<TPopoverContentComponentProps> = ({
         });
         addTraining({
             name: editedTraining,
-            date: editedDate?.toISOString() as string,
+            date: editedDate?.ISO as string,
             exercises: exercises,
         })
             .unwrap()
