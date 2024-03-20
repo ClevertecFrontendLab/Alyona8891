@@ -1,0 +1,17 @@
+.form {
+    :global {
+        .ant-form-item-label > label {
+            font-size: 12px;
+        }
+
+        .ant-form-item-label {
+            background-color: var(--background-color-label);
+            padding: 0 8px;
+            margin-bottom: 8px;
+        }
+    }
+}
+
+.icon {
+    color: var(--color-grey-6);
+}

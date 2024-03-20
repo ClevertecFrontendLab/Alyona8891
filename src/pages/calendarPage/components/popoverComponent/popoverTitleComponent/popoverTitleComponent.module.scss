@@ -1,0 +1,34 @@
+.title {
+    width: 240px;
+    padding-top: 0.8rem;
+
+    :global {
+        .ant-btn-icon-only {
+            width: initial;
+        }
+
+        .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+            border: none;
+        }
+
+        .ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+            border: none;
+        }
+    }
+
+    & .container {
+        min-height: 91px;
+        padding-top: 10px;
+    }
+
+    & .close_button {
+        position: absolute;
+        top: 0.6rem;
+        right: 0.5rem;
+        :global {
+            .ant-btn-link {
+                color: var(--color-title);
+            }
+        }
+    }
+}

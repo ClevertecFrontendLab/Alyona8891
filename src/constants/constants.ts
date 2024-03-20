@@ -2,6 +2,7 @@ export enum RouterPath {
     MAIN = '/main',
     FEEDBACKS = '/feedbacks',
     AUTH = '/auth',
+    CALENDAR = '/calendar',
     SIGN_IN = '/auth',
     SIGN_IN_RESULT = '/auth/result',
     SIGN_IN_RESULT_ERROR = '/auth/result/error-login',
@@ -30,6 +31,31 @@ export enum RequestResult {
     SUCCESS = 'success',
     ERROR_403 = 'error403',
     ERROR_FEEDBACK = 'errorFeedback',
+}
+
+export enum EErrorAction {
+    OPEN = 'open',
+    SAVE = 'save',
+}
+
+export enum EPanelStatus {
+    CREATE = 'create',
+    EDIT = 'edit',
+}
+
+export enum EPopoverStatus {
+    WITHOUT_TRAINING = 'withoutTraining',
+    WITH_TRAINING = 'withTraining',
+    ADD_TRAINING = 'addTraining',
+    EDIT_TRAINING = 'editTraining',
+}
+
+export enum ETrainings {
+    ARMS = 'Руки',
+    LEGS = 'Ноги',
+    POWER = 'Силовая',
+    BREAST = 'Грудь',
+    BACK = 'Спина',
 }
 
 export const TEXT = {
@@ -199,7 +225,72 @@ export const CONTENT_WITHOUT_FEEDBACKS = {
 };
 
 export const CONTENT_WITH_FEEDBACKS = {
-    buttons: { button1: 'Написать отзыв', button2: 'Развернуть все отзывы', button3: 'Свернуть все отзывы' },
+    buttons: {
+        button1: 'Написать отзыв',
+        button2: 'Развернуть все отзывы',
+        button3: 'Свернуть все отзывы',
+    },
 };
 
 export const TOKEN_STORAGE_PROPERTY = 'alyona8891_token';
+
+export const POPOVER = {
+    withoutTrainings: {
+        title: 'Тренировки на ',
+        text: 'Нет активных тренировок',
+        button: 'Создать тренировку',
+    },
+    withTrainings: {
+        title: 'Тренировки на ',
+        button: 'Добавить тренировку',
+    },
+    addTraining: {
+        title: 'Выбор типа тренировки',
+        button1: 'Добавить упражнения',
+        button2: 'Сохранить',
+    },
+};
+
+export const DRAWER = {
+    title: { edit: 'Редактирование', create: 'Добавление упражнений' },
+    inputNamePlaceholder: 'Упражнение',
+    numberInputs: {
+        time: {
+            label: 'Подходы',
+            placeholder: '1',
+        },
+        weight: {
+            label: 'Вес, кг',
+            placeholder: '0',
+        },
+        quantity: {
+            label: 'Количество',
+            placeholder: '3',
+        },
+    },
+    button: {
+        add: 'Добавить ещё',
+        remove: 'Удалить',
+    },
+};
+
+export const ERROR_MODAl = {
+    open: {
+        title: 'При открытии данных произошла ошибка',
+        content: 'Попробуйте ещё раз.',
+        button: 'Обновить',
+    },
+    save: {
+        title: 'При сохранении данных произошла ошибка',
+        content: 'Придётся попробовать ещё раз',
+        button: 'Закрыть',
+    },
+};
+
+export const initialFormData = {
+    _id: 'initial',
+    name: null,
+    time: null,
+    quantity: null,
+    weight: null,
+};

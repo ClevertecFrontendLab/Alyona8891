@@ -8,12 +8,19 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu } from 'antd';
 import cn from 'classnames';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
 import styles from './siderComponent.module.scss';
-import { history } from '@redux/configure-store';
-import { RouterPath } from '@constants/constants';
+import { AppDispatch, history, useAppDispatch } from '@redux/configure-store';
+import {
+    RequestResult,
+    RouterPath,
+    TOKEN_STORAGE_PROPERTY,
+} from '@constants/constants';
+import { useGetTrainingQuery } from '@redux/utils/api';
+import { redirectToLogin } from '@utils/index';
+import { setIsErrorModal, setRequestResult } from '@redux/reducers/appReducer';
 
 const MENU_ITEMS = [
     {
@@ -21,24 +28,28 @@ const MENU_ITEMS = [
         icon: CalendarTwoTone,
         isTwoTonesIcon: true,
         label: 'Календарь',
+        path: RouterPath.CALENDAR,
     },
     {
         key: '2',
         icon: HeartFilled,
         isTwoTonesIcon: false,
         label: 'Тренировки',
+        path: RouterPath.CALENDAR,
     },
     {
         key: '3',
         icon: TrophyFilled,
         isTwoTonesIcon: false,
         label: 'Достижения',
+        path: RouterPath.CALENDAR,
     },
     {
         key: '4',
         icon: IdcardOutlined,
         isTwoTonesIcon: false,
         label: 'Профиль',
+        path: RouterPath.CALENDAR,
     },
 ];
 
@@ -48,17 +59,42 @@ const { Sider } = Layout;
 
 export const SiderComponent: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const { data, error } = useGetTrainingQuery('');
     const breakpoint = useBreakpoint();
+    const token =
+        localStorage.getItem(TOKEN_STORAGE_PROPERTY) ||
+        sessionStorage.getItem(TOKEN_STORAGE_PROPERTY);
 
     const handleSiderButton = () => {
         setCollapsed(!collapsed);
     };
+
+    const dispatch: AppDispatch = useAppDispatch();
 
     const handleExitButton = () => {
         sessionStorage.clear();
         localStorage.clear();
         history.push(RouterPath.SIGN_IN);
     };
+
+    const defineOnClick = useCallback((path: RouterPath) => {
+        switch (path) {
+            case RouterPath.CALENDAR:
+                if (!token) {
+                    redirectToLogin();
+                } else {
+                    if (error) {
+                        dispatch(setRequestResult(RequestResult.ERROR_403));
+                        dispatch(setIsErrorModal(true));
+                    } else if (data) {
+                        history.push(path);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }, [data, dispatch, error, token]);
 
     return (
         <Sider
@@ -104,6 +140,9 @@ export const SiderComponent: React.FC = () => {
                             ''
                         ),
                         label: item.label,
+                        onClick: () => {
+                            defineOnClick(item.path);
+                        },
                     };
                 })}
             />

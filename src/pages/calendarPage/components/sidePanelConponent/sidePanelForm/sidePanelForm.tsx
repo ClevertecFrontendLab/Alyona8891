@@ -1,0 +1,141 @@
+import { FC, useCallback, useMemo } from 'react';
+
+import cn from 'classnames';
+import styles from './sidePanelForm.module.scss';
+
+import { DRAWER, EPanelStatus } from '@constants/constants';
+import { Form, Input, InputNumber, Space } from 'antd';
+import { TSidePanelFormsData } from '../../../../../types';
+import { AppDispatch, RootState, useAppDispatch } from '@redux/configure-store';
+import { useSelector } from 'react-redux';
+import {
+    addCheckedExercise,
+    removeCheckedExercise,
+    setFormsData,
+} from '@redux/reducers/appReducer';
+import Checkbox, { CheckboxChangeEvent } from 'antd/lib/checkbox';
+
+export const SidePanelForm: FC<{
+    formData: TSidePanelFormsData;
+    i: number;
+}> = ({ formData, i }) => {
+    const { _id, name, time, quantity, weight } = formData;
+
+    const formsData = useSelector((state: RootState) => state.app.formsData);
+    const panelStatus = useSelector((state: RootState) => state.app.panelStatus);
+    const checkedExercises = useSelector((state: RootState) => state.app.checkedExercises);
+    const dispatch: AppDispatch = useAppDispatch();
+
+    const onChange = useCallback(
+        (e: CheckboxChangeEvent) => {
+            if (e.target.checked) {
+                dispatch(addCheckedExercise(_id));
+            } else {
+                const newCheckedExercises = checkedExercises.filter((element) => element !== _id);
+                dispatch(removeCheckedExercise(newCheckedExercises));
+            }
+            console.log(checkedExercises);
+        },
+        [_id, checkedExercises, dispatch],
+    );
+
+    const defineIsChecked = useMemo(
+        () => (checkedExercises.includes(_id) ? true : false),
+
+        [_id, checkedExercises],
+    );
+
+    const inputName = useMemo(() => {
+        switch (panelStatus) {
+            case EPanelStatus.CREATE:
+                return (
+                    <Input
+                        data-test-id={`modal-drawer-right-input-exercise${i}`}
+                        autoFocus
+                        placeholder={DRAWER.inputNamePlaceholder}
+                    />
+                );
+            case EPanelStatus.EDIT:
+                return (
+                    <Input
+                        data-test-id={`modal-drawer-right-input-exercise${i}`}
+                        autoFocus
+                        addonAfter={
+                            <Checkbox data-test-id={`modal-drawer-right-checkbox-exercise${i}`} defaultChecked={defineIsChecked} onChange={onChange} />
+                        }
+                        placeholder={DRAWER.inputNamePlaceholder}
+                    />
+                );
+        }
+    }, [defineIsChecked, i, onChange, panelStatus]);
+
+    const changeFormsData = useCallback(
+        (id: string, values: TSidePanelFormsData) => {
+            const newArr = formsData.map((formData) => {
+                if (formData._id === id) {
+                    return { ...values, _id: id };
+                } else {
+                    return formData;
+                }
+            });
+            dispatch(setFormsData(newArr));
+        },
+        [dispatch, formsData],
+    );
+
+    return (
+        <Form
+            className={styles[cn('form')]}
+            layout='vertical'
+            initialValues={{
+                name,
+                quantity,
+                weight,
+                time,
+            }}
+            onValuesChange={(_, values) => {
+                changeFormsData(_id, values);
+            }}
+        >
+            <Form.Item name='name' style={{ marginBottom: '8px' }}>
+                {inputName}
+            </Form.Item>
+            <Space size={16}>
+                <Form.Item
+                    style={{ marginBottom: '24px' }}
+                    name='time'
+                    label={DRAWER.numberInputs.time.label}
+                >
+                    <InputNumber
+                    data-test-id={`modal-drawer-right-input-approach${i}`}
+                        placeholder={DRAWER.numberInputs.time.placeholder}
+                        addonBefore='+'
+                        min={1}
+                    />
+                </Form.Item>
+                <Space size={2}>
+                    <Form.Item
+                        style={{ marginBottom: '24px' }}
+                        name='weight'
+                        label={DRAWER.numberInputs.weight.label}
+                    >
+                        <InputNumber data-test-id={`modal-drawer-right-input-weight${i}`} placeholder={DRAWER.numberInputs.weight.placeholder} min={0} />
+                    </Form.Item>
+                    <span className={styles[cn('icon')]}>Х</span>
+
+                    <Form.Item
+                        style={{ marginBottom: '24px' }}
+                        name='quantity'
+                        label={DRAWER.numberInputs.quantity.label}
+                    >
+                        <InputNumber
+                        data-test-id={`modal-drawer-right-input-quantity${i}`}
+                            placeholder={DRAWER.numberInputs.quantity.placeholder}
+                            min={1}
+                        />
+                    </Form.Item>
+                </Space>
+            </Space>
+        </Form>
+    );
+};

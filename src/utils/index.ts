@@ -1,5 +1,6 @@
 import { RootState, history } from '@redux/configure-store';
-import { RouterPath } from '@constants/constants';
+import { ETrainings, RouterPath } from '@constants/constants';
+import { TSidePanelFormsData } from '../types';
 
 export const redirectToLogin = () => {
     localStorage.clear();
@@ -27,3 +28,27 @@ export const generateUniqueKey = () => {
 };
 
 export const routerSelector = (state: RootState) => state.router;
+
+export const defineBadgeColor = (training: string) => {
+    switch (training) {
+        case ETrainings.BACK:
+            return 'var(--orange)';
+        case ETrainings.BREAST:
+            return 'var(--green)';
+        case ETrainings.POWER:
+            return 'var(--yellow)';
+        case ETrainings.LEGS:
+            return 'var(--red)';
+        case ETrainings.ARMS:
+            return 'var(--cyan)';
+        default:
+            return 'var(--magenta)';
+    }
+};
+
+export const removeElementsFromArray = (
+    mainArray: TSidePanelFormsData[],
+    elementsToRemove: string[],
+) => {
+    return mainArray.filter((element) => !elementsToRemove.includes(element._id));
+};

@@ -1,24 +1,28 @@
-import { Button, Col, PageHeader, Row } from 'antd';
+import { FC, useMemo } from 'react';
+
 import cn from 'classnames';
+import styles from './headerComponent.module.scss';
+
+import { Button, Col, PageHeader, Row } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
 import useBreakpoint from 'antd/es/grid/hooks/useBreakpoint';
 
-import styles from './headerComponent.module.scss';
-import { SettingOutlined } from '@ant-design/icons';
 import { BreadcrumpComponent } from '@pages/ui/breadcrumbComponent';
-import { RouterPath } from '@constants/constants';
-
-const routes = [
-    {
-        key: 1,
-        path: RouterPath.MAIN,
-        breadcrumbName: 'Главная',
-    },
-];
+import { THeaderComponentProps } from '../../../types';
 
 const SETTING_BUTTON = 'Настройки';
 
-export const HeaderComponent: React.FC = () => {
+export const HeaderComponent: FC<THeaderComponentProps> = (props) => {
+    const { routes, title } = props;
+
     const breakpoint = useBreakpoint();
+
+    const titleGroup = useMemo(
+        () =>
+            title ? title.map((title) => <h1 className={styles[cn('title')]}>{title}</h1>) : null,
+        [title],
+    );
+
     return (
         <PageHeader
             breadcrumbRender={() => <BreadcrumpComponent routes={routes} />}
@@ -29,12 +33,7 @@ export const HeaderComponent: React.FC = () => {
             }}
         >
             <Row>
-                <Col flex='1 1'>
-                    <h1 className={styles[cn('title')]}>
-                        Приветствуем тебя в CleverFit — приложении,
-                        <br /> которое поможет тебе добиться своей мечты!
-                    </h1>
-                </Col>
+                <Col flex='1 1'>{titleGroup}</Col>
                 <Col style={{ textAlign: breakpoint.xs ? 'right' : 'left' }} flex='0 1 70px'>
                     {breakpoint.xs ? (
                         <Button shape='circle' icon={<SettingOutlined />}></Button>

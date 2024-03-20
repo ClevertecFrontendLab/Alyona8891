@@ -1,11 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from './service';
-import { PostFeedback, UserData } from '../../types';
+import { PostFeedback, TUserTraining, UserData } from '../../types';
 
 export const apiService = createApi({
     reducerPath: 'apiService',
     baseQuery: axiosBaseQuery(),
-    tagTypes: ['feedbacks'],
+    tagTypes: ['feedbacks', 'training'],
     endpoints: (builder) => ({
         signUpUser: builder.mutation({
             query: (formData: UserData) => ({
@@ -57,6 +57,35 @@ export const apiService = createApi({
             }),
             invalidatesTags: ['feedbacks'],
         }),
+        getTraining: builder.query<TUserTraining[], void>({
+            query: () => ({
+                url: '/training',
+                method: 'get',
+            }),
+            providesTags: ['training'],
+        }),
+        getTrainingList: builder.query({
+            query: () => ({
+                url: '/catalogs/training-list',
+                method: 'get',
+            }),
+        }),
+        addTraining: builder.mutation({
+            query: (data: TUserTraining) => ({
+                url: '/training',
+                method: 'post',
+                data,
+            }),
+            invalidatesTags: ['training'],
+        }),
+        editTraining: builder.mutation({
+            query: (data: TUserTraining) => ({
+                url: `/training/${data._id}`,
+                method: 'put',
+                data,
+            }),
+            invalidatesTags: ['training'],
+        }),
     }),
 });
 
@@ -68,4 +97,8 @@ export const {
     useChangePasswordMutation,
     useGetFeedbacksQuery,
     usePostFeedbackMutation,
+    useGetTrainingQuery,
+    useGetTrainingListQuery,
+    useAddTrainingMutation,
+    useEditTrainingMutation,
 } = apiService;

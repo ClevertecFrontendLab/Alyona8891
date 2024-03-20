@@ -9,9 +9,9 @@
     --background-main-page-image: url('/src/assets/images/main_page_light.jpg');
     --background-auth-page-image: url('/src/assets/images/auth_page_light.png');
     --background-auth-page-blure: rgba(121, 156, 212, 0.5);
-    
     --backgroud-color-element: #fff;
     --background-color-header: #f0f5ff;
+    --background-color-label: #F0F0F0;
 
     --color-elements: #061178;
     --color-title: #262626;
@@ -21,6 +21,13 @@
     --color-primary: #2f54eb;
     --color-exit-icon: #000;
     --color-addon-border: #D9D9D9;
+
+    --cyan: #13C2C2;
+    --red: #FF4D4F;
+    --yellow: #FADB14;
+    --green: #52C41A;
+    --orange: #FA8C16;
+    --magenta: #EB2F96;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;

@@ -13,6 +13,7 @@ export const ModalComponent = () => {
 
     return (
         <Modal
+            data-test-id='modal-no-review'
             wrapClassName={styles[cn('wrapper')]}
             centered
             open={isErrorModal}

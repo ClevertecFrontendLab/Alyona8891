@@ -1,9 +1,9 @@
 .result_error_container,
 .result_success_container {
-    margin: 2.5rem 0 2.5rem;
+    margin: 2.5rem 0;
 
     @media (max-width: 600px) {
-        margin: 0.5rem 0 0.5rem;
+        margin: 0.5rem 0;
     }
 
     :global {

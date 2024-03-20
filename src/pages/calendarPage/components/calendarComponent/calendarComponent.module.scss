@@ -1,0 +1,22 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    height: calc(100% - 24px);
+    width: 100%;
+    margin-bottom: 0;
+    padding-left: 0;
+
+    :global {
+        .ant-badge-status-text {
+            font-size: 12px;
+        }
+        .ant-badge {
+            line-height: 130%;
+        }
+
+        .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date {
+            margin: 0 5px;
+        }
+    }
+}
