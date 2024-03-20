@@ -48,7 +48,7 @@ const calendarLocale = {
 };
 
 export const CalendarComponent: FC = () => {
-    const { data = [] } = useGetTrainingQuery('');
+    const { data = [] } = useGetTrainingQuery();
     const trainingList = useSelector((state: RootState) => state.app.trainingList);
 
     const breakpoint = useBreakpoint();

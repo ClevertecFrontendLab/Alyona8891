@@ -24,7 +24,7 @@ const TITLE = [
 
 export const MainPage = () => {
     const isErrorModal = useSelector((state: RootState) => state.app.isErrorModal);
-    const { isFetching } = useGetTrainingQuery('');
+    const { isFetching } = useGetTrainingQuery();
 
     return (
         <>

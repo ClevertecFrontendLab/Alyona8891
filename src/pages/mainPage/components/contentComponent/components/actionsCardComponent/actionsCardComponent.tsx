@@ -22,7 +22,7 @@ export const ActionsCardComponent: React.FC<{
         sessionStorage.getItem(TOKEN_STORAGE_PROPERTY);
 
     const breakpoint = useBreakpoint();
-    const { data, error } = useGetTrainingQuery('');
+    const { data, error } = useGetTrainingQuery();
 
     const dispatch: AppDispatch = useAppDispatch();
 

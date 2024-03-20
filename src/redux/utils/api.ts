@@ -57,7 +57,7 @@ export const apiService = createApi({
             }),
             invalidatesTags: ['feedbacks'],
         }),
-        getTraining: builder.query<TUserTraining[], string>({
+        getTraining: builder.query<TUserTraining[], void>({
             query: () => ({
                 url: '/training',
                 method: 'get',
